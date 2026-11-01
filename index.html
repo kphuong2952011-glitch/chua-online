@@ -3,267 +3,285 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>An Yên Tịnh Cảnh</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;background:#e9e2cf;color:#493727;
-  font-family:Arial,sans-serif;overflow-x:hidden
-}
-header{
-  background:#70452f;color:#fff3d8;text-align:center;
-  padding:15px 8px
-}
-header h1{font-size:23px;margin:0 0 5px}
-header p{font-size:12px;margin:0}
-main{max-width:950px;margin:auto;padding:12px}
-.status{
-  display:flex;justify-content:space-between;gap:8px;
-  flex-wrap:wrap;margin-bottom:10px;font-size:13px
-}
-.pill{background:#fff8e9;border-radius:20px;padding:8px 12px}
-.game{
-  position:relative;width:100%;height:min(68vh,570px);
-  min-height:390px;overflow:hidden;border:5px solid #805b3c;
-  border-radius:17px;background:#b8d7a0;
-  touch-action:none
-}
-.world{
-  position:absolute;width:850px;height:620px;
-  left:50%;top:50%;transform:translate(-50%,-50%);
-  background:#9fc78d;overflow:hidden
-}
-.grass{
-  position:absolute;inset:0;
-  background:
-   radial-gradient(ellipse at 15% 20%,#c3d99a 0 10%,transparent 11%),
-   radial-gradient(ellipse at 85% 15%,#b8d28b 0 12%,transparent 13%),
-   radial-gradient(ellipse at 80% 85%,#c3d99a 0 12%,transparent 13%),
-   #a9cb91
-}
-.path{
-  position:absolute;left:0;top:255px;width:100%;height:180px;
-  background:#d8bd91;border-top:5px solid #c3a77b;
-  border-bottom:5px solid #c3a77b;transform:skewY(-5deg)
-}
-.path2{
-  position:absolute;left:350px;top:0;width:145px;height:620px;
-  background:#d8bd91;border-left:5px solid #c3a77b;
-  border-right:5px solid #c3a77b
-}
-.building{
-  position:absolute;background:#ead8ae;border:4px solid #795039;
-  border-radius:7px;text-align:center;box-shadow:0 7px 0 #795039;
-  color:#573822;font-weight:bold;padding-top:32px
-}
-.roof{
-  position:absolute;left:-15px;right:-15px;top:-22px;height:42px;
-  background:#963e2c;border:4px solid #663323;
-  border-radius:50% 50% 8px 8px;transform:perspective(60px) rotateX(8deg)
-}
-.hall{left:300px;top:55px;width:245px;height:125px;font-size:19px}
-.gate{left:315px;top:465px;width:215px;height:75px;padding-top:18px}
-.small{width:135px;height:88px;font-size:13px;padding-top:29px}
-.ancestor{left:70px;top:70px}
-.bell{right:70px;top:70px}
-.bamboo{left:40px;bottom:55px;background:#8ab77a}
-.lotus{
-  position:absolute;right:45px;bottom:75px;width:190px;height:125px;
-  background:#5c9e83;border:8px solid #8b6845;border-radius:50%;
-  box-shadow:inset 0 0 0 5px #a5c78b
-}
-.flower{position:absolute;font-size:23px}
-.tree{position:absolute;font-size:47px}
-.sign{
-  position:absolute;left:15px;top:12px;background:#70452f;color:#fff1d4;
-  padding:9px 12px;border-radius:8px;font-size:13px
-}
-.avatar{
-  position:absolute;left:405px;top:355px;z-index:5;
-  width:48px;height:65px;text-align:center;
-  font-size:35px;line-height:42px;
-  filter:drop-shadow(0 3px 2px #5558);
-  transition:left .13s linear,top .13s linear;
-  user-select:none
-}
-.avatar span{display:block;font-size:10px;line-height:12px;
-  background:#fff4d8;border-radius:8px;padding:2px}
-.info{
-  background:#fff8e9;padding:12px;border-radius:12px;
-  margin-top:10px;min-height:62px;font-size:14px
-}
-.controls{
-  display:flex;justify-content:center;align-items:center;
-  gap:9px;margin:14px auto 5px
-}
-.pad{display:grid;grid-template-columns:48px 48px 48px;
-  grid-template-rows:45px 45px 45px;gap:5px}
-.ctrl{
-  border:0;border-radius:12px;background:#80583b;color:white;
-  font-size:22px;font-weight:bold;box-shadow:0 3px #593923;
-  touch-action:none
-}
-.ctrl:active{background:#b17b4d;transform:translateY(2px)}
-.up{grid-column:2;grid-row:1}
-.left{grid-column:1;grid-row:2}
-.down{grid-column:2;grid-row:3}
-.right{grid-column:3;grid-row:2}
-.action{
-  border:0;background:#668b62;color:white;padding:13px 15px;
-  border-radius:12px;font-weight:bold
-}
-.notes{text-align:center;font-size:12px;color:#6b5947;margin:10px}
-@media(max-width:500px){
-  main{padding:8px}
-  .game{height:440px;min-height:390px}
-  .world{transform:translate(-50%,-50%) scale(.78);transform-origin:center}
+body{margin:0;background:#eee6d4;color:#493321;font-family:Arial,sans-serif}
+header{background:#603b29;color:#fff1d3;text-align:center;padding:16px 8px}
+header h1{font-size:23px;margin:0 0 5px;letter-spacing:1px}
+header p{margin:0;font-size:12px}
+main{max-width:1000px;margin:auto;padding:12px}
+.topbar{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{background:#fff9e9;border-radius:20px;padding:9px 12px;font-size:13px}
+.game{width:100%;height: min(65vh,600px);min-height:380px;overflow:hidden;border:5px solid #795039;border-radius:15px;background:#a9ce91;position:relative;touch-action:pan-y}
+svg{width:100%;height:100%;display:block}
+.zone{cursor:pointer}
+.zone:active{opacity:.8}
+.zone-label{font-size:17px;font-weight:bold;fill:#fff5d9;paint-order:stroke;stroke:#553b29;stroke-width:4px;stroke-linejoin:round}
+.info{background:#fff8e8;border-radius:12px;padding:13px;margin-top:10px;min-height:65px;font-size:14px;line-height:1.5}
+.controls{display:flex;justify-content:center;align-items:center;gap:18px;margin:15px auto 5px}
+.pad{display:grid;grid-template-columns:54px 54px 54px;grid-template-rows:48px 48px 48px;gap:5px}
+.ctrl{border:0;border-radius:13px;background:#795039;color:white;font-size:23px;font-weight:bold;box-shadow:0 3px #4d3021;touch-action:none;user-select:none}
+.ctrl:active{background:#b17c4d;transform:translateY(2px);box-shadow:0 1px #4d3021}
+.up{grid-column:2;grid-row:1}.left{grid-column:1;grid-row:2}
+.down{grid-column:2;grid-row:3}.right{grid-column:3;grid-row:2}
+.explore{background:#668957;color:white;border:0;border-radius:12px;padding:15px 13px;font-weight:bold;font-size:14px}
+.hint{text-align:center;font-size:12px;color:#76634c;margin:10px}
+footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
+@media(max-width:450px){
+ main{padding:8px}
+ .game{height:440px;min-height:390px}
+ .controls{gap:12px}
+ .pad{grid-template-columns:48px 48px 48px;grid-template-rows:45px 45px 45px}
 }
 </style>
 </head>
 <body>
 <header>
-  <h1>🏯 AN YÊN TỊNH CẢNH</h1>
-  <p>Hành trình khám phá chốn bình yên</p>
+<h1>🏯 AN YÊN TỊNH CẢNH</h1>
+<p>Chốn bình yên – Hành trình khám phá</p>
 </header>
+
 <main>
-  <div class="status">
-    <div class="pill">🌿 Khu vực: Sân chùa</div>
-    <div class="pill" id="position">📍 Vị trí: Trung tâm</div>
-  </div>
+<div class="topbar">
+ <div class="tag">🌿 Người chơi: Tiểu An</div>
+ <div class="tag" id="location">📍 Sân chùa</div>
+</div>
 
-  <div class="game" id="game">
-    <div class="world" id="world">
-      <div class="grass"></div>
-      <div class="path"></div>
-      <div class="path2"></div>
-      <div class="sign">AN YÊN TỊNH CẢNH</div>
+<div class="game" id="game">
+<svg id="map" viewBox="0 0 1100 760" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Bản đồ chùa An Yên Tịnh Cảnh">
+<defs>
+ <linearGradient id="grass" x2="0" y2="1">
+  <stop stop-color="#c2d99a"/><stop offset="1" stop-color="#8eb77b"/>
+ </linearGradient>
+ <linearGradient id="water" x2="0" y2="1">
+  <stop stop-color="#8cc6b2"/><stop offset="1" stop-color="#438d83"/>
+ </linearGradient>
+ <linearGradient id="roof" x2="0" y2="1">
+  <stop stop-color="#b85b3e"/><stop offset="1" stop-color="#713522"/>
+ </linearGradient>
+ <pattern id="bricks" width="34" height="22" patternUnits="userSpaceOnUse">
+  <rect width="34" height="22" fill="#d7b68c"/>
+  <path d="M0 0H34M0 11H34M17 0V11M0 11V22M34 11V22" stroke="#c19a70" stroke-width="1"/>
+ </pattern>
+ <filter id="shadow"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
 
-      <div class="tree" style="left:10px;top:190px">🌳</div>
-      <div class="tree" style="right:10px;top:205px">🌳</div>
-      <div class="tree" style="left:190px;top:5px">🎋</div>
-      <div class="tree" style="right:220px;bottom:5px">🎋</div>
+<!-- Nền sân vườn -->
+<rect width="1100" height="760" fill="url(#grass)"/>
+<path d="M0 300 Q300 250 540 340 T1100 310 L1100 500 Q700 470 500 520 T0 500Z" fill="#d6bd94" opacity=".6"/>
+<path d="M0 370 Q250 335 480 390 T1100 370" fill="none" stroke="#e9d7b4" stroke-width="5"/>
 
-      <div class="building hall">
-        <div class="roof"></div>🏯<br>CHÍNH ĐIỆN
-      </div>
-      <div class="building small ancestor">
-        <div class="roof"></div>🏠<br>NHÀ TỔ
-      </div>
-      <div class="building small bell">
-        <div class="roof"></div>🔔<br>THÁP CHUÔNG
-      </div>
-      <div class="building gate">
-        <div class="roof"></div>🚪 CỔNG TAM QUAN
-      </div>
-      <div class="building small bamboo">
-        🎋<br>RỪNG TRÚC
-      </div>
-      <div class="lotus">
-        <span style="position:absolute;left:25px;top:20px">🪷</span>
-        <span style="position:absolute;right:35px;top:45px">🪷</span>
-        <span style="position:absolute;left:75px;bottom:12px">🐟</span>
-      </div>
-      <div class="flower" style="left:245px;top:220px">🌼 🌸</div>
-      <div class="flower" style="right:240px;top:440px">🌺 🌼</div>
-      <div class="flower" style="left:560px;top:210px">🌷 🌸</div>
+<!-- Đường gạch trung tâm -->
+<path d="M470 160 L640 160 L640 760 L470 760Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
+<path d="M0 445 Q270 410 470 460 L470 590 Q230 540 0 590Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
+<path d="M640 450 Q850 400 1100 445 L1100 580 Q840 530 640 590Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
 
-      <div class="avatar" id="avatar">🧑🏻‍🌾<span>Tiểu An</span></div>
-    </div>
-  </div>
+<!-- Rừng cây -->
+<g font-size="60">
+ <text x="30" y="120">🌳</text><text x="150" y="80">🎋</text>
+ <text x="850" y="100">🌳</text><text x="990" y="170">🌳</text>
+ <text x="30" y="700">🌴</text><text x="1020" y="700">🌴</text>
+ <text x="240" y="720">🌳</text><text x="820" y="730">🌳</text>
+</g>
 
-  <div class="info" id="info">
-    🌸 Chào mừng em đến với An Yên Tịnh Cảnh! Dùng các nút bên dưới để di chuyển nhân vật khám phá sân chùa nhé.
-  </div>
+<!-- Chính điện -->
+<g class="zone" data-name="Chính điện" data-info="Chính điện – không gian trang nghiêm để lễ Phật và tìm sự bình an.">
+ <ellipse cx="550" cy="215" rx="190" ry="20" fill="#526b46" opacity=".3"/>
+ <rect x="405" y="110" width="290" height="130" rx="5" fill="#e9d5ad" stroke="#70462d" stroke-width="7"/>
+ <path d="M380 125 Q550 5 720 125 L690 145 Q550 80 410 145Z" fill="url(#roof)" stroke="#643522" stroke-width="7"/>
+ <path d="M390 120 L365 145 M710 120 L735 145" stroke="#643522" stroke-width="9"/>
+ <path d="M445 155V235 M500 155V235 M600 155V235 M655 155V235" stroke="#8b4930" stroke-width="13"/>
+ <rect x="520" y="160" width="60" height="80" fill="#6b3d29"/>
+ <path d="M550 165V238" stroke="#d4aa70" stroke-width="4"/>
+ <text x="550" y="100" text-anchor="middle" class="zone-label">CHÍNH ĐIỆN</text>
+</g>
 
-  <div class="controls">
-    <div class="pad">
-      <button class="ctrl up" data-dir="up">▲</button>
-      <button class="ctrl left" data-dir="left">◀</button>
-      <button class="ctrl down" data-dir="down">▼</button>
-      <button class="ctrl right" data-dir="right">▶</button>
-    </div>
-    <button class="action" id="explore">🔍 Khám phá</button>
-  </div>
-  <p class="notes">Chạm và giữ nút mũi tên để nhân vật bước đi.</p>
+<!-- Nhà Tổ -->
+<g class="zone" data-name="Nhà Tổ" data-info="Nhà Tổ – nơi tưởng nhớ và tri ân các vị Tổ sư.">
+ <rect x="90" y="160" width="190" height="105" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
+ <path d="M65 170 Q185 75 305 170 L280 187 Q185 125 90 187Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
+ <path d="M125 185V265 M245 185V265" stroke="#8a4931" stroke-width="12"/>
+ <rect x="165" y="190" width="45" height="75" fill="#70452e"/>
+ <text x="185" y="150" text-anchor="middle" class="zone-label">NHÀ TỔ</text>
+</g>
+
+<!-- Tháp chuông -->
+<g class="zone" data-name="Tháp Chuông" data-info="Tháp Chuông – nơi tiếng chuông ngân vang giữa không gian thanh tịnh.">
+ <rect x="830" y="135" width="150" height="125" fill="#e8d4ad" stroke="#75472e" stroke-width="6"/>
+ <path d="M810 145 L905 75 L1000 145 L980 160 L905 115 L830 160Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
+ <path d="M880 165V250 M930 165V250" stroke="#85482f" stroke-width="10"/>
+ <path d="M905 170 Q875 195 890 220 Q905 238 920 220 Q935 195 905 170Z" fill="#c99a48" stroke="#76512b" stroke-width="4"/>
+ <text x="905" y="65" text-anchor="middle" class="zone-label">THÁP CHUÔNG</text>
+</g>
+
+<!-- Cổng tam quan -->
+<g class="zone" data-name="Cổng Tam Quan" data-info="Cổng Tam Quan – lối vào chốn thiền môn An Yên Tịnh Cảnh.">
+ <rect x="355" y="600" width="390" height="100" fill="#b96a45" stroke="#75432d" stroke-width="7"/>
+ <rect x="390" y="620" width="75" height="80" fill="#533b2c"/>
+ <rect x="510" y="620" width="80" height="80" fill="#533b2c"/>
+ <rect x="635" y="620" width="75" height="80" fill="#533b2c"/>
+ <path d="M335 610 Q550 505 765 610 L740 630 Q550 560 360 630Z" fill="url(#roof)" stroke="#643522" stroke-width="7"/>
+ <text x="550" y="595" text-anchor="middle" class="zone-label">CỔNG TAM QUAN</text>
+</g>
+
+<!-- Hồ sen -->
+<g class="zone" data-name="Hồ Sen An Nhiên" data-info="Hồ Sen An Nhiên – hồ nước xanh với hoa sen và cá nhỏ.">
+ <ellipse cx="880" cy="440" rx="165" ry="110" fill="#876c46"/>
+ <ellipse cx="880" cy="430" rx="155" ry="100" fill="url(#water)" stroke="#d7c18e" stroke-width="7"/>
+ <g fill="#3f9277">
+  <ellipse cx="820" cy="400" rx="27" ry="12"/><ellipse cx="920" cy="455" rx="30" ry="13"/>
+  <ellipse cx="960" cy="390" rx="25" ry="12"/><ellipse cx="850" cy="475" rx="25" ry="12"/>
+ </g>
+ <g font-size="33"><text x="790" y="390">🪷</text><text x="900" y="445">🪷</text><text x="950" y="380">🪷</text></g>
+ <text x="880" y="550" text-anchor="middle" class="zone-label">HỒ SEN AN NHIÊN</text>
+</g>
+
+<!-- Vườn hoa bốn mùa -->
+<g class="zone" data-name="Vườn Hoa Bốn Mùa" data-info="Vườn Hoa Bốn Mùa – khu vườn rực rỡ với nhiều luống hoa và lối đi nhỏ.">
+ <rect x="55" y="400" width="300" height="180" rx="24" fill="#789b59" stroke="#e4d2a7" stroke-width="7"/>
+ <path d="M80 440 Q190 415 325 440 M80 490 Q190 465 325 490 M80 540 Q190 515 325 540" stroke="#d7b88a" stroke-width="9" fill="none"/>
+ <g font-size="27">
+ <text x="85" y="435">🌷 🌼 🌸 🌺</text>
+ <text x="85" y="485">🌻 🌸 🌼 🌷</text>
+ <text x="85" y="535">🌺 🌼 🌻 🌸</text>
+ </g>
+ <text x="205" y="390" text-anchor="middle" class="zone-label">VƯỜN HOA BỐN MÙA</text>
+</g>
+
+<!-- Rừng trúc -->
+<g class="zone" data-name="Rừng Trúc An Yên" data-info="Rừng Trúc An Yên – lối nhỏ dưới những hàng trúc xanh mát.">
+ <rect x="760" y="590" width="300" height="130" rx="20" fill="#6f9a62" stroke="#d7c18e" stroke-width="5"/>
+ <g stroke="#346b42" stroke-width="8">
+ <path d="M790 600V710 M820 600V710 M850 600V710 M890 600V710 M930 600V710 M970 600V710 M1010 600V710"/>
+ </g>
+ <g stroke="#d3e4a2" stroke-width="3">
+ <path d="M790 630l-22 -15 M820 655l25 -15 M850 620l-20 -15 M890 650l25 -15 M930 620l-20 -15 M970 660l22 -15 M1010 630l-20 -15"/>
+ </g>
+ <text x="910" y="745" text-anchor="middle" class="zone-label">RỪNG TRÚC AN YÊN</text>
+</g>
+
+<!-- Thư viện -->
+<g class="zone" data-name="Thư Viện Kinh Sách" data-info="Thư viện Kinh Sách – nơi tìm hiểu kiến thức và đọc sách trong không gian yên tĩnh.">
+ <rect x="70" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
+ <path d="M50 295 L180 230 L310 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
+ <rect x="125" y="310" width="110" height="65" fill="#765039"/>
+ <path d="M145 320V365 M175 320V365 M205 320V365" stroke="#e7d2a9" stroke-width="5"/>
+ <text x="180" y="280" text-anchor="middle" class="zone-label">THƯ VIỆN</text>
+</g>
+
+<!-- Nhà học tập -->
+<g class="zone" data-name="Nhà Học Tập" data-info="Nhà Học Tập – khu vực tìm hiểu, học hỏi và sinh hoạt chung.">
+ <rect x="800" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
+ <path d="M780 295 L910 230 L1040 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
+ <rect x="865" y="310" width="90" height="65" fill="#765039"/>
+ <text x="910" y="280" text-anchor="middle" class="zone-label">NHÀ HỌC TẬP</text>
+</g>
+
+<!-- Cây và hoa trang trí -->
+<g font-size="30">
+ <text x="20" y="270">🌼</text><text x="320" y="130">🌸</text>
+ <text x="750" y="250">🌺</text><text x="730" y="520">🌻</text>
+ <text x="360" y="350">🌷</text><text x="700" y="350">🌼</text>
+ <text x="400" y="550">🌸</text><text x="720" y="570">🌺</text>
+</g>
+
+<!-- Nhân vật -->
+<g id="player" transform="translate(550 420)">
+ <ellipse cx="0" cy="28" rx="18" ry="6" fill="#344a31" opacity=".35"/>
+ <path d="M-14 2 Q-18 12 -14 26 L14 26 Q18 12 14 2Z" fill="#f3e2bd" stroke="#765039" stroke-width="2"/>
+ <circle cx="0" cy="-7" r="12" fill="#f0c99d" stroke="#70452e" stroke-width="2"/>
+ <path d="M-12 -9 Q-10 -25 5 -20 Q16 -17 12 -5 Q3 -13 -12 -9" fill="#423125"/>
+ <circle cx="-4" cy="-7" r="1.5" fill="#34251d"/><circle cx="4" cy="-7" r="1.5" fill="#34251d"/>
+ <path d="M-4 -1 Q0 2 4 -1" fill="none" stroke="#9b5d4b" stroke-width="1.5"/>
+ <path d="M-10 7L-17 17 M10 7L17 17" stroke="#765039" stroke-width="4" stroke-linecap="round"/>
+ <text x="0" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" stroke="#593d29" stroke-width="3" paint-order="stroke">Tiểu An</text>
+</g>
+</svg>
+</div>
+
+<div class="info" id="info">
+🌸 Chào mừng em đến với An Yên Tịnh Cảnh! Hãy dùng nút điều khiển để đưa Tiểu An đi tham quan các khu vực.
+</div>
+
+<div class="controls">
+ <div class="pad">
+  <button class="ctrl up" data-dir="up">▲</button>
+  <button class="ctrl left" data-dir="left">◀</button>
+  <button class="ctrl down" data-dir="down">▼</button>
+  <button class="ctrl right" data-dir="right">▶</button>
+ </div>
+ <button class="explore" id="explore">🔍<br>Khám phá</button>
+</div>
+<p class="hint">Nhấn giữ các nút mũi tên để di chuyển. Chạm vào công trình trên bản đồ để xem thông tin.</p>
 </main>
+<footer>AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0C NÂNG CẤP</footer>
 
 <script>
-const avatar=document.getElementById('avatar');
-const world=document.getElementById('world');
+const player=document.getElementById('player');
 const info=document.getElementById('info');
-const positionText=document.getElementById('position');
+const locationText=document.getElementById('location');
 const game=document.getElementById('game');
-
-let x=405,y=355;
-let moving=null,timer=null;
+let x=550,y=420,timer=null;
 
 function draw(){
-  avatar.style.left=x+'px';
-  avatar.style.top=y+'px';
-  let area='Sân chùa';
-  if(y<190 && x>280 && x<570) area='Chính điện';
-  else if(x<230 && y<200) area='Nhà Tổ';
-  else if(x>570 && y<200) area='Tháp Chuông';
-  else if(x>570 && y>350) area='Hồ Sen';
-  else if(x<220 && y>350) area='Rừng Trúc';
-  else if(y>440) area='Cổng Tam Quan';
-  positionText.textContent='📍 Khu vực: '+area;
+ player.setAttribute('transform',`translate(${x} ${y})`);
+ let name='Sân chùa';
+ if(y<260 && x>370 && x<740)name='Chính điện';
+ else if(x<300 && y<250)name='Nhà Tổ và Thư viện';
+ else if(x>790 && y<270)name='Tháp Chuông';
+ else if(x>720 && y>340 && y<570)name='Hồ Sen An Nhiên';
+ else if(x<370 && y>380 && y<600)name='Vườn Hoa Bốn Mùa';
+ else if(x>740 && y>580)name='Rừng Trúc An Yên';
+ else if(y>590 && x>340 && x<760)name='Cổng Tam Quan';
+ locationText.textContent='📍 '+name;
 }
-function step(dir){
-  const speed=13;
-  if(dir==='up')y-=speed;
-  if(dir==='down')y+=speed;
-  if(dir==='left')x-=speed;
-  if(dir==='right')x+=speed;
-  x=Math.max(5,Math.min(790,x));
-  y=Math.max(5,Math.min(550,y));
-  draw();
+function move(dir){
+ const step=12;
+ if(dir==='up')y-=step;
+ if(dir==='down')y+=step;
+ if(dir==='left')x-=step;
+ if(dir==='right')x+=step;
+ x=Math.max(25,Math.min(1075,x));
+ y=Math.max(30,Math.min(720,y));
+ draw();
 }
-function startMove(dir){
-  stopMove();
-  step(dir);
-  moving=dir;
-  timer=setInterval(()=>step(dir),130);
-}
-function stopMove(){
-  if(timer)clearInterval(timer);
-  timer=null;moving=null;
-}
+function stop(){if(timer)clearInterval(timer);timer=null}
+function start(dir){stop();move(dir);timer=setInterval(()=>move(dir),110)}
 document.querySelectorAll('[data-dir]').forEach(btn=>{
-  const dir=btn.dataset.dir;
-  btn.addEventListener('pointerdown',e=>{
-    e.preventDefault();startMove(dir);
-  });
-  btn.addEventListener('pointerup',stopMove);
-  btn.addEventListener('pointerleave',stopMove);
-  btn.addEventListener('pointercancel',stopMove);
+ const dir=btn.dataset.dir;
+ btn.addEventListener('pointerdown',e=>{e.preventDefault();start(dir)});
+ btn.addEventListener('pointerup',stop);
+ btn.addEventListener('pointerleave',stop);
+ btn.addEventListener('pointercancel',stop);
 });
-window.addEventListener('pointerup',stopMove);
+window.addEventListener('pointerup',stop);
+window.addEventListener('blur',stop);
+window.addEventListener('keydown',e=>{
+ const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
+ if(keys[e.key]){e.preventDefault();move(keys[e.key])}
+});
 
+document.querySelectorAll('.zone').forEach(zone=>{
+ zone.addEventListener('click',()=>{
+  info.innerHTML='<b>🏯 '+zone.dataset.name+'</b><br>'+zone.dataset.info;
+ });
+});
 document.getElementById('explore').addEventListener('click',()=>{
-  const spots=[
-    ['🏯 Chính điện','Chính điện là nơi trang nghiêm để mọi người lễ Phật và tìm sự bình an.'],
-    ['🏠 Nhà Tổ','Nhà Tổ là nơi tưởng nhớ và tri ân các vị Tổ sư.'],
-    ['🔔 Tháp Chuông','Tiếng chuông chùa gợi nhắc mọi người sống chậm lại và an yên.'],
-    ['🪷 Hồ Sen','Hồ Sen là góc cảnh quan thanh tịnh giữa sân chùa.'],
-    ['🎋 Rừng Trúc','Rừng trúc xanh mát là nơi nghỉ chân và ngắm cảnh.'],
-    ['🚪 Cổng Tam Quan','Cổng Tam Quan là lối vào không gian chùa.']
-  ];
-  let nearest=spots[0];
-  let distance=Infinity;
-  const targets=[
-    [420,110],[130,120],[650,120],[700,430],[110,420],[420,490]
-  ];
-  targets.forEach((p,i)=>{
-    const d=Math.hypot(x-p[0],y-p[1]);
-    if(d<distance){distance=d;nearest=spots[i];}
-  });
-  if(distance<180){
-    info.innerHTML='<b>'+nearest[0]+'</b><br>'+nearest[1];
-  }else{
-    info.textContent='Em hãy di chuyển đến gần một công trình rồi nhấn Khám phá nhé!';
-  }
+ const zones=[...document.querySelectorAll('.zone')];
+ let closest=null,best=Infinity;
+ zones.forEach(zone=>{
+  const box=zone.getBBox();
+  const cx=box.x+box.width/2,cy=box.y+box.height/2;
+  const d=Math.hypot(cx-x,cy-y);
+  if(d<best){best=d;closest=zone}
+ });
+ if(closest && best<190){
+  info.innerHTML='<b>🏯 '+closest.dataset.name+'</b><br>'+closest.dataset.info;
+ }else{
+  info.textContent='Em hãy di chuyển đến gần một công trình hoặc khu vực rồi nhấn Khám phá nhé!';
+ }
 });
 draw();
 </script>
