@@ -1,284 +1,486 @@
-<!DOCTYPE html>  <html lang="vi">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>An Yên Tịnh Cảnh - Chùa Online</title>  
-<style>  
-*{box-sizing:border-box}  
-body{  
- margin:0;  
- font-family:Arial,sans-serif;  
- background:#f3eee2;  
- color:#44372b;  
-}  
-header{  
- background:linear-gradient(135deg,#553b2c,#98704c);  
- color:white;  
- text-align:center;  
- padding:25px 12px;  
-}  
-header h1{font-size:25px;margin:0}  
-header p{font-size:13px;margin:9px 0 0}  
-nav{  
- display:flex;justify-content:center;gap:8px;  
- flex-wrap:wrap;padding:12px;  
- background:#fffaf0;position:sticky;top:0;z-index:10;  
- box-shadow:0 2px 7px #0001;  
-}  
-button{font:inherit;cursor:pointer}  
-nav button,.action{  
- border:0;border-radius:20px;padding:10px 15px;  
- background:#e8d8bf;color:#493727;font-weight:bold;  
-}  
-nav button:active,.action:active{transform:scale(.97)}  
-main{max-width:950px;margin:auto;padding:15px}  
-.welcome{text-align:center;padding:10px}  
-.welcome h2{color:#79553a}  
-.player{  
- background:#fffaf0;border-radius:15px;padding:14px;  
- display:flex;align-items:center;gap:13px;  
- box-shadow:0 3px 10px #0000000c;  
-}  
-.avatar{font-size:43px}  
-.player p{margin:5px 0;font-size:14px}  
-.map-title{text-align:center;margin:22px 0 12px}  
-.map-title h2{color:#79553a;margin-bottom:5px}  
-.map{  
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));  
- gap:10px;padding:13px;  
- background:#dce7d0;border:4px solid #a58a64;  
- border-radius:20px;  
-}  
-.zone{  
- min-height:145px;padding:12px 5px;  
- border:2px solid #b8a17d;border-radius:14px;  
- background:#fff9eb;text-align:center;  
- position:relative;  
-}  
-.zone.selected{border:3px solid #55805a;background:#eef5e7}  
-.zone .letter{font-size:26px;font-weight:bold;color:#89603e}  
-.zone .emoji{font-size:29px;margin:4px}  
-.zone strong{display:block;font-size:13px}  
-.zone small{display:block;font-size:11px;color:#806d59;margin-top:5px}  
-.marker{  
- display:none;position:absolute;top:5px;right:7px;  
- font-size:20px;  
-}  
-.zone.selected .marker{display:block}  
-.map-note{text-align:center;color:#71805c;font-size:12px;padding:10px}  
-.panel{  
- background:#fffaf0;padding:17px;border-radius:15px;  
- margin-top:17px;box-shadow:0 3px 10px #0000000c;  
-}  
-.panel h2{color:#79553a;margin-top:0}  
-.place-list{  
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;  
-}  
-.place{  
- background:#f0e5d3;border-radius:10px;padding:12px;  
- font-size:13px;  
-}  
-#detail{display:none}  
-#guide{display:none}  
-.action{margin-top:12px;background:#d9c09a}  
-.action:disabled{opacity:.6;cursor:default}  
-footer{text-align:center;padding:25px 10px;color:#806d59;font-size:12px}  
-@media(min-width:650px){  
- .map{grid-template-columns:repeat(4,1fr);gap:14px;padding:20px}  
- .zone{min-height:165px}  
- .place-list{grid-template-columns:repeat(3,1fr)}  
-}  
-</style>  
-</head>  
-<body>  <header>  
- <h1>🪷 AN YÊN TỊNH CẢNH 🪷</h1>  
- <p>CHÙA ONLINE · KHÔNG GIAN KHÁM PHÁ VĂN HÓA VIỆT NAM</p>  
-</header>  <nav>  
- <button onclick="showMap()">🗺️ Bản đồ</button>  
- <button onclick="showGuide()">📖 Hướng dẫn</button>  
- <button onclick="showHome()">🏯 Trang chủ</button>  
-</nav>  <main>  
- <section class="welcome" id="welcome">  
-  <h2>Chào mừng đến với An Yên Tịnh Cảnh</h2>  
-  <p>Một hành trình khám phá không gian chùa Việt trực tuyến.</p>  
- </section>   <section class="player" id="player">  
-  <div class="avatar">🧑🏻‍🦱</div>  
-  <div>  
-   <strong>Nhân vật của tôi</strong>  
-   <p>📍 Vị trí: <span id="currentLocation">Khu A – Cổng & Đón Tiếp</span></p>  
-   <p>🌿 Hãy chọn một khu vực để bắt đầu khám phá.</p>  
-  </div>  
- </section>   <section id="mapSection">  
-  <div class="map-title">  
-   <h2>🗺️ BẢN ĐỒ TOÀN CẢNH</h2>  
-   <p>Chọn khu vực em muốn tham quan</p>  
-  </div>    <div class="map" id="map">  
-   <button class="zone selected" data-zone="A" onclick="openZone('A')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">A</div><div class="emoji">🏯</div>  
-    <strong>Cổng & Đón Tiếp</strong>  
-    <small>Cổng Tam Quan, sân đón khách</small>  
-   </button>     <button class="zone" data-zone="B" onclick="openZone('B')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">B</div><div class="emoji">🪷</div>  
-    <strong>Khu Tâm Linh</strong>  
-    <small>Chính điện, Nhà Tổ, Tháp Chuông</small>  
-   </button>     <button class="zone" data-zone="C" onclick="openZone('C')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">C</div><div class="emoji">🧘</div>  
-    <strong>Khu Thiền Tu</strong>  
-    <small>Gõ mõ, tràng hạt, thiền</small>  
-   </button>     <button class="zone" data-zone="D" onclick="openZone('D')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">D</div><div class="emoji">🌳</div>  
-    <strong>Khu Thiên Nhiên</strong>  
-    <small>Hồ Sen, Rừng Trúc, Vườn Hoa</small>  
-   </button>     <button class="zone" data-zone="E" onclick="openZone('E')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">E</div><div class="emoji">📚</div>  
-    <strong>Khu Học Tập</strong>  
-    <small>Bảo tàng, Thư viện, Nhà Học Tập</small>  
-   </button>     <button class="zone" data-zone="F" onclick="openZone('F')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">F</div><div class="emoji">🏡</div>  
-    <strong>Khu Cộng Đồng</strong>  
-    <small>Giao lưu, bạn bè, kỷ niệm</small>  
-   </button>     <button class="zone" data-zone="G" onclick="openZone('G')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">G</div><div class="emoji">🎏</div>  
-    <strong>Văn Hóa & Lễ Hội</strong>  
-    <small>Chợ Quê, sự kiện, hoạt động</small>  
-   </button>     <button class="zone" data-zone="H" onclick="openZone('H')">  
-    <span class="marker">🧑🏻‍🦱</span>  
-    <div class="letter">H</div><div class="emoji">⛰️</div>  
-    <strong>Khu Hành Hương</strong>  
-    <small>Đồi Hành Hương, ngắm bình minh</small>  
-   </button>  
-  </div>  
-  <div class="map-note">🌿 An Yên Tịnh Cảnh – Hành trình khám phá an lành 🌿</div>  
- </section>   <section class="panel" id="detail">  
-  <h2 id="zoneTitle"></h2>  
-  <p id="zoneDescription"></p>  
-  <h3>📍 Địa điểm trong khu vực</h3>  
-  <div class="place-list" id="placeList"></div>  
-  <button class="action" id="travelButton" onclick="travel()">🚶 Đi đến khu vực này</button>  
-  <br>  
-  <button class="action" onclick="showMap()">← Quay lại bản đồ</button>  
- </section>   <section class="panel" id="guide">  
-  <h2>📖 Hướng dẫn khám phá</h2>  
-  <p>1. Chọn một khu vực trên bản đồ.</p>  
-  <p>2. Xem thông tin và các địa điểm bên trong.</p>  
-  <p>3. Nhấn Đi đến để cập nhật vị trí nhân vật.</p>  
-  <p>4. Quay lại bản đồ để tiếp tục hành trình.</p>  
-  <button class="action" onclick="showMap()">← Quay lại bản đồ</button>  
- </section>  
-</main>  <footer>  
- AN YÊN TỊNH CẢNH · CHÙA ONLINE<br>  
- Phiên bản thử nghiệm 2.0A  
-</footer>  <script>  
-const zones={  
- A:{  
-  title:"A – Khu Cổng & Đón Tiếp",  
-  description:"Nơi bắt đầu hành trình khám phá An Yên Tịnh Cảnh.",  
-  places:["Cổng Tam Quan","Sân Đón Tiếp","Bảng Nội Quy","Bản Đồ Khuôn Viên"]  
- },  
- B:{  
-  title:"B – Khu Tâm Linh",  
-  description:"Không gian tìm hiểu kiến trúc và sinh hoạt tâm linh tại chùa.",  
-  places:["Chính Điện","Nhà Tổ","Tháp Chuông","Cây Ước Nguyện"]  
- },  
- C:{  
-  title:"C – Khu Thiền Tu",  
-  description:"Nơi trải nghiệm các hoạt động thiền tập và tìm hiểu nghi thức.",  
-  places:["Phòng Gõ Mõ","Phòng Tràng Hạt","Phòng Tụng Kinh","Phòng Thiền","Phòng Thỉnh Chuông"]  
- },  
- D:{  
-  title:"D – Khu Thiên Nhiên",  
-  description:"Không gian cây xanh, hồ nước và cảnh quan thiên nhiên.",  
-  places:["Hồ Sen","Hồ Cá An Nhiên","Rừng Trúc","Vườn Hoa Bốn Mùa","Vườn Thiền"]  
- },  
- E:{  
-  title:"E – Khu Học Tập",  
-  description:"Khám phá lịch sử Phật giáo, văn hóa và những bài học cuộc sống.",  
-  places:["Bảo Tàng Phật Giáo","Thư Viện Kinh Sách","Nhà Học Tập","Nhà Thư Pháp"]  
- },  
- F:{  
-  title:"F – Khu Cộng Đồng",  
-  description:"Không gian kết nối, chia sẻ và tham gia hoạt động cộng đồng.",  
-  places:["Phòng Học Hỏi Phật Pháp","Phòng Chia Sẻ Cuộc Sống","Phòng Giao Lưu","Phòng Hoạt Động Cộng Đồng","Sổ Kỷ Niệm"]  
- },  
- G:{  
-  title:"G – Khu Văn Hóa & Lễ Hội",  
-  description:"Nơi tổ chức các hoạt động văn hóa và sự kiện theo mùa.",  
-  places:["Nhà Trai","Chợ Quê Ngày Hội","Quảng Trường An Lạc","Khu Sự Kiện"]  
- },  
- H:{  
-  title:"H – Khu Hành Hương",  
-  description:"Không gian khám phá cảnh quan và các địa điểm tham quan.",  
-  places:["Đồi Hành Hương","Đài Ngắm Bình Minh","Dòng Sông Đèn Lồng","Vườn Bồ Đề"]  
- }  
-};  
-  
-let selectedZone="A";  
-let currentZone="A";  
-  
-function openZone(letter){  
- selectedZone=letter;  
- const z=zones[letter];  
-  
- document.getElementById("mapSection").style.display="none";  
- document.getElementById("detail").style.display="block";  
- document.getElementById("guide").style.display="none";  
-  
- document.getElementById("zoneTitle").textContent=z.title;  
- document.getElementById("zoneDescription").textContent=z.description;  
- document.getElementById("placeList").innerHTML=  
-  z.places.map(p=>`<div class="place">📍 ${p}</div>`).join("");  
-  
- const button=document.getElementById("travelButton");  
- if(currentZone===letter){  
-  button.textContent="📍 Em đang ở khu vực này";  
-  button.disabled=true;  
- }else{  
-  button.textContent="🚶 Đi đến khu vực này";  
-  button.disabled=false;  
- }  
- window.scrollTo({top:0,behavior:"smooth"});  
-}  
-  
-function travel(){  
- currentZone=selectedZone;  
- document.getElementById("currentLocation").textContent=  
-  zones[currentZone].title;  
-  
- document.querySelectorAll(".zone").forEach(item=>{  
-  item.classList.toggle("selected",item.dataset.zone===currentZone);  
- });  
-  
- document.getElementById("travelButton").textContent="📍 Em đang ở khu vực này";  
- document.getElementById("travelButton").disabled=true;  
-}  
-  
-function showMap(){  
- document.getElementById("mapSection").style.display="block";  
- document.getElementById("detail").style.display="none";  
- document.getElementById("guide").style.display="none";  
- document.getElementById("welcome").style.display="block";  
- document.getElementById("player").style.display="flex";  
- window.scrollTo({top:0,behavior:"smooth"});  
-}  
-  
-function showGuide(){  
- document.getElementById("mapSection").style.display="none";  
- document.getElementById("detail").style.display="none";  
- document.getElementById("guide").style.display="block";  
- document.getElementById("welcome").style.display="none";  
- document.getElementById("player").style.display="none";  
- window.scrollTo({top:0,behavior:"smooth"});  
-}  
-  
-function showHome(){showMap();}  
-  
-showMap();  
-</script>  </body>  
-</html>  
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#294b3b">
+<title>An Yên Tịnh Cảnh - 2.0B</title>
+<style>
+:root {
+  --green:#294b3b;
+  --gold:#d8b66a;
+  --cream:#fff8e9;
+  --ink:#3d4034;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  color:var(--ink);
+  background:#e8eadb;
+}
+header {
+  padding:17px 15px;
+  text-align:center;
+  color:#fff8e9;
+  background:linear-gradient(135deg,#203e31,#527354);
+  border-bottom:4px solid var(--gold);
+}
+header h1 {
+  margin:0;
+  font-family:Georgia,serif;
+  letter-spacing:2px;
+  font-size:clamp(21px,5vw,30px);
+}
+header p { margin:7px 0 0; font-size:13px; opacity:.9; }
+nav {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:11px;
+  background:#f8f1df;
+}
+button {
+  border:0;
+  border-radius:20px;
+  padding:10px 15px;
+  font-size:13px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.nav-btn {
+  color:white;
+  background:var(--green);
+}
+.nav-btn:active { transform:scale(.97); }
+main { max-width:1050px; margin:auto; padding:13px; }
+.intro {
+  text-align:center;
+  margin:7px auto 13px;
+}
+.intro h2 {
+  margin:0 0 5px;
+  color:#36513b;
+  font-family:Georgia,serif;
+}
+.intro p { margin:0; font-size:13px; line-height:1.5; }
+.game-frame {
+  overflow:hidden;
+  border:5px solid #f9f0d9;
+  border-radius:18px;
+  background:#b9d5a4;
+  box-shadow:0 7px 22px #344c3425;
+}
+svg {
+  display:block;
+  width:100%;
+  height:auto;
+  touch-action:manipulation;
+}
+.hotspot { cursor:pointer; outline:none; }
+.hotspot:focus .focusable,
+.hotspot:active .focusable {
+  filter:brightness(1.16);
+  stroke:#fff4bd;
+  stroke-width:3;
+}
+.info-panel {
+  margin-top:13px;
+  padding:15px;
+  border:1px solid #d7c89f;
+  border-radius:14px;
+  background:#fffaf0;
+  min-height:110px;
+}
+.info-panel h3 {
+  margin:0 0 7px;
+  color:#36513b;
+  font-family:Georgia,serif;
+}
+.info-panel p { margin:0; font-size:14px; line-height:1.6; }
+.hint {
+  text-align:center;
+  color:#64715d;
+  font-size:12px;
+  margin:10px 0;
+}
+footer {
+  text-align:center;
+  padding:18px 10px 25px;
+  color:#61705d;
+  font-size:12px;
+}
+#toast {
+  position:fixed;
+  bottom:18px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#294b3b;
+  color:white;
+  padding:11px 16px;
+  border-radius:20px;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+  z-index:5;
+}
+#toast.show { opacity:1; }
+@media(max-width:520px) {
+  main { padding:8px; }
+  .game-frame { border-width:3px; border-radius:12px; }
+  .intro p { font-size:12px; }
+  button { padding:9px 12px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>AN YÊN TỊNH CẢNH</h1>
+  <p>Chốn bình yên giữa lòng thế giới số</p>
+</header>
+
+<nav>
+  <button class="nav-btn" onclick="showHome()">🏯 Toàn cảnh</button>
+  <button class="nav-btn" onclick="showGuide()">📖 Hướng dẫn</button>
+  <button class="nav-btn" onclick="resetInfo()">🌿 Trở về</button>
+</nav>
+
+<main>
+  <section class="intro">
+    <h2>Ngôi chùa An Yên</h2>
+    <p>Hãy chạm vào các công trình trong khuôn viên để khám phá.</p>
+  </section>
+
+  <div class="game-frame">
+  <svg viewBox="0 0 900 650" role="img" aria-label="Bản đồ cảnh chùa An Yên nhìn theo góc chéo 2.5D">
+    <defs>
+      <linearGradient id="grass" x2="0" y2="1">
+        <stop offset="0" stop-color="#b9d69b"/>
+        <stop offset="1" stop-color="#7eaa70"/>
+      </linearGradient>
+      <linearGradient id="roof" x2="0.2" y2="1">
+        <stop offset="0" stop-color="#9d4030"/>
+        <stop offset="1" stop-color="#602b28"/>
+      </linearGradient>
+      <linearGradient id="wall" x2="0" y2="1">
+        <stop offset="0" stop-color="#f3dfb7"/>
+        <stop offset="1" stop-color="#d4b98d"/>
+      </linearGradient>
+      <linearGradient id="water" x2="0" y2="1">
+        <stop offset="0" stop-color="#91c9bb"/>
+        <stop offset="1" stop-color="#4c958b"/>
+      </linearGradient>
+      <pattern id="tiles" width="18" height="12" patternUnits="userSpaceOnUse">
+        <path d="M0 0 Q9 7 18 0 M0 6 Q9 13 18 6" fill="none" stroke="#d18b67" stroke-width="1.2" opacity=".65"/>
+      </pattern>
+      <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="5"/>
+      </filter>
+    </defs>
+
+    <!-- Nền trời và khuôn viên -->
+    <rect width="900" height="650" fill="#c9dfb5"/>
+    <path d="M0 0H900V650H0Z" fill="url(#grass)"/>
+    <path d="M0 0H900V105L0 170Z" fill="#d6e5bd" opacity=".45"/>
+    <path d="M0 530Q250 470 470 560T900 520V650H0Z" fill="#6f9b68" opacity=".28"/>
+
+    <!-- Hàng cây phía sau -->
+    <g opacity=".95">
+      <g transform="translate(95 80)">
+        <ellipse cx="0" cy="25" rx="39" ry="13" fill="#456b48"/>
+        <rect x="-5" y="10" width="10" height="42" fill="#795b3b"/>
+        <circle cx="-15" cy="-2" r="28" fill="#527f50"/>
+        <circle cx="12" cy="-12" r="31" fill="#6d965a"/>
+        <circle cx="30" cy="5" r="23" fill="#477548"/>
+      </g>
+      <g transform="translate(785 85)">
+        <ellipse cx="0" cy="28" rx="43" ry="13" fill="#456b48"/>
+        <rect x="-5" y="8" width="10" height="46" fill="#795b3b"/>
+        <circle cx="-17" cy="-4" r="28" fill="#527f50"/>
+        <circle cx="14" cy="-12" r="33" fill="#70985b"/>
+        <circle cx="32" cy="8" r="24" fill="#477548"/>
+      </g>
+      <g transform="translate(710 185) scale(.75)">
+        <rect x="-4" y="0" width="8" height="58" fill="#725239"/>
+        <circle cx="-15" cy="-7" r="27" fill="#59804e"/>
+        <circle cx="15" cy="-14" r="30" fill="#70955b"/>
+      </g>
+    </g>
+
+    <!-- Sân chùa dạng mặt phẳng isometric -->
+    <path d="M450 75L835 275L450 500L65 275Z" fill="#a9c58d" stroke="#77986d" stroke-width="3"/>
+    <path d="M450 100L800 280L450 475L100 280Z" fill="#d9c69e" stroke="#b59b70" stroke-width="3"/>
+    <path d="M450 119L770 281L450 455L130 281Z" fill="#e8d7b7" opacity=".95"/>
+
+    <!-- Các đường gạch sân -->
+    <g stroke="#c9b28e" stroke-width="1.4" opacity=".75" fill="none">
+      <path d="M130 281L450 445L770 281"/>
+      <path d="M180 255L450 393L720 255"/>
+      <path d="M230 229L450 342L670 229"/>
+      <path d="M280 203L450 290L620 203"/>
+      <path d="M330 177L450 238L570 177"/>
+      <path d="M450 119V455"/>
+      <path d="M350 170L350 420 M550 170L550 420"/>
+    </g>
+
+    <!-- Lối đi trung tâm -->
+    <path d="M450 465L515 430L450 300L385 430Z" fill="#c6a77b" opacity=".8"/>
+    <path d="M450 463L485 444L450 370L415 444Z" fill="#e4c99d" opacity=".8"/>
+
+    <!-- Hồ sen bên trái -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Hồ sen An Nhiên" onclick="showPlace('lotus')">
+      <path class="focusable" d="M112 345Q153 305 226 337Q278 362 250 407Q220 451 143 425Q86 405 112 345Z" fill="#477f77" stroke="#d7e5c4" stroke-width="5"/>
+      <path d="M119 352Q157 321 221 345Q264 365 242 402Q211 437 150 416Q99 399 119 352Z" fill="url(#water)"/>
+      <g fill="#497e58" stroke="#b6d29b" stroke-width="1.5">
+        <ellipse cx="155" cy="363" rx="19" ry="8" transform="rotate(-20 155 363)"/>
+        <ellipse cx="207" cy="390" rx="22" ry="9" transform="rotate(15 207 390)"/>
+        <ellipse cx="165" cy="407" rx="18" ry="7" transform="rotate(20 165 407)"/>
+        <ellipse cx="220" cy="357" rx="15" ry="7"/>
+      </g>
+      <g fill="#e8a6ae">
+        <circle cx="181" cy="371" r="7"/><circle cx="181" cy="371" r="3" fill="#e9cf78"/>
+        <circle cx="230" cy="399" r="6"/><circle cx="230" cy="399" r="2.5" fill="#e9cf78"/>
+      </g>
+      <text x="180" y="447" text-anchor="middle" font-size="13" font-weight="bold" fill="#36513b">HỒ SEN</text>
+    </g>
+
+    <!-- Rừng trúc bên phải -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Rừng trúc An Yên" onclick="showPlace('bamboo')">
+      <path class="focusable" d="M660 340Q706 306 772 341L790 395Q740 431 669 405Z" fill="#71975d" stroke="#d7e5c4" stroke-width="3"/>
+      <g stroke="#52774a" stroke-width="7" stroke-linecap="round">
+        <path d="M684 384L679 260 M704 392L707 245 M729 399L733 270 M755 402L765 252 M777 393L785 280"/>
+      </g>
+      <g stroke="#b8d18a" stroke-width="2">
+        <path d="M677 293L690 293 M700 284L714 284 M725 312L739 312 M756 300L770 300 M775 323L789 323"/>
+      </g>
+      <g fill="#548353">
+        <path d="M680 270Q635 245 635 225Q669 227 687 260Z"/>
+        <path d="M704 253Q731 207 754 212Q745 246 710 269Z"/>
+        <path d="M732 279Q690 239 697 219Q729 235 738 269Z"/>
+        <path d="M762 262Q790 222 813 231Q795 262 768 278Z"/>
+      </g>
+      <text x="729" y="426" text-anchor="middle" font-size="13" font-weight="bold" fill="#36513b">RỪNG TRÚC</text>
+    </g>
+
+    <!-- Bóng chính điện -->
+    <ellipse cx="450" cy="250" rx="165" ry="72" fill="#42563d" opacity=".18" filter="url(#shadow)"/>
+
+    <!-- Chính điện: nền và bậc thềm -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Chính điện" onclick="showPlace('mainhall')">
+      <path class="focusable" d="M335 210L450 150L565 210L450 273Z" fill="#9c8060" stroke="#795d42" stroke-width="2"/>
+      <path d="M352 207L450 158L548 207L450 260Z" fill="#e4d0ac"/>
+      <path d="M370 205L450 165L530 205L450 245Z" fill="#a98c69"/>
+      <path d="M378 207L450 170L522 207L450 241Z" fill="#f0dfbd"/>
+      <path d="M390 211L450 180L510 211L450 242Z" fill="#b08c60"/>
+      <!-- bậc -->
+      <path d="M385 240L450 274L515 240L450 208Z" fill="#c6a77c"/>
+      <path d="M395 248L450 277L505 248L450 220Z" fill="#e0c49a"/>
+      <path d="M408 256L450 278L492 256L450 235Z" fill="#b58d61"/>
+      <!-- thân nhà -->
+      <path d="M365 143L450 100L535 143V218L450 263L365 218Z" fill="url(#wall)" stroke="#815e40" stroke-width="2"/>
+      <path d="M365 143L450 188L450 263L365 218Z" fill="#d5b98e"/>
+      <path d="M450 188L535 143V218L450 263Z" fill="#c5a77e"/>
+      <!-- cửa gỗ -->
+      <path d="M422 183L450 198L450 253L422 238Z" fill="#633d2b"/>
+      <path d="M450 198L478 183V238L450 253Z" fill="#74472f"/>
+      <path d="M427 190L447 201V244L427 233Z" fill="#9d6842"/>
+      <path d="M453 201L473 190V233L453 244Z" fill="#9d6842"/>
+      <path d="M450 199V253" stroke="#e3c17c" stroke-width="2"/>
+      <!-- cột -->
+      <g fill="#8d3d2d" stroke="#633629" stroke-width="1">
+        <path d="M376 157L384 161V224L376 220Z"/>
+        <path d="M405 172L413 176V239L405 235Z"/>
+        <path d="M488 176L496 172V235L488 239Z"/>
+        <path d="M516 161L524 157V220L516 224Z"/>
+      </g>
+      <!-- mái dưới -->
+      <path d="M337 153Q450 75 563 153L539 170L450 128L361 170Z" fill="url(#roof)" stroke="#542c26" stroke-width="2"/>
+      <path d="M337 153Q450 111 563 153L450 201Z" fill="#713128" stroke="#542c26" stroke-width="2"/>
+      <path d="M337 153L450 75L563 153L535 156L450 104L365 156Z" fill="#a74632"/>
+      <path d="M337 153L450 75L563 153" fill="none" stroke="#d58c5d" stroke-width="4"/>
+      <path d="M353 151L450 91L547 151" fill="none" stroke="url(#tiles)" stroke-width="15"/>
+      <!-- đầu đao mái -->
+      <path d="M337 153Q320 137 322 124Q343 134 350 145" fill="none" stroke="#633026" stroke-width="5"/>
+      <path d="M563 153Q580 137 578 124Q557 134 550 145" fill="none" stroke="#633026" stroke-width="5"/>
+      <path d="M450 75L450 61" stroke="#d5ad68" stroke-width="4"/>
+      <circle cx="450" cy="59" r="5" fill="#d5ad68"/>
+      <text x="450" y="295" text-anchor="middle" font-size="15" font-weight="bold" fill="#3e5138">CHÍNH ĐIỆN</text>
+    </g>
+
+    <!-- Cổng tam quan phía trước -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Cổng tam quan" onclick="showPlace('gate')">
+      <path class="focusable" d="M340 425L450 482L560 425L450 367Z" fill="#a98961" stroke="#73533b" stroke-width="2"/>
+      <path d="M367 416L450 460L533 416L450 373Z" fill="#e0c49a"/>
+      <!-- ba cửa -->
+      <g fill="#693d2c" stroke="#4c3026" stroke-width="2">
+        <path d="M385 412L408 424V457L385 445Z"/>
+        <path d="M426 433L450 446V480L426 467Z"/>
+        <path d="M472 433L495 421V454L472 467Z"/>
+      </g>
+      <g fill="#d7b16c">
+        <path d="M377 408L408 393L419 408L408 426Z"/>
+        <path d="M418 429L450 413L481 429L450 447Z"/>
+        <path d="M459 408L492 392L523 408L492 426Z"/>
+      </g>
+      <!-- mái cổng -->
+      <path d="M350 401L450 347L550 401L450 452Z" fill="#75342b" stroke="#522b25" stroke-width="3"/>
+      <path d="M350 401L450 347L550 401L526 404L450 365L374 404Z" fill="#a94b35"/>
+      <path d="M350 401Q340 386 345 375Q362 385 374 396" fill="none" stroke="#663126" stroke-width="5"/>
+      <path d="M550 401Q560 386 555 375Q538 385 526 396" fill="none" stroke="#663126" stroke-width="5"/>
+      <path d="M450 347V337" stroke="#d8b66a" stroke-width="4"/>
+      <rect x="421" y="385" width="58" height="17" rx="3" fill="#d9bd80" transform="rotate(0 450 393)"/>
+      <text x="450" y="397" text-anchor="middle" font-size="9" font-weight="bold" fill="#553728">AN YÊN</text>
+      <text x="450" y="510" text-anchor="middle" font-size="14" font-weight="bold" fill="#3e5138">CỔNG TAM QUAN</text>
+    </g>
+
+    <!-- Nhà nhỏ bên trái -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Nhà Tổ" onclick="showPlace('ancestor')">
+      <path class="focusable" d="M235 244L295 214L350 243L290 274Z" fill="#b48f65"/>
+      <path d="M246 204L295 179L344 204V247L295 273L246 247Z" fill="#dfc69d" stroke="#856446"/>
+      <path d="M229 207L295 169L361 207L295 245Z" fill="#81392d" stroke="#592d26" stroke-width="2"/>
+      <path d="M229 207L295 169L361 207L345 210L295 185L245 210Z" fill="#aa4c36"/>
+      <path d="M270 223L295 236V266L270 253Z" fill="#70442f"/>
+      <path d="M295 236L320 223V253L295 266Z" fill="#85553a"/>
+      <text x="295" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#3e5138">NHÀ TỔ</text>
+    </g>
+
+    <!-- Nhà chuông bên phải -->
+    <g class="hotspot" tabindex="0" role="button" aria-label="Tháp chuông" onclick="showPlace('bell')">
+      <path class="focusable" d="M550 245L610 214L666 244L605 276Z" fill="#a98961"/>
+      <path d="M561 207L610 181L656 207V248L610 274L561 248Z" fill="#dfc69d" stroke="#856446"/>
+      <path d="M545 207L610 170L674 207L610 243Z" fill="#81392d" stroke="#592d26" stroke-width="2"/>
+      <path d="M545 207L610 170L674 207L658 211L610 187L561 211Z" fill="#aa4c36"/>
+      <path d="M599 218Q610 208 621 218V247H599Z" fill="#d8ae5d" stroke="#87643b" stroke-width="2"/>
+      <path d="M610 215V250" stroke="#795333" stroke-width="2"/>
+      <text x="610" y="291" text-anchor="middle" font-size="12" font-weight="bold" fill="#3e5138">THÁP CHUÔNG</text>
+    </g>
+
+    <!-- Đèn lồng -->
+    <g>
+      <g transform="translate(305 330)">
+        <path d="M0 -18V-8" stroke="#60452f" stroke-width="3"/>
+        <path d="M-12 -8Q0 -17 12 -8L9 12Q0 20 -9 12Z" fill="#b74732" stroke="#74392a" stroke-width="2"/>
+        <path d="M-8 -3H8 M-7 5H7" stroke="#e9bd72" stroke-width="2"/>
+        <path d="M0 18V28" stroke="#b58a48" stroke-width="2"/>
+      </g>
+      <g transform="translate(590 330)">
+        <path d="M0 -18V-8" stroke="#60452f" stroke-width="3"/>
+        <path d="M-12 -8Q0 -17 12 -8L9 12Q0 20 -9 12Z" fill="#b74732" stroke="#74392a" stroke-width="2"/>
+        <path d="M-8 -3H8 M-7 5H7" stroke="#e9bd72" stroke-width="2"/>
+        <path d="M0 18V28" stroke="#b58a48" stroke-width="2"/>
+      </g>
+    </g>
+
+    <!-- Bụi hoa và đá cảnh -->
+    <g>
+      <g fill="#e5a2a3">
+        <circle cx="275" cy="372" r="7"/><circle cx="290" cy="380" r="6"/>
+        <circle cx="270" cy="390" r="6"/><circle cx="300" cy="394" r="7"/>
+      </g>
+      <g fill="#f0d18a">
+        <circle cx="620" cy="463" r="6"/><circle cx="637" cy="470" r="7"/>
+        <circle cx="651" cy="459" r="6"/><circle cx="631" cy="448" r="6"/>
+      </g>
+      <g fill="#82916c">
+        <ellipse cx="255" cy="405" rx="17" ry="7"/>
+        <ellipse cx="650" cy="490" rx="20" ry="8"/>
+      </g>
+    </g>
+
+    <!-- Biển chỉ dẫn -->
+    <g transform="translate(690 500)">
+      <path d="M0 0V-45" stroke="#735139" stroke-width="6"/>
+      <path d="M-34 -45H35L28 -25H-27Z" fill="#81543a" stroke="#543b2b" stroke-width="2"/>
+      <text x="0" y="-31" font-size="10" text-anchor="middle" fill="#fff0cb">AN YÊN</text>
+    </g>
+
+    <!-- Nhãn góc -->
+    <g>
+      <rect x="18" y="17" width="175" height="34" rx="17" fill="#fff8e9" opacity=".9"/>
+      <text x="105" y="39" text-anchor="middle" font-size="13" font-weight="bold" fill="#36513b">🌿 KHUÔN VIÊN CHÙA</text>
+      <rect x="700" y="17" width="180" height="34" rx="17" fill="#fff8e9" opacity=".9"/>
+      <text x="790" y="39" text-anchor="middle" font-size="12" fill="#36513b">PHIÊN BẢN 2.0B</text>
+    </g>
+  </svg>
+  </div>
+
+  <p class="hint">☝️ Chạm vào Chính điện, Cổng Tam Quan, Hồ Sen hoặc các công trình để khám phá.</p>
+
+  <section class="info-panel" id="info">
+    <h3>🌸 Chào mừng đến với An Yên Tịnh Cảnh</h3>
+    <p>Giữa không gian xanh mát, mái chùa cổ kính và hồ sen yên bình, hãy dành một chút thời gian khám phá khuôn viên. Em hãy chạm vào một công trình trên bản đồ nhé!</p>
+  </section>
+</main>
+
+<footer>
+  AN YÊN TỊNH CẢNH · Không gian khám phá văn hóa chùa Việt<br>
+  <span>Phiên bản thử nghiệm 2.0B</span>
+</footer>
+
+<div id="toast"></div>
+
+<script>
+const places = {
+  gate: {
+    title:"🏯 Cổng Tam Quan",
+    text:"Cổng chào dẫn vào khuôn viên An Yên Tịnh Cảnh. Đây là nơi đón tiếp khách tham quan, giới thiệu nội quy và hướng dẫn đường đi trong chùa."
+  },
+  mainhall: {
+    title:"🙏 Chính điện",
+    text:"Không gian thờ tự trang nghiêm của ngôi chùa. Đây là nơi khách tham quan tìm hiểu kiến trúc, văn hóa và giữ sự yên tĩnh, tôn trọng."
+  },
+  lotus: {
+    title:"🪷 Hồ Sen An Nhiên",
+    text:"Hồ sen xanh mát với những đóa sen dịu dàng. Đây là góc cảnh quan để ngắm nhìn thiên nhiên và nghỉ ngơi."
+  },
+  bamboo: {
+    title:"🎋 Rừng Trúc An Yên",
+    text:"Một góc vườn xanh với những hàng trúc, tạo cảm giác thanh bình và gần gũi với thiên nhiên."
+  },
+  ancestor: {
+    title:"🪵 Nhà Tổ",
+    text:"Không gian giới thiệu về lịch sử, truyền thống và những vị có công xây dựng, gìn giữ ngôi chùa."
+  },
+  bell: {
+    title:"🔔 Tháp Chuông",
+    text:"Công trình văn hóa gắn với tiếng chuông chùa. Tại đây, khách tham quan có thể tìm hiểu ý nghĩa của chuông trong đời sống Phật giáo."
+  }
+};
+
+function showPlace(id) {
+  const place = places[id];
+  if (!place) return;
+  document.getElementById("info").innerHTML =
+    "<h3>" + place.title + "</h3><p>" + place.text + "</p>";
+  document.getElementById("info").scrollIntoView({
+    behavior:"smooth",
+    block:"nearest"
+  });
+}
+
+function showGuide() {
+  document.getElementById("info").innerHTML =
+    "<h3>📖 Hướng dẫn khám phá</h3><p>1. Chạm vào một công trình trong cảnh chùa.<br>2. Đọc phần giới thiệu xuất hiện bên dưới.<br>3. Chọn công trình khác để tiếp tục khám phá.<br><br>Đây là bản thử nghiệm cảnh quan 2.5D. Nhân vật và tính năng di chuyển sẽ được phát triển ở phiên bản tiếp theo.</p>";
+  document.getElementById("info").scrollIntoView({
+    behavior:"smooth",
+    block:"nearest"
+  });
+}
+
+function showHome() {
+  document.getElementById("info").innerHTML =
+    "<h3>🌿 Toàn cảnh An Yên Tịnh Cảnh</h3><p>Em đang ở khuôn viên chính của ngôi chùa. Hãy chạm vào các công trình để khám phá từng địa điểm.</p>";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function resetInfo() {
+  showHome();
+}
+
+</script>
+</body>
+ </html>
+       
