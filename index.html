@@ -4,194 +4,408 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#173d35">
 <title>Chùa Online - An Yên Tịnh Cảnh</title>
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;font-family:Arial,sans-serif;
- background:#f5f0e5;color:#493c2d;
+:root {
+  --green:#173d35;
+  --green2:#285b4d;
+  --gold:#e8c77d;
+  --cream:#fff9ed;
+  --ink:#263b32;
 }
-header{
- background:#285b49;color:white;
- padding:22px 15px;text-align:center;
+* {box-sizing:border-box}
+body {
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f0e5;
+  color:var(--ink);
 }
-header h1{margin:5px;font-size:27px}
-header p{margin:8px}
-nav{
- display:flex;justify-content:center;flex-wrap:wrap;
- gap:8px;padding:12px;background:#e9dfc8;
+header {
+  background:linear-gradient(120deg,#153a32,#376c56);
+  color:white;
+  padding:18px 16px;
+  text-align:center;
 }
-button{
- border:0;border-radius:12px;padding:12px 16px;
- background:#39745b;color:white;font-size:15px;
- cursor:pointer;
+header h1 {
+  margin:0;
+  color:#f4d995;
+  font-family:Georgia,serif;
+  font-size:25px;
 }
-button:active{transform:scale(.97)}
-main{max-width:700px;margin:auto;padding:15px}
-.card{
- background:white;border-radius:18px;padding:20px;
- margin:15px 0;box-shadow:0 3px 12px #00000012;
- text-align:center;
+header p {margin:7px 0 0;font-size:13px}
+nav {
+  display:flex;
+  gap:8px;
+  padding:10px;
+  overflow-x:auto;
+  background:#fffaf0;
+  position:sticky;
+  top:0;
+  z-index:5;
+  box-shadow:0 2px 8px #0001;
 }
-.temple{
- background:linear-gradient(#e9d9b8,#b8d5bd);
- border-radius:20px;padding:30px 10px;
- text-align:center;
+nav button {
+  white-space:nowrap;
+  border:1px solid #d9c99f;
+  border-radius:20px;
+  padding:9px 13px;
+  background:white;
+  color:var(--green);
+  font-weight:bold;
 }
-.temple .emoji{font-size:85px}
-.temple h2{color:#285b49}
-.actions{
- display:grid;grid-template-columns:1fr 1fr;
- gap:10px;margin-top:15px;
+main {max-width:850px;margin:auto;padding:14px}
+.panel {
+  display:none;
+  background:var(--cream);
+  border:1px solid #e5d8b9;
+  border-radius:18px;
+  padding:16px;
+  margin-bottom:14px;
+  box-shadow:0 5px 18px #46391b12;
 }
-.actions button{min-height:65px}
-input,textarea{
- width:100%;padding:13px;border:1px solid #d7cbb7;
- border-radius:10px;font-size:16px;margin:8px 0;
+.panel.active {display:block}
+h2 {
+  color:var(--green);
+  font-family:Georgia,serif;
+  margin:0 0 12px;
 }
-textarea{min-height:100px;resize:vertical}
-.stat{
- display:flex;justify-content:space-around;
- flex-wrap:wrap;gap:10px;
+.hero {
+  text-align:center;
+  padding:24px 12px;
+  background:linear-gradient(#dce9d6,#f8edcf);
+  border-radius:16px;
+  overflow:hidden;
 }
-.stat div{background:#f3eddf;padding:12px;border-radius:12px}
-#message{color:#39745b;font-weight:bold;min-height:24px}
-footer{text-align:center;padding:25px;color:#766b59}
+.temple {
+  position:relative;
+  width:min(100%,390px);
+  height:210px;
+  margin:15px auto;
+  perspective:500px;
+}
+.temple-ground {
+  position:absolute;
+  bottom:0;left:5%;
+  width:90%;height:45px;
+  background:linear-gradient(#a6a77b,#697b59);
+  transform:rotateX(48deg);
+  border-radius:50%;
+}
+.temple-building {
+  position:absolute;
+  bottom:30px;left:24%;
+  width:52%;height:110px;
+  background:linear-gradient(90deg,#e8d2a1,#fff0c9,#c9a66b);
+  border:3px solid #997448;
+  border-radius:5px 5px 0 0;
+  box-shadow:0 12px 15px #47341c35;
+}
+.temple-roof {
+  position:absolute;
+  top:-32px;left:-13%;
+  width:126%;height:48px;
+  background:#8e3f2d;
+  clip-path:polygon(0 72%,15% 48%,32% 0,68% 0,85% 48%,100% 72%,88% 83%,50% 45%,12% 83%);
+  filter:drop-shadow(0 5px 2px #55351f);
+}
+.temple-door {
+  position:absolute;
+  bottom:0;left:36%;
+  width:28%;height:66px;
+  background:#70412d;
+  border:3px solid #d6b66e;
+  border-radius:35px 35px 0 0;
+}
+.temple-window {
+  position:absolute;top:22px;
+  width:18px;height:27px;
+  background:#72503a;
+  border:3px solid #d7b66e;
+}
+.temple-window.left {left:12%}
+.temple-window.right {right:12%}
+.temple-sign {
+  position:absolute;top:7px;left:50%;
+  transform:translateX(-50%);
+  color:#7b4026;font-weight:bold;
+  font-family:Georgia,serif;
+}
+.cards {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:11px;
+}
+.zone {
+  min-height:125px;
+  border:1px solid #e0d0a8;
+  border-radius:15px;
+  padding:15px 10px;
+  text-align:center;
+  background:linear-gradient(145deg,#fffdf6,#e7eddc);
+  box-shadow:0 5px 0 #d7c9a6;
+  color:var(--ink);
+  font-size:15px;
+  font-weight:bold;
+}
+.zone:active {transform:translateY(3px);box-shadow:0 2px 0 #d7c9a6}
+.zone span {display:block;font-size:34px;margin-bottom:9px}
+button {cursor:pointer}
+.action {
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  margin:5px 4px 5px 0;
+  background:var(--green2);
+  color:white;
+  font-weight:bold;
+}
+.action.gold {background:#9a7135}
+input,textarea {
+  width:100%;
+  border:1px solid #cfc3a5;
+  border-radius:10px;
+  padding:12px;
+  margin:7px 0;
+  font:inherit;
+  background:white;
+}
+textarea {min-height:105px;resize:vertical}
+.notice {
+  background:#f3ead1;
+  padding:12px;
+  border-radius:12px;
+  line-height:1.6;
+}
+#message {
+  position:fixed;
+  bottom:15px;left:50%;
+  transform:translateX(-50%);
+  background:#173d35;
+  color:white;
+  padding:12px 18px;
+  border-radius:20px;
+  display:none;
+  z-index:10;
+  max-width:90%;
+  text-align:center;
+}
+footer {
+  text-align:center;
+  color:#6b705f;
+  padding:20px;
+  font-size:12px;
+}
+@media(min-width:650px) {
+  .cards {grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 </style>
 </head>
 <body>
 
 <header>
-<h1>🪷 CHÙA ONLINE 🪷</h1>
-<p>An Yên Tịnh Cảnh - Góc nhỏ bình an</p>
+  <h1>🏯 CHÙA ONLINE</h1>
+  <p>AN YÊN TỊNH CẢNH · Không gian bình an trên môi trường số</p>
 </header>
 
 <nav>
-<button onclick="showSection('home')">🏯 Trang chủ</button>
-<button onclick="showSection('prayer')">🙏 Lễ Phật</button>
-<button onclick="showSection('wish')">🌸 Lời nguyện</button>
-<button onclick="showSection('garden')">🌿 Vườn sen</button>
+  <button onclick="showPage('home')">🏡 Trang chủ</button>
+  <button onclick="showPage('mainhall')">🙏 Chính điện</button>
+  <button onclick="showPage('lotus')">🪷 Hồ sen</button>
+  <button onclick="showPage('meditation')">🧘 Thiền định</button>
+  <button onclick="showPage('prayer')">📿 Lời nguyện</button>
+  <button onclick="showPage('about')">ℹ️ Giới thiệu</button>
 </nav>
 
 <main>
-
-<section id="home">
-<div class="temple">
-<div class="emoji">🏯</div>
-<h2>Chào mừng đến với Chùa Online</h2>
-<p>Một không gian trực tuyến để thư giãn, tìm hiểu văn hóa Phật giáo và gửi gắm những lời chúc tốt đẹp.</p>
-<button onclick="showSection('prayer')">Bước vào chùa 🪷</button>
-</div>
-
-<div class="card">
-<h3>🌼 Hoạt động của bạn</h3>
-<div class="stat">
-<div>🪷 <b id="flowers">0</b><br>Hoa đã dâng</div>
-<div>🕯️ <b id="candles">0</b><br>Đèn đã thắp</div>
-<div>🔔 <b id="bells">0</b><br>Chuông đã thỉnh</div>
-</div>
-</div>
+<section id="home" class="panel active">
+  <div class="hero">
+    <h2>Chào mừng em đến với An Yên Tịnh Cảnh</h2>
+    <p>Một góc nhỏ để tìm hiểu, chiêm nghiệm và hướng đến những điều thiện lành.</p>
+    <div class="temple">
+      <div class="temple-ground"></div>
+      <div class="temple-building">
+        <div class="temple-roof"></div>
+        <div class="temple-sign">AN YÊN</div>
+        <div class="temple-window left"></div>
+        <div class="temple-window right"></div>
+        <div class="temple-door"></div>
+      </div>
+    </div>
+    <p>🌿 Tâm an · Lòng sáng · Sống thiện</p>
+  </div>
+  <h2 style="margin-top:20px">Khám phá khuôn viên chùa</h2>
+  <div class="cards">
+    <button class="zone" onclick="showPage('mainhall')"><span>🙏</span>Chính điện</button>
+    <button class="zone" onclick="showPage('lotus')"><span>🪷</span>Hồ sen</button>
+    <button class="zone" onclick="showPage('meditation')"><span>🧘</span>Thiền định</button>
+    <button class="zone" onclick="showPage('prayer')"><span>📿</span>Góc lời nguyện</button>
+    <button class="zone" onclick="showPage('about')"><span>🏮</span>Giới thiệu</button>
+    <button class="zone" onclick="showPage('activities')"><span>🌼</span>Hoạt động</button>
+  </div>
 </section>
 
-<section id="prayer" hidden>
-<div class="card">
-<h2>🙏 Không gian lễ Phật</h2>
-<div style="font-size:90px">🪷</div>
-<p>Dành một phút tĩnh tâm, hướng đến những điều thiện lành.</p>
-<div class="actions">
-<button onclick="act('flowers')">🌸 Dâng hoa</button>
-<button onclick="act('candles')">🕯️ Thắp đèn</button>
-<button onclick="act('bells')">🔔 Thỉnh chuông</button>
-<button onclick="meditate()">🧘 Tĩnh tâm</button>
-</div>
-<p id="message"></p>
-</div>
+<section id="mainhall" class="panel">
+  <h2>🙏 Chính điện</h2>
+  <div class="notice">Đây là không gian mô phỏng để tìm hiểu về sự thành kính, lòng biết ơn và những giá trị tốt đẹp.</div>
+  <p>Em có thể chọn một hoạt động:</p>
+  <button class="action" onclick="doAction('Dâng hoa')">🌼 Dâng hoa</button>
+  <button class="action" onclick="doAction('Thắp đèn')">🏮 Thắp đèn</button>
+  <button class="action" onclick="doAction('Thỉnh chuông')">🔔 Thỉnh chuông</button>
+  <p id="hallResult" class="notice">Chưa có hoạt động nào được thực hiện.</p>
+  <button class="action gold" onclick="showPage('home')">← Về khuôn viên</button>
 </section>
 
-<section id="wish" hidden>
-<div class="card">
-<h2>🌸 Góc lời nguyện</h2>
-<p>Viết một lời chúc hoặc điều tốt đẹp mà bạn mong muốn.</p>
-<textarea id="wishText" placeholder="Hôm nay, mình mong rằng..."></textarea>
-<button onclick="saveWish()">Lưu lời nguyện</button>
-<h3>📜 Những lời nguyện của bạn</h3>
-<div id="wishList"></div>
-</div>
+<section id="lotus" class="panel">
+  <h2>🪷 Hồ sen</h2>
+  <div class="hero">
+    <div style="font-size:65px">🪷 🪷 🪷</div>
+    <h3>Vườn sen an yên</h3>
+    <p>Số hoa sen em đã trồng: <b id="lotusCount">0</b></p>
+    <button class="action" onclick="plantLotus()">+ Trồng một hoa sen</button>
+  </div>
+  <p class="notice">Mỗi bông sen là một lời nhắc về sự kiên nhẫn, bình tĩnh và lòng thiện lành.</p>
 </section>
 
-<section id="garden" hidden>
-<div class="card">
-<h2>🌿 Vườn sen bình an</h2>
-<div style="font-size:65px">🪷 🌿 🪷</div>
-<p>Mỗi bông sen tượng trưng cho một điều tốt đẹp.</p>
-<button onclick="addLotus()">Trồng một bông sen 🌸</button>
-<h3 id="lotusCount">Vườn sen: 0 bông</h3>
-<div id="lotusGarden" style="font-size:35px;line-height:1.8"></div>
-</div>
+<section id="meditation" class="panel">
+  <h2>🧘 Góc tĩnh tâm</h2>
+  <div class="hero">
+    <div style="font-size:65px">🌿</div>
+    <h3>Dành một chút thời gian cho bản thân</h3>
+    <p id="breathText">Hãy ngồi thoải mái và thả lỏng.</p>
+    <button class="action" onclick="meditate()">Bắt đầu một phút tĩnh tâm</button>
+  </div>
+  <p class="notice">Đây là hoạt động thư giãn nhẹ nhàng, không thay thế lời khuyên chăm sóc sức khỏe.</p>
 </section>
 
+<section id="prayer" class="panel">
+  <h2>📿 Góc lời nguyện</h2>
+  <p>Viết một lời nhắc nhở, điều biết ơn hoặc mong muốn sống tốt hơn.</p>
+  <textarea id="prayerInput" placeholder="Hôm nay, em muốn nhắc nhở bản thân..."></textarea>
+  <button class="action" onclick="savePrayer()">Lưu lời nguyện trên thiết bị</button>
+  <h3>Lời nguyện của em</h3>
+  <div id="prayerList" class="notice">Chưa có lời nguyện nào.</div>
+  <p><small>Lưu ý: hiện tại lời nguyện chỉ lưu trên thiết bị này.</small></p>
+</section>
+
+<section id="activities" class="panel">
+  <h2>🌼 Hoạt động</h2>
+  <div class="notice">
+    <p>🌱 Tìm hiểu những câu chuyện về lòng nhân ái.</p>
+    <p>🌿 Chia sẻ việc tốt em đã làm.</p>
+    <p>🪷 Khám phá các khu vực trong ngôi chùa.</p>
+  </div>
+  <button class="action" onclick="showPage('prayer')">Viết lời nhắc nhở</button>
+</section>
+
+<section id="about" class="panel">
+  <h2>🏮 Về Chùa Online</h2>
+  <p><b>An Yên Tịnh Cảnh</b> là dự án không gian tham quan trực tuyến mang chủ đề văn hóa và tinh thần Phật giáo.</p>
+  <div class="notice">
+    <p>• Tôn trọng các tôn giáo và tín ngưỡng.</p>
+    <p>• Không sử dụng lời lẽ xúc phạm hoặc gây chia rẽ.</p>
+    <p>• Không chia sẻ thông tin cá nhân nhạy cảm.</p>
+    <p>• Các hoạt động trên website chỉ mang tính mô phỏng và tìm hiểu.</p>
+  </div>
+</section>
 </main>
 
 <footer>
-🪷 Chùa Online - An Yên Tịnh Cảnh 🪷
-<p>Một góc nhỏ hướng đến sự bình an và lòng nhân ái.</p>
+  CHÙA ONLINE – AN YÊN TỊNH CẢNH<br>
+  Phiên bản thử nghiệm 1.0
 </footer>
 
-<script>
-let data=JSON.parse(localStorage.getItem('templeData')||'{"flowers":0,"candles":0,"bells":0,"lotus":0}');
-let wishes=JSON.parse(localStorage.getItem('templeWishes')||'[]');
+<div id="message"></div>
 
-function update(){
- ['flowers','candles','bells'].forEach(k=>{
- document.getElementById(k).textContent=data[k];
- });
- document.getElementById('lotusCount').textContent='Vườn sen: '+data.lotus+' bông';
- document.getElementById('lotusGarden').textContent='🪷 '.repeat(data.lotus);
- localStorage.setItem('templeData',JSON.stringify(data));
+<script>
+const $ = id => document.getElementById(id);
+
+function showPage(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const page = $(id);
+  if(page) page.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-function showSection(id){
- ['home','prayer','wish','garden'].forEach(k=>{
- document.getElementById(k).hidden=k!==id;
- });
- window.scrollTo(0,0);
+
+function notify(text) {
+  const box = $('message');
+  box.textContent = text;
+  box.style.display = 'block';
+  clearTimeout(window.noticeTimer);
+  window.noticeTimer = setTimeout(() => box.style.display='none',2300);
 }
-function act(type){
- data[type]++;
- update();
- document.getElementById('message').textContent=
- type==='flowers'?'🌸 Bạn đã dâng một bông hoa.':
- type==='candles'?'🕯️ Một ngọn đèn đã được thắp.':
- '🔔 Tiếng chuông nhắc ta sống chậm và an yên.';
+
+function doAction(name) {
+  const messages = {
+    'Dâng hoa':'🌼 Em đã thực hiện hoạt động dâng hoa.',
+    'Thắp đèn':'🏮 Một ngọn đèn nhỏ tượng trưng cho trí tuệ và hy vọng.',
+    'Thỉnh chuông':'🔔 Tiếng chuông nhắc ta sống chậm và bình tâm.'
+  };
+  $('hallResult').textContent = messages[name];
+  notify(messages[name]);
 }
-function meditate(){
- document.getElementById('message').textContent=
- '🧘 Hãy hít thở nhẹ nhàng và dành một phút cho sự bình an.';
+
+let lotusCount = Number(localStorage.getItem('lotusCount') || 0);
+function updateLotus() {
+  $('lotusCount').textContent = lotusCount;
 }
-function saveWish(){
- let text=document.getElementById('wishText').value.trim();
- if(!text){alert('Bạn hãy viết lời nguyện trước nhé!');return;}
- wishes.unshift(text);
- localStorage.setItem('templeWishes',JSON.stringify(wishes));
- document.getElementById('wishText').value='';
- renderWishes();
+function plantLotus() {
+  lotusCount++;
+  localStorage.setItem('lotusCount',lotusCount);
+  updateLotus();
+  notify('🪷 Em đã trồng thêm một hoa sen!');
 }
-function renderWishes(){
- document.getElementById('wishList').innerHTML='';
- wishes.forEach(w=>{
- let p=document.createElement('p');
- p.textContent='🪷 '+w;
- p.style.cssText='padding:12px;background:#f5f0e5;border-radius:10px;text-align:left';
- document.getElementById('wishList').appendChild(p);
- });
+
+function savePrayer() {
+  const value = $('prayerInput').value.trim();
+  if(!value) {
+    notify('Em hãy viết nội dung trước nhé.');
+    return;
+  }
+  const list = JSON.parse(localStorage.getItem('prayers') || '[]');
+  list.unshift(value);
+  localStorage.setItem('prayers',JSON.stringify(list.slice(0,30)));
+  $('prayerInput').value = '';
+  renderPrayers();
+  notify('Đã lưu lời nguyện trên thiết bị.');
 }
-function addLotus(){
- if(data.lotus>=30){alert('Vườn sen đã có 30 bông!');return;}
- data.lotus++;
- update();
+
+function renderPrayers() {
+  const list = JSON.parse(localStorage.getItem('prayers') || '[]');
+  $('prayerList').innerHTML = '';
+  if(!list.length) {
+    $('prayerList').textContent = 'Chưa có lời nguyện nào.';
+    return;
+  }
+  list.forEach(item => {
+    const p = document.createElement('p');
+    p.textContent = '📿 ' + item;
+    $('prayerList').appendChild(p);
+  });
 }
-update();
-renderWishes();
+
+function meditate() {
+  const lines = [
+    'Hít vào nhẹ nhàng, thở ra chậm rãi.',
+    'Hãy chú ý đến nhịp thở của mình.',
+    'Thả lỏng vai và nghỉ ngơi một chút.',
+    'Khi sẵn sàng, em có thể tiếp tục ngày mới.'
+  ];
+  let i = 0;
+  $('breathText').textContent = lines[i];
+  const timer = setInterval(() => {
+    i++;
+    if(i >= lines.length) {
+      clearInterval(timer);
+      $('breathText').textContent = 'Một phút tĩnh tâm đã kết thúc. Chúc em một ngày bình an.';
+      return;
+    }
+    $('breathText').textContent = lines[i];
+  },15000);
+}
+
+updateLotus();
+renderPrayers();
 </script>
 </body>
-  </html>
-  
+</html>
