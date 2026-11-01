@@ -14,12 +14,16 @@ header p{margin:0;font-size:12px}
 main{max-width:1000px;margin:auto;padding:12px}
 .topbar{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
 .tag{background:#fff9e9;border-radius:20px;padding:9px 12px;font-size:13px}
-.game{width:100%;height: min(65vh,600px);min-height:380px;overflow:hidden;border:5px solid #795039;border-radius:15px;background:#a9ce91;position:relative;touch-action:pan-y}
+.game{width:100%;height:min(65vh,600px);min-height:380px;overflow:hidden;border:5px solid #795039;border-radius:15px;background:#a9ce91;position:relative;touch-action:pan-y}
 svg{width:100%;height:100%;display:block}
 .zone{cursor:pointer}
 .zone:active{opacity:.8}
 .zone-label{font-size:17px;font-weight:bold;fill:#fff5d9;paint-order:stroke;stroke:#553b29;stroke-width:4px;stroke-linejoin:round}
-.info{background:#fff8e8;border-radius:12px;padding:13px;margin-top:10px;min-height:65px;font-size:14px;line-height:1.5}
+.info{background:#fff8e8;border-radius:12px;padding:14px;margin-top:10px;min-height:90px;font-size:14px;line-height:1.5}
+.info h3{margin:0 0 7px;color:#70452e}
+.visit-btn{background:#668957;color:white;border:0;border-radius:10px;padding:11px 15px;font-weight:bold;margin-top:10px;font-size:14px}
+.visit-btn:disabled{background:#999}
+.progress{background:#f4e5c8;border-radius:10px;padding:10px;margin-top:9px;font-size:13px}
 .controls{display:flex;justify-content:center;align-items:center;gap:18px;margin:15px auto 5px}
 .pad{display:grid;grid-template-columns:54px 54px 54px;grid-template-rows:48px 48px 48px;gap:5px}
 .ctrl{border:0;border-radius:13px;background:#795039;color:white;font-size:23px;font-weight:bold;box-shadow:0 3px #4d3021;touch-action:none;user-select:none}
@@ -47,6 +51,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
 <div class="topbar">
  <div class="tag">🌿 Người chơi: Tiểu An</div>
  <div class="tag" id="location">📍 Sân chùa</div>
+ <div class="tag" id="count">📖 Đã ghé thăm: 0</div>
 </div>
 
 <div class="game" id="game">
@@ -65,20 +70,16 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
   <rect width="34" height="22" fill="#d7b68c"/>
   <path d="M0 0H34M0 11H34M17 0V11M0 11V22M34 11V22" stroke="#c19a70" stroke-width="1"/>
  </pattern>
- <filter id="shadow"><feGaussianBlur stdDeviation="5"/></filter>
 </defs>
 
-<!-- Nền sân vườn -->
 <rect width="1100" height="760" fill="url(#grass)"/>
 <path d="M0 300 Q300 250 540 340 T1100 310 L1100 500 Q700 470 500 520 T0 500Z" fill="#d6bd94" opacity=".6"/>
 <path d="M0 370 Q250 335 480 390 T1100 370" fill="none" stroke="#e9d7b4" stroke-width="5"/>
 
-<!-- Đường gạch trung tâm -->
 <path d="M470 160 L640 160 L640 760 L470 760Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
 <path d="M0 445 Q270 410 470 460 L470 590 Q230 540 0 590Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
 <path d="M640 450 Q850 400 1100 445 L1100 580 Q840 530 640 590Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
 
-<!-- Rừng cây -->
 <g font-size="60">
  <text x="30" y="120">🌳</text><text x="150" y="80">🎋</text>
  <text x="850" y="100">🌳</text><text x="990" y="170">🌳</text>
@@ -86,8 +87,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="240" y="720">🌳</text><text x="820" y="730">🌳</text>
 </g>
 
-<!-- Chính điện -->
-<g class="zone" data-name="Chính điện" data-info="Chính điện – không gian trang nghiêm để lễ Phật và tìm sự bình an.">
+<g class="zone" data-name="Chính điện" data-info="Chính điện là không gian trang nghiêm để lễ Phật, tĩnh tâm và tìm sự bình an." data-action="Em có thể dành một phút tĩnh tâm và gửi lời chúc bình an.">
  <ellipse cx="550" cy="215" rx="190" ry="20" fill="#526b46" opacity=".3"/>
  <rect x="405" y="110" width="290" height="130" rx="5" fill="#e9d5ad" stroke="#70462d" stroke-width="7"/>
  <path d="M380 125 Q550 5 720 125 L690 145 Q550 80 410 145Z" fill="url(#roof)" stroke="#643522" stroke-width="7"/>
@@ -98,8 +98,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="550" y="100" text-anchor="middle" class="zone-label">CHÍNH ĐIỆN</text>
 </g>
 
-<!-- Nhà Tổ -->
-<g class="zone" data-name="Nhà Tổ" data-info="Nhà Tổ – nơi tưởng nhớ và tri ân các vị Tổ sư.">
+<g class="zone" data-name="Nhà Tổ" data-info="Nhà Tổ là nơi tưởng nhớ và tri ân các vị Tổ sư." data-action="Em có thể tìm hiểu thêm về lịch sử và truyền thống của ngôi chùa.">
  <rect x="90" y="160" width="190" height="105" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
  <path d="M65 170 Q185 75 305 170 L280 187 Q185 125 90 187Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
  <path d="M125 185V265 M245 185V265" stroke="#8a4931" stroke-width="12"/>
@@ -107,8 +106,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="185" y="150" text-anchor="middle" class="zone-label">NHÀ TỔ</text>
 </g>
 
-<!-- Tháp chuông -->
-<g class="zone" data-name="Tháp Chuông" data-info="Tháp Chuông – nơi tiếng chuông ngân vang giữa không gian thanh tịnh.">
+<g class="zone" data-name="Tháp Chuông" data-info="Tháp Chuông là nơi tiếng chuông ngân vang giữa không gian thanh tịnh." data-action="Hãy tưởng tượng tiếng chuông chùa vang nhẹ giữa khu vườn yên tĩnh.">
  <rect x="830" y="135" width="150" height="125" fill="#e8d4ad" stroke="#75472e" stroke-width="6"/>
  <path d="M810 145 L905 75 L1000 145 L980 160 L905 115 L830 160Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
  <path d="M880 165V250 M930 165V250" stroke="#85482f" stroke-width="10"/>
@@ -116,8 +114,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="905" y="65" text-anchor="middle" class="zone-label">THÁP CHUÔNG</text>
 </g>
 
-<!-- Cổng tam quan -->
-<g class="zone" data-name="Cổng Tam Quan" data-info="Cổng Tam Quan – lối vào chốn thiền môn An Yên Tịnh Cảnh.">
+<g class="zone" data-name="Cổng Tam Quan" data-info="Cổng Tam Quan là lối vào chốn thiền môn An Yên Tịnh Cảnh." data-action="Em đã đến cổng chùa. Hãy bắt đầu hành trình khám phá với tâm thế bình an.">
  <rect x="355" y="600" width="390" height="100" fill="#b96a45" stroke="#75432d" stroke-width="7"/>
  <rect x="390" y="620" width="75" height="80" fill="#533b2c"/>
  <rect x="510" y="620" width="80" height="80" fill="#533b2c"/>
@@ -126,8 +123,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="550" y="595" text-anchor="middle" class="zone-label">CỔNG TAM QUAN</text>
 </g>
 
-<!-- Hồ sen -->
-<g class="zone" data-name="Hồ Sen An Nhiên" data-info="Hồ Sen An Nhiên – hồ nước xanh với hoa sen và cá nhỏ.">
+<g class="zone" data-name="Hồ Sen An Nhiên" data-info="Hồ Sen An Nhiên là hồ nước xanh với hoa sen và cá nhỏ." data-action="Em có thể ngắm hoa sen, quan sát mặt nước và nghỉ chân một chút.">
  <ellipse cx="880" cy="440" rx="165" ry="110" fill="#876c46"/>
  <ellipse cx="880" cy="430" rx="155" ry="100" fill="url(#water)" stroke="#d7c18e" stroke-width="7"/>
  <g fill="#3f9277">
@@ -138,8 +134,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="880" y="550" text-anchor="middle" class="zone-label">HỒ SEN AN NHIÊN</text>
 </g>
 
-<!-- Vườn hoa bốn mùa -->
-<g class="zone" data-name="Vườn Hoa Bốn Mùa" data-info="Vườn Hoa Bốn Mùa – khu vườn rực rỡ với nhiều luống hoa và lối đi nhỏ.">
+<g class="zone" data-name="Vườn Hoa Bốn Mùa" data-info="Vườn Hoa Bốn Mùa là khu vườn rực rỡ với nhiều luống hoa và lối đi nhỏ." data-action="Em hãy ngắm nhìn những khóm hoa và tận hưởng không khí trong lành.">
  <rect x="55" y="400" width="300" height="180" rx="24" fill="#789b59" stroke="#e4d2a7" stroke-width="7"/>
  <path d="M80 440 Q190 415 325 440 M80 490 Q190 465 325 490 M80 540 Q190 515 325 540" stroke="#d7b88a" stroke-width="9" fill="none"/>
  <g font-size="27">
@@ -150,8 +145,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="205" y="390" text-anchor="middle" class="zone-label">VƯỜN HOA BỐN MÙA</text>
 </g>
 
-<!-- Rừng trúc -->
-<g class="zone" data-name="Rừng Trúc An Yên" data-info="Rừng Trúc An Yên – lối nhỏ dưới những hàng trúc xanh mát.">
+<g class="zone" data-name="Rừng Trúc An Yên" data-info="Rừng Trúc An Yên là lối nhỏ dưới những hàng trúc xanh mát." data-action="Em có thể dừng chân dưới bóng trúc và dành chút thời gian thư giãn.">
  <rect x="760" y="590" width="300" height="130" rx="20" fill="#6f9a62" stroke="#d7c18e" stroke-width="5"/>
  <g stroke="#346b42" stroke-width="8">
  <path d="M790 600V710 M820 600V710 M850 600V710 M890 600V710 M930 600V710 M970 600V710 M1010 600V710"/>
@@ -162,8 +156,7 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="910" y="745" text-anchor="middle" class="zone-label">RỪNG TRÚC AN YÊN</text>
 </g>
 
-<!-- Thư viện -->
-<g class="zone" data-name="Thư Viện Kinh Sách" data-info="Thư viện Kinh Sách – nơi tìm hiểu kiến thức và đọc sách trong không gian yên tĩnh.">
+<g class="zone" data-name="Thư Viện Kinh Sách" data-info="Thư viện Kinh Sách là nơi tìm hiểu kiến thức và đọc sách trong không gian yên tĩnh." data-action="Em có thể chọn một cuốn sách và bắt đầu tìm hiểu những điều bổ ích.">
  <rect x="70" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
  <path d="M50 295 L180 230 L310 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
  <rect x="125" y="310" width="110" height="65" fill="#765039"/>
@@ -171,15 +164,13 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="180" y="280" text-anchor="middle" class="zone-label">THƯ VIỆN</text>
 </g>
 
-<!-- Nhà học tập -->
-<g class="zone" data-name="Nhà Học Tập" data-info="Nhà Học Tập – khu vực tìm hiểu, học hỏi và sinh hoạt chung.">
+<g class="zone" data-name="Nhà Học Tập" data-info="Nhà Học Tập là khu vực tìm hiểu, học hỏi và sinh hoạt chung." data-action="Đây là nơi dành cho những hoạt động học tập và chia sẻ kiến thức.">
  <rect x="800" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
  <path d="M780 295 L910 230 L1040 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
  <rect x="865" y="310" width="90" height="65" fill="#765039"/>
  <text x="910" y="280" text-anchor="middle" class="zone-label">NHÀ HỌC TẬP</text>
 </g>
 
-<!-- Cây và hoa trang trí -->
 <g font-size="30">
  <text x="20" y="270">🌼</text><text x="320" y="130">🌸</text>
  <text x="750" y="250">🌺</text><text x="730" y="520">🌻</text>
@@ -187,7 +178,6 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  <text x="400" y="550">🌸</text><text x="720" y="570">🌺</text>
 </g>
 
-<!-- Nhân vật -->
 <g id="player" transform="translate(550 420)">
  <ellipse cx="0" cy="28" rx="18" ry="6" fill="#344a31" opacity=".35"/>
  <path d="M-14 2 Q-18 12 -14 26 L14 26 Q18 12 14 2Z" fill="#f3e2bd" stroke="#765039" stroke-width="2"/>
@@ -205,6 +195,10 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
 🌸 Chào mừng em đến với An Yên Tịnh Cảnh! Hãy dùng nút điều khiển để đưa Tiểu An đi tham quan các khu vực.
 </div>
 
+<div class="progress" id="progress">
+📚 **Sổ hành trình:** Em chưa ghé thăm địa điểm nào. Hãy khám phá ngôi chùa nhé!
+</div>
+
 <div class="controls">
  <div class="pad">
   <button class="ctrl up" data-dir="up">▲</button>
@@ -214,16 +208,38 @@ footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
  </div>
  <button class="explore" id="explore">🔍<br>Khám phá</button>
 </div>
-<p class="hint">Nhấn giữ các nút mũi tên để di chuyển. Chạm vào công trình trên bản đồ để xem thông tin.</p>
+
+<p class="hint">Nhấn giữ các nút mũi tên để di chuyển. Chạm vào công trình hoặc đến gần rồi nhấn Khám phá.</p>
 </main>
-<footer>AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0C NÂNG CẤP</footer>
+
+<footer>AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0D</footer>
 
 <script>
 const player=document.getElementById('player');
 const info=document.getElementById('info');
 const locationText=document.getElementById('location');
-const game=document.getElementById('game');
+const countText=document.getElementById('count');
+const progress=document.getElementById('progress');
+
 let x=550,y=420,timer=null;
+let selectedZone=null;
+
+let visited=[];
+try{
+ visited=JSON.parse(localStorage.getItem('anyen_visited')||'[]');
+ if(!Array.isArray(visited))visited=[];
+}catch(e){visited=[]}
+
+const zones=[...document.querySelectorAll('.zone')];
+
+function updateProgress(){
+ countText.textContent='📖 Đã ghé thăm: '+visited.length+'/'+zones.length;
+ if(visited.length===0){
+  progress.textContent='📚 Sổ hành trình: Em chưa ghé thăm địa điểm nào. Hãy khám phá ngôi chùa nhé!';
+ }else{
+  progress.textContent='📚 Sổ hành trình: '+visited.join(' · ');
+ }
+}
 
 function draw(){
  player.setAttribute('transform',`translate(${x} ${y})`);
@@ -237,6 +253,33 @@ function draw(){
  else if(y>590 && x>340 && x<760)name='Cổng Tam Quan';
  locationText.textContent='📍 '+name;
 }
+
+function showZone(zone){
+ selectedZone=zone;
+ const name=zone.dataset.name;
+ const already=visited.includes(name);
+ info.innerHTML=`
+  <h3>🏯 ${name}</h3>
+  <div>${zone.dataset.info}</div>
+  <div style="margin-top:7px">🌿 ${zone.dataset.action}</div>
+  <button class="visit-btn" id="visitBtn" ${already?'disabled':''}>
+   ${already?'✓ Đã ghé thăm':'📍 Đánh dấu đã ghé thăm'}
+  </button>
+ `;
+ const btn=document.getElementById('visitBtn');
+ if(btn && !already){
+  btn.addEventListener('click',()=>{
+   if(!visited.includes(name)){
+    visited.push(name);
+    try{localStorage.setItem('anyen_visited',JSON.stringify(visited))}catch(e){}
+    updateProgress();
+    btn.textContent='✓ Đã ghé thăm';
+    btn.disabled=true;
+   }
+  });
+ }
+}
+
 function move(dir){
  const step=12;
  if(dir==='up')y-=step;
@@ -247,43 +290,63 @@ function move(dir){
  y=Math.max(30,Math.min(720,y));
  draw();
 }
-function stop(){if(timer)clearInterval(timer);timer=null}
-function start(dir){stop();move(dir);timer=setInterval(()=>move(dir),110)}
+
+function stop(){
+ if(timer)clearInterval(timer);
+ timer=null;
+}
+
+function start(dir){
+ stop();
+ move(dir);
+ timer=setInterval(()=>move(dir),110);
+}
+
 document.querySelectorAll('[data-dir]').forEach(btn=>{
  const dir=btn.dataset.dir;
- btn.addEventListener('pointerdown',e=>{e.preventDefault();start(dir)});
+ btn.addEventListener('pointerdown',e=>{
+  e.preventDefault();
+  start(dir);
+ });
  btn.addEventListener('pointerup',stop);
  btn.addEventListener('pointerleave',stop);
  btn.addEventListener('pointercancel',stop);
 });
+
 window.addEventListener('pointerup',stop);
 window.addEventListener('blur',stop);
+
 window.addEventListener('keydown',e=>{
  const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
- if(keys[e.key]){e.preventDefault();move(keys[e.key])}
+ if(keys[e.key]){
+  e.preventDefault();
+  move(keys[e.key]);
+ }
 });
 
-document.querySelectorAll('.zone').forEach(zone=>{
- zone.addEventListener('click',()=>{
-  info.innerHTML='<b>🏯 '+zone.dataset.name+'</b><br>'+zone.dataset.info;
- });
+zones.forEach(zone=>{
+ zone.addEventListener('click',()=>showZone(zone));
 });
+
 document.getElementById('explore').addEventListener('click',()=>{
- const zones=[...document.querySelectorAll('.zone')];
  let closest=null,best=Infinity;
  zones.forEach(zone=>{
   const box=zone.getBBox();
-  const cx=box.x+box.width/2,cy=box.y+box.height/2;
+  const cx=box.x+box.width/2;
+  const cy=box.y+box.height/2;
   const d=Math.hypot(cx-x,cy-y);
   if(d<best){best=d;closest=zone}
  });
  if(closest && best<190){
-  info.innerHTML='<b>🏯 '+closest.dataset.name+'</b><br>'+closest.dataset.info;
+  showZone(closest);
  }else{
   info.textContent='Em hãy di chuyển đến gần một công trình hoặc khu vực rồi nhấn Khám phá nhé!';
  }
 });
+
+updateProgress();
 draw();
 </script>
 </body>
-</html>
+  </html>
+ 
