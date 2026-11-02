@@ -3,423 +3,384 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>An Yên Tịnh Cảnh 2.0E</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5f1e7">
+<title>An Yên Tịnh Cảnh | Chùa Online</title>
 <style>
+:root{
+  --cream:#f7f3e9;
+  --paper:#fffdf7;
+  --green:#58745b;
+  --green2:#e8efe3;
+  --brown:#76563d;
+  --ink:#3f493d;
+  --muted:#858879;
+  --gold:#c49b57;
+  --line:#e9e3d5;
+}
 *{box-sizing:border-box}
-body{margin:0;background:#eee6d4;color:#493321;font-family:Arial,sans-serif}
-header{background:#603b29;color:#fff1d3;text-align:center;padding:17px 8px}
-header h1{font-size:23px;margin:0 0 5px}
-header p{margin:0;font-size:12px}
-main{max-width:1000px;margin:auto;padding:12px}
-.topbar{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-.tag{background:#fff9e9;border-radius:20px;padding:9px 12px;font-size:13px}
-.game{width:100%;height:min(65vh,600px);min-height:380px;overflow:hidden;border:5px solid #795039;border-radius:15px;background:#a9ce91;touch-action:pan-y}
-svg{width:100%;height:100%;display:block}
-.zone{cursor:pointer}
-.zone:active{opacity:.8}
-.zone-label{font-size:17px;font-weight:bold;fill:#fff5d9;paint-order:stroke;stroke:#553b29;stroke-width:4px;stroke-linejoin:round}
-.info,.panel{background:#fff8e8;border-radius:12px;padding:14px;margin-top:10px;font-size:14px;line-height:1.5}
-.info h3,.panel h3{margin:0 0 7px;color:#70452e}
+body{
+  margin:0;
+  background:var(--cream);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+button,input{font:inherit}
 button{cursor:pointer}
-.visit-btn,.action-btn{background:#668957;color:white;border:0;border-radius:10px;padding:11px 15px;font-weight:bold;margin-top:10px;font-size:14px}
-.visit-btn:disabled{background:#999}
-.progress{background:#f4e5c8;border-radius:10px;padding:10px;margin-top:9px;font-size:13px;line-height:1.6}
-.controls{display:flex;justify-content:center;align-items:center;gap:18px;margin:15px auto 5px}
-.pad{display:grid;grid-template-columns:54px 54px 54px;grid-template-rows:48px 48px 48px;gap:5px}
-.ctrl{border:0;border-radius:13px;background:#795039;color:white;font-size:23px;font-weight:bold;box-shadow:0 3px #4d3021;touch-action:none;user-select:none}
-.ctrl:active{background:#b17c4d;transform:translateY(2px)}
-.up{grid-column:2;grid-row:1}.left{grid-column:1;grid-row:2}
-.down{grid-column:2;grid-row:3}.right{grid-column:3;grid-row:2}
-.explore{background:#668957;color:white;border:0;border-radius:12px;padding:15px 13px;font-weight:bold;font-size:14px}
-.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
-.menu button{border:0;border-radius:12px;background:#795039;color:#fff4dc;padding:12px 5px;font-size:13px;font-weight:bold}
-.menu button:active{background:#a8794e}
-input,textarea{width:100%;border:1px solid #cbb38d;border-radius:9px;padding:11px;font:14px Arial;background:#fffdf6;color:#493321}
-textarea{min-height:90px;resize:vertical}
-.entry{background:#f4e9d5;border-radius:9px;padding:10px;margin-top:8px;white-space:pre-wrap}
-.small{font-size:12px;color:#806d58}
-.timer{font-size:32px;font-weight:bold;color:#668957;text-align:center;margin:14px}
-.hint{text-align:center;font-size:12px;color:#76634c;margin:10px}
-footer{text-align:center;padding:14px;font-size:12px;color:#806d58}
-@media(max-width:450px){
- main{padding:8px}
- .game{height:440px;min-height:390px}
- .controls{gap:12px}
- .pad{grid-template-columns:48px 48px 48px;grid-template-rows:45px 45px 45px}
- .menu{grid-template-columns:repeat(2,1fr)}
+.page{max-width:1000px;margin:auto;padding:18px 16px 40px}
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:12px;margin-bottom:18px
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{
+  width:43px;height:43px;border-radius:15px;
+  display:grid;place-items:center;background:#e5ebdc;font-size:23px
+}
+.brand-name{font-weight:800;font-size:15px;letter-spacing:.2px}
+.brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
+.top-tag{
+  font-size:11px;color:var(--green);background:#e8efe3;
+  border-radius:30px;padding:7px 10px;white-space:nowrap
+}
+.hero{
+  background:linear-gradient(130deg,#e6eddf,#f5edda);
+  border:1px solid #e4e6d8;border-radius:25px;
+  padding:25px 20px;position:relative;overflow:hidden;
+}
+.hero:after{
+  content:"🪷";position:absolute;right:17px;bottom:4px;
+  font-size:76px;opacity:.18;transform:rotate(-12deg)
+}
+.eyebrow{font-size:11px;letter-spacing:2px;color:var(--green);font-weight:800}
+h1{font-family:Georgia,serif;font-size:clamp(27px,6vw,40px);
+  line-height:1.15;margin:10px 0;color:#465b45}
+.hero p{font-size:13px;line-height:1.7;color:#697565;max-width:520px;margin:0}
+.hero-note{font-size:11px;color:#78836f;margin-top:15px}
+.section-head{
+  display:flex;align-items:end;justify-content:space-between;
+  gap:10px;margin:25px 2px 13px
+}
+.section-head h2{font-size:18px;margin:0;color:#485c48}
+.section-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
+.count{font-size:11px;color:var(--green);font-weight:700}
+.search{
+  display:flex;align-items:center;gap:9px;background:var(--paper);
+  border:1px solid var(--line);border-radius:14px;padding:0 13px;
+  margin:14px 0 16px
+}
+.search span{font-size:17px}
+.search input{
+  border:0;outline:0;background:transparent;width:100%;
+  padding:13px 0;color:var(--ink);font-size:13px
+}
+.map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.area-card{
+  border:1px solid var(--line);border-radius:19px;background:var(--paper);
+  overflow:hidden;text-align:left;padding:0;color:var(--ink);
+  transition:transform .15s,border-color .15s;
+  box-shadow:0 3px 12px #54452b0a
+}
+.area-card:active{transform:scale(.98)}
+.area-art{
+  height:105px;display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden
+}
+.area-art:before,.area-art:after{
+  content:"";position:absolute;border-radius:50%;
+  background:#ffffff38
+}
+.area-art:before{width:110px;height:110px;top:-48px;left:-25px}
+.area-art:after{width:75px;height:75px;right:-15px;bottom:-35px}
+.art-icon{font-size:48px;filter:drop-shadow(0 4px 3px #53452b22);z-index:1}
+.area-letter{
+  position:absolute;left:10px;top:9px;background:#ffffffc9;
+  color:var(--green);font-size:10px;font-weight:800;
+  border-radius:8px;padding:5px 8px
+}
+.area-body{padding:12px 12px 13px}
+.area-title{font-size:13px;font-weight:800;line-height:1.35}
+.area-desc{font-size:10px;line-height:1.5;color:var(--muted);margin-top:5px;min-height:30px}
+.area-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
+.area-count{font-size:10px;color:var(--green);font-weight:700}
+.arrow{
+  width:25px;height:25px;border-radius:50%;background:var(--green2);
+  color:var(--green);display:grid;place-items:center;font-size:15px
+}
+.a{background:linear-gradient(140deg,#f2e1c8,#e8d0ad)}
+.b{background:linear-gradient(140deg,#e8e7d5,#c9d9c2)}
+.c{background:linear-gradient(140deg,#e9e1d5,#d5c8b3)}
+.d{background:linear-gradient(140deg,#dcebdd,#c5dfd2)}
+.e{background:linear-gradient(140deg,#e8e0d2,#d7d4bd)}
+.f{background:linear-gradient(140deg,#f0e3d3,#e3d0c1)}
+.g{background:linear-gradient(140deg,#f1e5c9,#e8d5a9)}
+.h{background:linear-gradient(140deg,#dce8e6,#c5d9d7)}
+.footer{
+  text-align:center;color:#969486;font-size:10px;
+  line-height:1.8;margin-top:28px;padding:16px 5px;
+  border-top:1px solid var(--line)
+}
+.screen{display:none}
+.screen.active{display:block}
+.back{
+  border:0;background:#e8efe3;color:var(--green);
+  padding:9px 13px;border-radius:12px;font-size:12px;font-weight:700;
+  margin:18px 0 14px
+}
+.detail-hero{
+  border-radius:21px;padding:19px;background:linear-gradient(130deg,#e6eddf,#f3ead8);
+  display:flex;align-items:center;gap:15px
+}
+.detail-icon{
+  width:76px;height:76px;border-radius:20px;background:#ffffff9c;
+  display:grid;place-items:center;font-size:43px;flex-shrink:0
+}
+.detail-hero h2{font-size:19px;margin:0 0 5px}
+.detail-hero p{font-size:11px;line-height:1.6;color:#697565;margin:0}
+.place-heading{font-size:15px;margin:22px 2px 10px}
+.place-list{display:grid;grid-template-columns:1fr;gap:9px}
+.place{
+  display:flex;align-items:center;gap:12px;background:var(--paper);
+  border:1px solid var(--line);border-radius:15px;padding:12px;
+  text-align:left;color:var(--ink);width:100%
+}
+.place-icon{
+  width:43px;height:43px;border-radius:13px;background:#edf0e5;
+  display:grid;place-items:center;font-size:23px;flex-shrink:0
+}
+.place-info{flex:1;min-width:0}
+.place-name{font-weight:750;font-size:12px}
+.place-desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
+.place-arrow{color:var(--green);font-size:18px}
+.place-detail{
+  margin-top:14px;padding:18px;border:1px solid var(--line);
+  background:var(--paper);border-radius:18px
+}
+.place-detail .big{font-size:48px;text-align:center;margin:8px}
+.place-detail h3{text-align:center;margin:8px 0;color:#485c48}
+.place-detail p{font-size:12px;color:#777b6e;line-height:1.7;text-align:center}
+.empty{
+  grid-column:1/-1;padding:25px;text-align:center;
+  color:var(--muted);font-size:12px;background:var(--paper);border-radius:15px
+}
+@media(min-width:650px){
+ .page{padding:25px 24px 45px}
+ .map-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+ .area-art{height:125px}
+ .place-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 </style>
 </head>
 <body>
-<header>
-<h1>🏯 AN YÊN TỊNH CẢNH</h1>
-<p>Chốn bình yên – Hành trình khám phá</p>
-</header>
+<div class="page">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">🪷</div>
+      <div>
+        <div class="brand-name">AN YÊN TỊNH CẢNH</div>
+        <div class="brand-sub">Không gian Chùa Online</div>
+      </div>
+    </div>
+    <div class="top-tag">BẢN THỬ NGHIỆM 2.0A</div>
+  </header>
 
-<main>
-<div class="topbar">
- <div class="tag">🌿 Người chơi: Tiểu An</div>
- <div class="tag" id="location">📍 Sân chùa</div>
- <div class="tag" id="count">📖 Đã ghé thăm: 0</div>
+  <main id="home" class="screen active">
+    <section class="hero">
+      <div class="eyebrow">CHÀO MỪNG BẠN ĐẾN THĂM</div>
+      <h1>An Yên Tịnh Cảnh</h1>
+      <p>Một không gian trực tuyến để khám phá văn hóa chùa Việt, tìm hiểu kiến thức, trải nghiệm hoạt động và lưu giữ những khoảnh khắc an yên.</p>
+      <div class="hero-note">🌿 Chậm lại một chút – bình yên thêm một chút.</div>
+    </section>
+
+    <div class="section-head">
+      <div>
+        <h2>Khám phá bản đồ</h2>
+        <p>Chọn một khu vực để bắt đầu hành trình</p>
+      </div>
+      <div class="count">08 KHU VỰC</div>
+    </div>
+
+    <label class="search">
+      <span>🔎</span>
+      <input id="searchInput" type="search" placeholder="Tìm khu vực hoặc địa điểm..." oninput="searchAreas(this.value)">
+    </label>
+
+    <section class="map-grid" id="mapGrid"></section>
+    <div class="footer">AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0A<br>Không gian khám phá văn hóa và trải nghiệm trực tuyến</div>
+  </main>
+
+  <main id="areaScreen" class="screen">
+    <button class="back" onclick="goHome()">← Quay lại bản đồ</button>
+    <section class="detail-hero">
+      <div class="detail-icon" id="detailIcon">🏯</div>
+      <div>
+        <div class="eyebrow" id="detailLetter">KHU VỰC A</div>
+        <h2 id="detailTitle">Cổng & Đón Tiếp</h2>
+        <p id="detailDesc"></p>
+      </div>
+    </section>
+    <h3 class="place-heading">Các địa điểm trong khu vực</h3>
+    <div class="place-list" id="placeList"></div>
+    <div id="placeDetail"></div>
+    <div class="footer">AN YÊN TỊNH CẢNH · CÙNG KHÁM PHÁ TỪNG GÓC NHỎ</div>
+  </main>
 </div>
-
-<div class="game">
-<svg id="map" viewBox="0 0 1100 760" preserveAspectRatio="xMidYMid meet">
-<defs>
- <linearGradient id="grass" x2="0" y2="1">
-  <stop stop-color="#c2d99a"/><stop offset="1" stop-color="#8eb77b"/>
- </linearGradient>
- <linearGradient id="water" x2="0" y2="1">
-  <stop stop-color="#8cc6b2"/><stop offset="1" stop-color="#438d83"/>
- </linearGradient>
- <linearGradient id="roof" x2="0" y2="1">
-  <stop stop-color="#b85b3e"/><stop offset="1" stop-color="#713522"/>
- </linearGradient>
- <pattern id="bricks" width="34" height="22" patternUnits="userSpaceOnUse">
-  <rect width="34" height="22" fill="#d7b68c"/>
-  <path d="M0 0H34M0 11H34M17 0V11M0 11V22M34 11V22" stroke="#c19a70"/>
- </pattern>
-</defs>
-
-<rect width="1100" height="760" fill="url(#grass)"/>
-<path d="M0 300 Q300 250 540 340 T1100 310 L1100 500 Q700 470 500 520 T0 500Z" fill="#d6bd94" opacity=".6"/>
-<path d="M470 160 L640 160 L640 760 L470 760Z" fill="url(#bricks)" stroke="#b58d65" stroke-width="4"/>
-<path d="M0 445 Q270 410 470 460 L470 590 Q230 540 0 590Z" fill="url(#bricks)"/>
-<path d="M640 450 Q850 400 1100 445 L1100 580 Q840 530 640 590Z" fill="url(#bricks)"/>
-
-<g font-size="60">
- <text x="30" y="120">🌳</text><text x="150" y="80">🎋</text>
- <text x="850" y="100">🌳</text><text x="990" y="170">🌳</text>
- <text x="30" y="700">🌴</text><text x="1020" y="700">🌴</text>
- <text x="240" y="720">🌳</text><text x="820" y="730">🌳</text>
-</g>
-
-<g class="zone" data-name="Chính điện" data-info="Chính điện là không gian trang nghiêm để lễ Phật, tĩnh tâm và tìm sự bình an." data-action="Em có thể dành một phút tĩnh tâm và gửi lời chúc bình an.">
- <rect x="405" y="110" width="290" height="130" rx="5" fill="#e9d5ad" stroke="#70462d" stroke-width="7"/>
- <path d="M380 125 Q550 5 720 125 L690 145 Q550 80 410 145Z" fill="url(#roof)" stroke="#643522" stroke-width="7"/>
- <path d="M390 120L365 145M710 120L735 145" stroke="#643522" stroke-width="9"/>
- <path d="M445 155V235M500 155V235M600 155V235M655 155V235" stroke="#8b4930" stroke-width="13"/>
- <rect x="520" y="160" width="60" height="80" fill="#6b3d29"/>
- <text x="550" y="100" text-anchor="middle" class="zone-label">CHÍNH ĐIỆN</text>
-</g>
-
-<g class="zone" data-name="Nhà Tổ" data-info="Nhà Tổ là nơi tưởng nhớ và tri ân các vị Tổ sư." data-action="Em có thể tìm hiểu thêm về lịch sử và truyền thống của ngôi chùa.">
- <rect x="90" y="160" width="190" height="105" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
- <path d="M65 170 Q185 75 305 170 L280 187 Q185 125 90 187Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
- <path d="M125 185V265M245 185V265" stroke="#8a4931" stroke-width="12"/>
- <rect x="165" y="190" width="45" height="75" fill="#70452e"/>
- <text x="185" y="150" text-anchor="middle" class="zone-label">NHÀ TỔ</text>
-</g>
-
-<g class="zone" data-name="Tháp Chuông" data-info="Tháp Chuông là nơi tiếng chuông ngân vang giữa không gian thanh tịnh." data-action="Hãy tưởng tượng tiếng chuông chùa vang nhẹ giữa khu vườn yên tĩnh.">
- <rect x="830" y="135" width="150" height="125" fill="#e8d4ad" stroke="#75472e" stroke-width="6"/>
- <path d="M810 145L905 75L1000 145L980 160L905 115L830 160Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
- <path d="M880 165V250M930 165V250" stroke="#85482f" stroke-width="10"/>
- <path d="M905 170Q875 195 890 220Q905 238 920 220Q935 195 905 170Z" fill="#c99a48"/>
- <text x="905" y="65" text-anchor="middle" class="zone-label">THÁP CHUÔNG</text>
-</g>
-
-<g class="zone" data-name="Cổng Tam Quan" data-info="Cổng Tam Quan là lối vào chốn thiền môn An Yên Tịnh Cảnh." data-action="Em đã đến cổng chùa. Hãy bắt đầu hành trình khám phá với tâm thế bình an.">
- <rect x="355" y="600" width="390" height="100" fill="#b96a45" stroke="#75432d" stroke-width="7"/>
- <rect x="390" y="620" width="75" height="80" fill="#533b2c"/>
- <rect x="510" y="620" width="80" height="80" fill="#533b2c"/>
- <rect x="635" y="620" width="75" height="80" fill="#533b2c"/>
- <path d="M335 610Q550 505 765 610L740 630Q550 560 360 630Z" fill="url(#roof)" stroke="#643522" stroke-width="7"/>
- <text x="550" y="595" text-anchor="middle" class="zone-label">CỔNG TAM QUAN</text>
-</g>
-
-<g class="zone" data-name="Hồ Sen An Nhiên" data-info="Hồ Sen An Nhiên là hồ nước xanh với hoa sen và cá nhỏ." data-action="Em có thể ngắm hoa sen, quan sát mặt nước và nghỉ chân một chút.">
- <ellipse cx="880" cy="440" rx="165" ry="110" fill="#876c46"/>
- <ellipse cx="880" cy="430" rx="155" ry="100" fill="url(#water)" stroke="#d7c18e" stroke-width="7"/>
- <g fill="#3f9277">
-  <ellipse cx="820" cy="400" rx="27" ry="12"/><ellipse cx="920" cy="455" rx="30" ry="13"/>
-  <ellipse cx="960" cy="390" rx="25" ry="12"/><ellipse cx="850" cy="475" rx="25" ry="12"/>
- </g>
- <g font-size="33"><text x="790" y="390">🪷</text><text x="900" y="445">🪷</text><text x="950" y="380">🪷</text></g>
- <text x="880" y="550" text-anchor="middle" class="zone-label">HỒ SEN AN NHIÊN</text>
-</g>
-
-<g class="zone" data-name="Vườn Hoa Bốn Mùa" data-info="Vườn Hoa Bốn Mùa là khu vườn rực rỡ với nhiều luống hoa và lối đi nhỏ." data-action="Em hãy ngắm nhìn những khóm hoa và tận hưởng không khí trong lành.">
- <rect x="55" y="400" width="300" height="180" rx="24" fill="#789b59" stroke="#e4d2a7" stroke-width="7"/>
- <path d="M80 440Q190 415 325 440M80 490Q190 465 325 490M80 540Q190 515 325 540" stroke="#d7b88a" stroke-width="9" fill="none"/>
- <g font-size="27">
- <text x="85" y="435">🌷 🌼 🌸 🌺</text>
- <text x="85" y="485">🌻 🌸 🌼 🌷</text>
- <text x="85" y="535">🌺 🌼 🌻 🌸</text>
- </g>
- <text x="205" y="390" text-anchor="middle" class="zone-label">VƯỜN HOA BỐN MÙA</text>
-</g>
-
-<g class="zone" data-name="Rừng Trúc An Yên" data-info="Rừng Trúc An Yên là lối nhỏ dưới những hàng trúc xanh mát." data-action="Em có thể dừng chân dưới bóng trúc và dành chút thời gian thư giãn.">
- <rect x="760" y="590" width="300" height="130" rx="20" fill="#6f9a62" stroke="#d7c18e" stroke-width="5"/>
- <g stroke="#346b42" stroke-width="8">
- <path d="M790 600V710M820 600V710M850 600V710M890 600V710M930 600V710M970 600V710M1010 600V710"/>
- </g>
- <g stroke="#d3e4a2" stroke-width="3">
- <path d="M790 630l-22 -15M820 655l25 -15M850 620l-20 -15M890 650l25 -15M930 620l-20 -15M970 660l22 -15M1010 630l-20 -15"/>
- </g>
- <text x="910" y="745" text-anchor="middle" class="zone-label">RỪNG TRÚC AN YÊN</text>
-</g>
-
-<g class="zone" data-name="Thư Viện Kinh Sách" data-info="Thư viện Kinh Sách là nơi tìm hiểu kiến thức và đọc sách trong không gian yên tĩnh." data-action="Em có thể chọn một cuốn sách và bắt đầu tìm hiểu những điều bổ ích.">
- <rect x="70" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
- <path d="M50 295L180 230L310 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
- <rect x="125" y="310" width="110" height="65" fill="#765039"/>
- <path d="M145 320V365M175 320V365M205 320V365" stroke="#e7d2a9" stroke-width="5"/>
- <text x="180" y="280" text-anchor="middle" class="zone-label">THƯ VIỆN</text>
-</g>
-
-<g class="zone" data-name="Nhà Học Tập" data-info="Nhà Học Tập là khu vực tìm hiểu, học hỏi và sinh hoạt chung." data-action="Đây là nơi dành cho những hoạt động học tập và chia sẻ kiến thức.">
- <rect x="800" y="285" width="220" height="90" fill="#e7d2a9" stroke="#765039" stroke-width="6"/>
- <path d="M780 295L910 230L1040 295Z" fill="url(#roof)" stroke="#643522" stroke-width="6"/>
- <rect x="865" y="310" width="90" height="65" fill="#765039"/>
- <text x="910" y="280" text-anchor="middle" class="zone-label">NHÀ HỌC TẬP</text>
-</g>
-
-<!-- Cây Ước Nguyện -->
-<g class="zone" data-name="Cây Ước Nguyện" data-info="Cây Ước Nguyện là nơi em có thể gửi gắm những lời chúc tốt đẹp và hy vọng bình an." data-action="Mở mục Cây Ước Nguyện bên dưới để viết lời chúc của em.">
- <path d="M330 250Q310 200 350 170Q365 120 410 155Q455 115 475 170Q510 220 460 250Z" fill="#4e8950" stroke="#35683d" stroke-width="5"/>
- <path d="M395 245L395 335" stroke="#795039" stroke-width="24"/>
- <g font-size="25"><text x="340" y="195">🏮</text><text x="420" y="180">🏮</text><text x="385" y="235">🎋</text></g>
- <text x="400" y="355" text-anchor="middle" class="zone-label">CÂY ƯỚC NGUYỆN</text>
-</g>
-
-<!-- Tiểu An -->
-<g id="player" transform="translate(550 420)">
- <ellipse cx="0" cy="28" rx="18" ry="6" fill="#344a31" opacity=".35"/>
- <path d="M-14 2Q-18 12 -14 26L14 26Q18 12 14 2Z" fill="#f3e2bd" stroke="#765039" stroke-width="2"/>
- <circle cx="0" cy="-7" r="12" fill="#f0c99d" stroke="#70452e" stroke-width="2"/>
- <path d="M-12 -9Q-10 -25 5 -20Q16 -17 12 -5Q3 -13 -12 -9" fill="#423125"/>
- <circle cx="-4" cy="-7" r="1.5" fill="#34251d"/><circle cx="4" cy="-7" r="1.5" fill="#34251d"/>
- <path d="M-4 -1Q0 2 4 -1" fill="none" stroke="#9b5d4b" stroke-width="1.5"/>
- <path d="M-10 7L-17 17M10 7L17 17" stroke="#765039" stroke-width="4" stroke-linecap="round"/>
- <text x="0" y="45" text-anchor="middle" font-size="13" font-weight="bold" fill="#fff" stroke="#593d29" stroke-width="3" paint-order="stroke">Tiểu An</text>
-</g>
-</svg>
-</div>
-
-<div class="info" id="info">
-🌸 Chào mừng em đến với An Yên Tịnh Cảnh! Hãy dùng nút điều khiển để đưa Tiểu An đi tham quan các khu vực.
-</div>
-
-<div class="progress" id="progress">📚 Sổ hành trình: Chưa ghé thăm địa điểm nào.</div>
-
-<div class="controls">
- <div class="pad">
-  <button class="ctrl up" data-dir="up">▲</button>
-  <button class="ctrl left" data-dir="left">◀</button>
-  <button class="ctrl down" data-dir="down">▼</button>
-  <button class="ctrl right" data-dir="right">▶</button>
- </div>
- <button class="explore" id="explore">🔍<br>Khám phá</button>
-</div>
-<p class="hint">Nhấn giữ các nút mũi tên để di chuyển. Chạm công trình để xem thông tin.</p>
-
-<div class="menu">
- <button onclick="openPanel('wish')">🌳 Cây Ước Nguyện</button>
- <button onclick="openPanel('calm')">🪷 Góc Tĩnh Tâm</button>
- <button onclick="openPanel('diary')">📔 Nhật Ký An Yên</button>
-</div>
-
-<section class="panel" id="featurePanel">
- <h3>🌸 Góc An Yên</h3>
- <p>Chọn một hoạt động phía trên để bắt đầu trải nghiệm nhé!</p>
-</section>
-
-<footer>AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0E</footer>
 
 <script>
-const player=document.getElementById('player');
-const info=document.getElementById('info');
-const locationText=document.getElementById('location');
-const countText=document.getElementById('count');
-const progress=document.getElementById('progress');
-const featurePanel=document.getElementById('featurePanel');
+const areas=[
+ {id:"A",name:"Cổng & Đón Tiếp",icon:"🏯",art:"a",
+  desc:"Bắt đầu hành trình tại cổng chùa và không gian đón khách.",
+  places:[
+   ["Cổng Tam Quan","🏯","Lối vào trang nghiêm của ngôi chùa Việt."],
+   ["Sân Đón Khách","🌿","Không gian chào đón khách thập phương."],
+   ["Bảng Nội Quy","📜","Tìm hiểu những quy tắc khi tham quan."],
+   ["Bản Đồ Tổng Quan","🗺️","Xem các khu vực trong An Yên Tịnh Cảnh."]
+  ]},
+ {id:"B",name:"Khu Tâm Linh",icon:"🪷",art:"b",
+  desc:"Tìm hiểu kiến trúc, không gian thờ tự và nét đẹp văn hóa Phật giáo.",
+  places:[
+   ["Chính Điện","🛕","Không gian chính của ngôi chùa."],
+   ["Nhà Tổ","🏠","Nơi tìm hiểu về lịch sử và truyền thống nhà chùa."],
+   ["Tháp Chuông – Lầu Trống","🔔","Tìm hiểu ý nghĩa tiếng chuông và tiếng trống chùa."],
+   ["Cây Ước Nguyện","🌳","Không gian gửi gắm những lời nguyện tốt đẹp."]
+  ]},
+ {id:"C",name:"Khu Thiền Tu",icon:"🧘",art:"c",
+  desc:"Khám phá những hoạt động tĩnh tâm và tìm hiểu thực hành thiền.",
+  places:[
+   ["Phòng Thiền","🧘","Không gian tìm hiểu về sự tĩnh tâm."],
+   ["Góc Gõ Mõ","🥁","Tìm hiểu nhạc cụ và nghi thức trong chùa."],
+   ["Góc Tràng Hạt","📿","Tìm hiểu về tràng hạt và ý nghĩa sử dụng."],
+   ["Không Gian Tụng Kinh","📖","Tìm hiểu các bài kinh và nghi thức."],
+   ["Thỉnh Chuông","🔔","Khám phá ý nghĩa tiếng chuông chùa."]
+  ]},
+ {id:"D",name:"Khu Thiên Nhiên",icon:"🌸",art:"d",
+  desc:"Thư giãn giữa hồ sen, vườn cây và những góc thiên nhiên xanh mát.",
+  places:[
+   ["Hồ Sen","🪷","Ngắm vẻ đẹp thanh khiết của hoa sen."],
+   ["Hồ Cá An Nhiên","🐟","Không gian hồ nước và cảnh quan yên bình."],
+   ["Rừng Trúc An Yên","🎋","Khám phá không gian xanh của rừng trúc."],
+   ["Vườn Hoa Bốn Mùa","🌼","Khu vườn với sắc hoa theo mùa."],
+   ["Vườn Thiền","🍃","Một góc xanh dành cho sự tĩnh lặng."]
+  ]},
+ {id:"E",name:"Khu Học Tập",icon:"📚",art:"e",
+  desc:"Tìm hiểu kiến thức, văn hóa, lịch sử và nghệ thuật truyền thống.",
+  places:[
+   ["Bảo Tàng Phật Giáo","🏛️","Tìm hiểu lịch sử và di sản Phật giáo."],
+   ["Thư Viện Kinh Sách","📚","Không gian đọc và tìm hiểu sách."],
+   ["Nhà Học Tập","✏️","Nơi học hỏi kiến thức và văn hóa."],
+   ["Nhà Thư Pháp","🖌️","Khám phá nghệ thuật thư pháp."]
+  ]},
+ {id:"F",name:"Khu Cộng Đồng",icon:"🤝",art:"f",
+  desc:"Gặp gỡ, chia sẻ, học hỏi và tham gia các hoạt động cộng đồng.",
+  places:[
+   ["Góc Học Hỏi Phật Pháp","📖","Cùng tìm hiểu những bài học ý nghĩa."],
+   ["Góc Chia Sẻ Cuộc Sống","💬","Không gian chia sẻ câu chuyện tích cực."],
+   ["Khu Giao Lưu","👥","Giao lưu và kết nối mọi người."],
+   ["Sổ Kỷ Niệm","📔","Lưu giữ những kỷ niệm đáng nhớ."]
+  ]},
+ {id:"G",name:"Văn Hóa & Lễ Hội",icon:"🏮",art:"g",
+  desc:"Khám phá nét đẹp văn hóa Việt và những hoạt động ngày hội.",
+  places:[
+   ["Nhà Trai","🍚","Tìm hiểu không gian sinh hoạt và ẩm thực chùa."],
+   ["Quảng Trường An Lạc","🎐","Không gian tổ chức hoạt động chung."],
+   ["Chợ Quê Ngày Hội","🧺","Khám phá nét đẹp chợ quê truyền thống."],
+   ["Khu Sự Kiện","🎉","Nơi giới thiệu các chương trình và lễ hội."]
+  ]},
+ {id:"H",name:"Khu Hành Hương",icon:"⛰️",art:"h",
+  desc:"Khám phá những điểm đến mang cảm hứng bình yên và chiêm nghiệm.",
+  places:[
+   ["Đồi Hành Hương","⛰️","Con đường khám phá cảnh quan trên đồi."],
+   ["Đài Ngắm Bình Minh","🌅","Góc ngắm cảnh bình minh."],
+   ["Dòng Sông Đèn Lồng","🏮","Không gian văn hóa với đèn lồng lung linh."],
+   ["Vườn Bồ Đề","🌳","Khu vườn mang ý nghĩa chiêm nghiệm."]
+  ]}
+];
 
-let x=550,y=420,timer=null;
-let visited=[];
-let wishes=[];
-let diary=[];
-try{
- visited=JSON.parse(localStorage.getItem('anyen_visited')||'[]');
- wishes=JSON.parse(localStorage.getItem('anyen_wishes')||'[]');
- diary=JSON.parse(localStorage.getItem('anyen_diary')||'[]');
- if(!Array.isArray(visited))visited=[];
- if(!Array.isArray(wishes))wishes=[];
- if(!Array.isArray(diary))diary=[];
-}catch(e){visited=[];wishes=[];diary=[]}
-
-const zones=[...document.querySelectorAll('.zone')];
-
-function save(key,data){
- try{localStorage.setItem(key,JSON.stringify(data))}catch(e){}
-}
-
-function updateProgress(){
- countText.textContent='📖 Đã ghé thăm: '+visited.length+'/'+zones.length;
- progress.textContent=visited.length
- ?'📚 Sổ hành trình: '+visited.join(' · ')
- :'📚 Sổ hành trình: Em chưa ghé thăm địa điểm nào.';
-}
-
-function draw(){
- player.setAttribute('transform',`translate(${x} ${y})`);
- let name='Sân chùa';
- if(y<260&&x>370&&x<740)name='Chính điện';
- else if(x<300&&y<250)name='Nhà Tổ và Thư viện';
- else if(x>790&&y<270)name='Tháp Chuông';
- else if(x>720&&y>340&&y<570)name='Hồ Sen An Nhiên';
- else if(x<370&&y>380&&y<600)name='Vườn Hoa Bốn Mùa';
- else if(x>740&&y>580)name='Rừng Trúc An Yên';
- else if(y>590&&x>340&&x<760)name='Cổng Tam Quan';
- else if(x>300&&x<500&&y>130&&y<360)name='Cây Ước Nguyện';
- locationText.textContent='📍 '+name;
-}
-
-function showZone(zone){
- const name=zone.dataset.name;
- const already=visited.includes(name);
- info.innerHTML=`
- <h3>🏯 ${name}</h3>
- <div>${zone.dataset.info}</div>
- <div style="margin-top:7px">🌿 ${zone.dataset.action}</div>
- <button class="visit-btn" id="visitBtn" ${already?'disabled':''}>
- ${already?'✓ Đã ghé thăm':'📍 Đánh dấu đã ghé thăm'}
- </button>`;
- const btn=document.getElementById('visitBtn');
- if(btn&&!already){
-  btn.addEventListener('click',()=>{
-   if(!visited.includes(name)){
-    visited.push(name);
-    save('anyen_visited',visited);
-    updateProgress();
-    btn.textContent='✓ Đã ghé thăm';
-    btn.disabled=true;
-   }
-  });
+const mapGrid=document.getElementById("mapGrid");
+function renderAreas(list){
+ mapGrid.innerHTML="";
+ if(!list.length){
+  mapGrid.innerHTML='<div class="empty">Không tìm thấy khu vực phù hợp.</div>';
+  return;
  }
-}
-
-function move(dir){
- const step=12;
- if(dir==='up')y-=step;
- if(dir==='down')y+=step;
- if(dir==='left')x-=step;
- if(dir==='right')x+=step;
- x=Math.max(25,Math.min(1075,x));
- y=Math.max(30,Math.min(720,y));
- draw();
-}
-
-function stop(){
- if(timer)clearInterval(timer);
- timer=null;
-}
-function start(dir){
- stop();move(dir);
- timer=setInterval(()=>move(dir),110);
-}
-document.querySelectorAll('[data-dir]').forEach(btn=>{
- const dir=btn.dataset.dir;
- btn.addEventListener('pointerdown',e=>{
-  e.preventDefault();start(dir);
- });
- btn.addEventListener('pointerup',stop);
- btn.addEventListener('pointerleave',stop);
- btn.addEventListener('pointercancel',stop);
-});
-window.addEventListener('pointerup',stop);
-window.addEventListener('blur',stop);
-window.addEventListener('keydown',e=>{
- const keys={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right'};
- if(keys[e.key]){e.preventDefault();move(keys[e.key]);}
-});
-zones.forEach(zone=>zone.addEventListener('click',()=>showZone(zone)));
-
-document.getElementById('explore').addEventListener('click',()=>{
- let closest=null,best=Infinity;
- zones.forEach(zone=>{
-  const box=zone.getBBox();
-  const d=Math.hypot(box.x+box.width/2-x,box.y+box.height/2-y);
-  if(d<best){best=d;closest=zone;}
- });
- if(closest&&best<190)showZone(closest);
- else info.textContent='Em hãy di chuyển đến gần một công trình hoặc khu vực rồi nhấn Khám phá nhé!';
-});
-
-function openPanel(type){
- if(type==='wish'){
-  featurePanel.innerHTML=`
-   <h3>🌳 Cây Ước Nguyện</h3>
-   <p>Hãy viết một lời chúc tốt đẹp dành cho bản thân, gia đình hoặc mọi người.</p>
-   <textarea id="wishInput" placeholder="Ví dụ: Mong gia đình luôn bình an và mạnh khỏe..."></textarea>
-   <button class="action-btn" onclick="addWish()">Gửi lời chúc 🌿</button>
-   <div id="wishList"></div>`;
-  renderWishes();
- }
- if(type==='calm'){
-  featurePanel.innerHTML=`
-   <h3>🪷 Góc Tĩnh Tâm</h3>
-   <p>Hãy dành một phút ngồi yên, hít thở nhẹ nhàng và nghỉ ngơi sau hành trình khám phá.</p>
-   <div class="timer" id="calmTimer">01:00</div>
-   <div style="text-align:center">
-    <button class="action-btn" id="startCalm" onclick="startCalm()">Bắt đầu một phút</button>
-    <button class="action-btn" onclick="resetCalm()">Đặt lại</button>
+ list.forEach(area=>{
+  const card=document.createElement("button");
+  card.className="area-card";
+  card.innerHTML=`
+   <div class="area-art ${area.art}">
+    <span class="area-letter">${area.id}</span>
+    <span class="art-icon">${area.icon}</span>
    </div>
-   <p class="small" id="calmMessage">Một phút bình yên dành cho em.</p>`;
- }
- if(type==='diary'){
-  featurePanel.innerHTML=`
-   <h3>📔 Nhật Ký An Yên</h3>
-   <p>Ghi lại cảm nhận hoặc điều em thích trong chuyến tham quan hôm nay.</p>
-   <textarea id="diaryInput" placeholder="Hôm nay em đã ghé thăm..."></textarea>
-   <button class="action-btn" onclick="addDiary()">Lưu nhật ký ✍️</button>
-   <div id="diaryList"></div>`;
-  renderDiary();
- }
+   <div class="area-body">
+    <div class="area-title">${area.name}</div>
+    <div class="area-desc">${area.desc}</div>
+    <div class="area-bottom">
+     <span class="area-count">${area.places.length} địa điểm</span>
+     <span class="arrow">›</span>
+    </div>
+   </div>`;
+  card.addEventListener("click",()=>openArea(area.id));
+  mapGrid.appendChild(card);
+ });
 }
-
-function addWish(){
- const input=document.getElementById('wishInput');
- const value=input.value.trim();
- if(!value){alert('Em hãy viết lời chúc trước nhé!');return;}
- wishes.unshift({text:value,date:new Date().toLocaleDateString('vi-VN')});
- save('anyen_wishes',wishes);
- input.value='';
- renderWishes();
+function searchAreas(value){
+ const q=value.trim().toLocaleLowerCase("vi");
+ const filtered=areas.filter(a=>
+  a.id.toLowerCase().includes(q)||
+  a.name.toLocaleLowerCase("vi").includes(q)||
+  a.desc.toLocaleLowerCase("vi").includes(q)||
+  a.places.some(p=>p[0].toLocaleLowerCase("vi").includes(q))
+ );
+ renderAreas(filtered);
 }
-function renderWishes(){
- const list=document.getElementById('wishList');
- if(!list)return;
- list.innerHTML=wishes.length
- ?wishes.map(w=>`<div class="entry">🌸 ${escapeHTML(w.text)}<div class="small">${escapeHTML(w.date)}</div></div>`).join('')
- :'<p class="small">Chưa có lời chúc nào. Em hãy gửi lời chúc đầu tiên nhé!</p>';
+function openArea(id){
+ const area=areas.find(a=>a.id===id);
+ if(!area)return;
+ document.getElementById("home").classList.remove("active");
+ document.getElementById("areaScreen").classList.add("active");
+ document.getElementById("detailIcon").textContent=area.icon;
+ document.getElementById("detailLetter").textContent="KHU VỰC "+area.id;
+ document.getElementById("detailTitle").textContent=area.name;
+ document.getElementById("detailDesc").textContent=area.desc;
+ document.getElementById("placeDetail").innerHTML="";
+ const list=document.getElementById("placeList");
+ list.innerHTML="";
+ area.places.forEach((p,index)=>{
+  const button=document.createElement("button");
+  button.className="place";
+  button.innerHTML=`
+   <span class="place-icon">${p[1]}</span>
+   <span class="place-info">
+    <span class="place-name">${p[0]}</span>
+    <span class="place-desc">${p[2]}</span>
+   </span>
+   <span class="place-arrow">›</span>`;
+  button.addEventListener("click",()=>openPlace(area,index));
+  list.appendChild(button);
+ });
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function addDiary(){
- const input=document.getElementById('diaryInput');
- const value=input.value.trim();
- if(!value){alert('Em hãy viết vài dòng nhật ký nhé!');return;}
- diary.unshift({text:value,date:new Date().toLocaleString('vi-VN')});
- save('anyen_diary',diary);
- input.value='';
- renderDiary();
+function openPlace(area,index){
+ const p=area.places[index];
+ document.getElementById("placeDetail").innerHTML=`
+  <section class="place-detail">
+   <div class="eyebrow" style="text-align:center">KHÁM PHÁ ĐỊA ĐIỂM</div>
+   <div class="big">${p[1]}</div>
+   <h3>${p[0]}</h3>
+   <p>${p[2]}</p>
+   <p>Địa điểm này sẽ được phát triển thêm hình minh họa, nội dung giới thiệu và hoạt động trải nghiệm trong các phiên bản tiếp theo.</p>
+  </section>`;
+ document.getElementById("placeDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
 }
-function renderDiary(){
- const list=document.getElementById('diaryList');
- if(!list)return;
- list.innerHTML=diary.length
- ?diary.map(d=>`<div class="entry">📔 ${escapeHTML(d.text)}<div class="small">${escapeHTML(d.date)}</div></div>`).join('')
- :'<p class="small">Nhật ký của em đang chờ dòng ghi chép đầu tiên.</p>';
+function goHome(){
+ document.getElementById("areaScreen").classList.remove("active");
+ document.getElementById("home").classList.add("active");
+ document.getElementById("searchInput").value="";
+ renderAreas(areas);
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-
-function escapeHTML(value){
- return String(value).replace(/[&<>"']/g,char=>({
- '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
- })[char]);
-}
-
-let calmInterval=null;
-let calmRemaining=60;
-funct
+renderAreas(areas);
+</script>
+</body>
+ </html>
+ 
