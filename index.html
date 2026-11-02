@@ -3,384 +3,240 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#f5f1e7">
-<title>An Yên Tịnh Cảnh | Chùa Online</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#526b50">
+<title>An Yên Tịnh Cảnh – V2.0</title>
 <style>
-:root{
-  --cream:#f7f3e9;
-  --paper:#fffdf7;
-  --green:#58745b;
-  --green2:#e8efe3;
-  --brown:#76563d;
-  --ink:#3f493d;
-  --muted:#858879;
-  --gold:#c49b57;
-  --line:#e9e3d5;
-}
+:root{--green:#526b50;--light:#edf1e7;--cream:#faf7ed;--brown:#79583e;--gold:#c69b50}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:var(--cream);
-  color:var(--ink);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-}
-button,input{font:inherit}
-button{cursor:pointer}
-.page{max-width:1000px;margin:auto;padding:18px 16px 40px}
-.topbar{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-bottom:18px
-}
-.brand{display:flex;align-items:center;gap:10px}
-.brand-icon{
-  width:43px;height:43px;border-radius:15px;
-  display:grid;place-items:center;background:#e5ebdc;font-size:23px
-}
-.brand-name{font-weight:800;font-size:15px;letter-spacing:.2px}
-.brand-sub{font-size:11px;color:var(--muted);margin-top:2px}
-.top-tag{
-  font-size:11px;color:var(--green);background:#e8efe3;
-  border-radius:30px;padding:7px 10px;white-space:nowrap
-}
-.hero{
-  background:linear-gradient(130deg,#e6eddf,#f5edda);
-  border:1px solid #e4e6d8;border-radius:25px;
-  padding:25px 20px;position:relative;overflow:hidden;
-}
-.hero:after{
-  content:"🪷";position:absolute;right:17px;bottom:4px;
-  font-size:76px;opacity:.18;transform:rotate(-12deg)
-}
-.eyebrow{font-size:11px;letter-spacing:2px;color:var(--green);font-weight:800}
-h1{font-family:Georgia,serif;font-size:clamp(27px,6vw,40px);
-  line-height:1.15;margin:10px 0;color:#465b45}
-.hero p{font-size:13px;line-height:1.7;color:#697565;max-width:520px;margin:0}
-.hero-note{font-size:11px;color:#78836f;margin-top:15px}
-.section-head{
-  display:flex;align-items:end;justify-content:space-between;
-  gap:10px;margin:25px 2px 13px
-}
-.section-head h2{font-size:18px;margin:0;color:#485c48}
-.section-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
-.count{font-size:11px;color:var(--green);font-weight:700}
-.search{
-  display:flex;align-items:center;gap:9px;background:var(--paper);
-  border:1px solid var(--line);border-radius:14px;padding:0 13px;
-  margin:14px 0 16px
-}
-.search span{font-size:17px}
-.search input{
-  border:0;outline:0;background:transparent;width:100%;
-  padding:13px 0;color:var(--ink);font-size:13px
-}
-.map-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.area-card{
-  border:1px solid var(--line);border-radius:19px;background:var(--paper);
-  overflow:hidden;text-align:left;padding:0;color:var(--ink);
-  transition:transform .15s,border-color .15s;
-  box-shadow:0 3px 12px #54452b0a
-}
-.area-card:active{transform:scale(.98)}
-.area-art{
-  height:105px;display:flex;align-items:center;justify-content:center;
-  position:relative;overflow:hidden
-}
-.area-art:before,.area-art:after{
-  content:"";position:absolute;border-radius:50%;
-  background:#ffffff38
-}
-.area-art:before{width:110px;height:110px;top:-48px;left:-25px}
-.area-art:after{width:75px;height:75px;right:-15px;bottom:-35px}
-.art-icon{font-size:48px;filter:drop-shadow(0 4px 3px #53452b22);z-index:1}
-.area-letter{
-  position:absolute;left:10px;top:9px;background:#ffffffc9;
-  color:var(--green);font-size:10px;font-weight:800;
-  border-radius:8px;padding:5px 8px
-}
-.area-body{padding:12px 12px 13px}
-.area-title{font-size:13px;font-weight:800;line-height:1.35}
-.area-desc{font-size:10px;line-height:1.5;color:var(--muted);margin-top:5px;min-height:30px}
-.area-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
-.area-count{font-size:10px;color:var(--green);font-weight:700}
-.arrow{
-  width:25px;height:25px;border-radius:50%;background:var(--green2);
-  color:var(--green);display:grid;place-items:center;font-size:15px
-}
-.a{background:linear-gradient(140deg,#f2e1c8,#e8d0ad)}
-.b{background:linear-gradient(140deg,#e8e7d5,#c9d9c2)}
-.c{background:linear-gradient(140deg,#e9e1d5,#d5c8b3)}
-.d{background:linear-gradient(140deg,#dcebdd,#c5dfd2)}
-.e{background:linear-gradient(140deg,#e8e0d2,#d7d4bd)}
-.f{background:linear-gradient(140deg,#f0e3d3,#e3d0c1)}
-.g{background:linear-gradient(140deg,#f1e5c9,#e8d5a9)}
-.h{background:linear-gradient(140deg,#dce8e6,#c5d9d7)}
-.footer{
-  text-align:center;color:#969486;font-size:10px;
-  line-height:1.8;margin-top:28px;padding:16px 5px;
-  border-top:1px solid var(--line)
-}
-.screen{display:none}
-.screen.active{display:block}
-.back{
-  border:0;background:#e8efe3;color:var(--green);
-  padding:9px 13px;border-radius:12px;font-size:12px;font-weight:700;
-  margin:18px 0 14px
-}
-.detail-hero{
-  border-radius:21px;padding:19px;background:linear-gradient(130deg,#e6eddf,#f3ead8);
-  display:flex;align-items:center;gap:15px
-}
-.detail-icon{
-  width:76px;height:76px;border-radius:20px;background:#ffffff9c;
-  display:grid;place-items:center;font-size:43px;flex-shrink:0
-}
-.detail-hero h2{font-size:19px;margin:0 0 5px}
-.detail-hero p{font-size:11px;line-height:1.6;color:#697565;margin:0}
-.place-heading{font-size:15px;margin:22px 2px 10px}
-.place-list{display:grid;grid-template-columns:1fr;gap:9px}
-.place{
-  display:flex;align-items:center;gap:12px;background:var(--paper);
-  border:1px solid var(--line);border-radius:15px;padding:12px;
-  text-align:left;color:var(--ink);width:100%
-}
-.place-icon{
-  width:43px;height:43px;border-radius:13px;background:#edf0e5;
-  display:grid;place-items:center;font-size:23px;flex-shrink:0
-}
-.place-info{flex:1;min-width:0}
-.place-name{font-weight:750;font-size:12px}
-.place-desc{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.4}
-.place-arrow{color:var(--green);font-size:18px}
-.place-detail{
-  margin-top:14px;padding:18px;border:1px solid var(--line);
-  background:var(--paper);border-radius:18px
-}
-.place-detail .big{font-size:48px;text-align:center;margin:8px}
-.place-detail h3{text-align:center;margin:8px 0;color:#485c48}
-.place-detail p{font-size:12px;color:#777b6e;line-height:1.7;text-align:center}
-.empty{
-  grid-column:1/-1;padding:25px;text-align:center;
-  color:var(--muted);font-size:12px;background:var(--paper);border-radius:15px
-}
-@media(min-width:650px){
- .page{padding:25px 24px 45px}
- .map-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
- .area-art{height:125px}
- .place-list{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
+body{margin:0;background:var(--cream);color:#403d32;font-family:system-ui,-apple-system,sans-serif}
+header{background:linear-gradient(130deg,#405c48,#71866a);color:white;padding:25px 18px 22px;text-align:center}
+header h1{margin:0;font-size:25px}
+header p{margin:8px 0 0;font-size:13px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
+nav button{white-space:nowrap;border:0;background:#edf1e7;color:#405c48;border-radius:20px;padding:10px 14px;font-weight:600}
+nav button.active{background:var(--green);color:white}
+main{max-width:850px;margin:auto;padding:16px}
+h2{color:#526b50;font-size:21px}
+.intro{background:#e9eee2;border-radius:18px;padding:18px;margin-bottom:18px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.card{background:white;border:1px solid #e9e5d9;border-radius:17px;padding:16px;box-shadow:0 3px 12px #453b2510}
+.card .emoji{font-size:32px}
+.card h3{font-size:16px;margin:8px 0 5px;color:#526b50}
+.card p{font-size:13px;color:#777;margin:0 0 12px}
+button,.btn{cursor:pointer}
+.action{border:0;border-radius:12px;background:var(--green);color:white;padding:11px 15px;font-weight:600}
+.secondary{background:#e9eee2;color:#405c48}
+input,textarea{width:100%;padding:13px;border:1px solid #d8d7cb;border-radius:12px;font:inherit;background:white;margin:8px 0}
+textarea{min-height:90px;resize:vertical}
+.panel{background:white;border-radius:17px;padding:18px;margin:12px 0;border:1px solid #e9e5d9}
+.hidden{display:none}
+.back{background:none;border:0;color:#526b50;font-weight:700;padding:8px 0}
+.big{font-size:42px;text-align:center;margin:15px}
+.center{text-align:center}
+.counter{font-size:42px;color:#526b50;font-weight:700;text-align:center;margin:15px}
+.item{padding:12px 0;border-bottom:1px solid #eee}
+footer{text-align:center;color:#888;font-size:12px;padding:30px 10px}
+.small{font-size:12px;color:#888}
 </style>
 </head>
 <body>
-<div class="page">
-  <header class="topbar">
-    <div class="brand">
-      <div class="brand-icon">🪷</div>
-      <div>
-        <div class="brand-name">AN YÊN TỊNH CẢNH</div>
-        <div class="brand-sub">Không gian Chùa Online</div>
-      </div>
-    </div>
-    <div class="top-tag">BẢN THỬ NGHIỆM 2.0A</div>
-  </header>
+<header>
+  <h1>🪷 An Yên Tịnh Cảnh</h1>
+  <p>Một góc bình yên giữa thế giới trực tuyến</p>
+  <p><b>PHIÊN BẢN V2.0 – BẢN TRẢI NGHIỆM</b></p>
+</header>
 
-  <main id="home" class="screen active">
-    <section class="hero">
-      <div class="eyebrow">CHÀO MỪNG BẠN ĐẾN THĂM</div>
-      <h1>An Yên Tịnh Cảnh</h1>
-      <p>Một không gian trực tuyến để khám phá văn hóa chùa Việt, tìm hiểu kiến thức, trải nghiệm hoạt động và lưu giữ những khoảnh khắc an yên.</p>
-      <div class="hero-note">🌿 Chậm lại một chút – bình yên thêm một chút.</div>
-    </section>
+<nav id="nav">
+  <button class="active" data-page="home">🏡 Trang chủ</button>
+  <button data-page="areas">🗺️ Khám phá</button>
+  <button data-page="practice">🙏 Tu tập</button>
+  <button data-page="library">📚 Thư viện</button>
+  <button data-page="wish">🌳 Ước nguyện</button>
+  <button data-page="diary">📖 Nhật ký</button>
+</nav>
 
-    <div class="section-head">
-      <div>
-        <h2>Khám phá bản đồ</h2>
-        <p>Chọn một khu vực để bắt đầu hành trình</p>
-      </div>
-      <div class="count">08 KHU VỰC</div>
-    </div>
+<main>
+<section id="home" class="page">
+  <div class="intro">
+    <h2>Nam Mô Bổn Sư Thích Ca Mâu Ni Phật 🙏</h2>
+    <p>Chào mừng em đến với An Yên Tịnh Cảnh. Hãy dành một chút thời gian để thư giãn, học hỏi và khám phá những điều an lành.</p>
+    <button class="action" onclick="showPage('areas')">Bắt đầu khám phá →</button>
+  </div>
+  <h2>🌿 Không gian hôm nay</h2>
+  <div class="grid">
+    <div class="card"><div class="emoji">🔔</div><h3>Thỉnh chuông</h3><p>Lắng nghe âm thanh thanh tịnh.</p><button class="action" onclick="playBell()">Thỉnh chuông</button></div>
+    <div class="card"><div class="emoji">🪷</div><h3>Thiền an yên</h3><p>Dành một phút cho tâm trí.</p><button class="action" onclick="showPage('practice')">Bắt đầu</button></div>
+    <div class="card"><div class="emoji">🌳</div><h3>Cây ước nguyện</h3><p>Gửi gắm một lời nguyện lành.</p><button class="action" onclick="showPage('wish')">Viết lời nguyện</button></div>
+    <div class="card"><div class="emoji">📚</div><h3>Thư viện</h3><p>Đọc những bài học ý nghĩa.</p><button class="action" onclick="showPage('library')">Đọc sách</button></div>
+  </div>
+</section>
 
-    <label class="search">
-      <span>🔎</span>
-      <input id="searchInput" type="search" placeholder="Tìm khu vực hoặc địa điểm..." oninput="searchAreas(this.value)">
-    </label>
+<section id="areas" class="page hidden">
+  <h2>🗺️ Khám phá 8 khu vực</h2>
+  <p>Chọn một khu vực để tìm hiểu.</p>
+  <div class="grid" id="areaGrid"></div>
+  <div id="areaDetail" class="panel hidden"></div>
+</section>
 
-    <section class="map-grid" id="mapGrid"></section>
-    <div class="footer">AN YÊN TỊNH CẢNH · BẢN THỬ NGHIỆM 2.0A<br>Không gian khám phá văn hóa và trải nghiệm trực tuyến</div>
-  </main>
+<section id="practice" class="page hidden">
+  <h2>🙏 Không gian tu tập</h2>
+  <div class="grid">
+    <div class="card"><div class="emoji">🔔</div><h3>Thỉnh chuông</h3><p>Chạm để nghe âm thanh.</p><button class="action" onclick="playBell()">🔔 Thỉnh chuông</button></div>
+    <div class="card"><div class="emoji">🥁</div><h3>Gõ mõ</h3><p>Âm thanh mô phỏng nhẹ nhàng.</p><button class="action" onclick="playWood()">🥁 Gõ mõ</button></div>
+    <div class="card"><div class="emoji">📿</div><h3>Tràng hạt</h3><p>Đếm từng hạt theo nhịp.</p><div class="counter" id="beadCount">0</div><button class="action" onclick="countBead()">Lần hạt +1</button> <button class="action secondary" onclick="resetBead()">Đặt lại</button></div>
+    <div class="card"><div class="emoji">🧘</div><h3>Thiền định</h3><p>Dành thời gian nghỉ ngơi.</p><div class="counter" id="timer">01:00</div><div class="center"><button class="action" onclick="startMeditation()">Bắt đầu</button> <button class="action secondary" onclick="stopMeditation()">Dừng</button></div></div>
+  </div>
+</section>
 
-  <main id="areaScreen" class="screen">
-    <button class="back" onclick="goHome()">← Quay lại bản đồ</button>
-    <section class="detail-hero">
-      <div class="detail-icon" id="detailIcon">🏯</div>
-      <div>
-        <div class="eyebrow" id="detailLetter">KHU VỰC A</div>
-        <h2 id="detailTitle">Cổng & Đón Tiếp</h2>
-        <p id="detailDesc"></p>
-      </div>
-    </section>
-    <h3 class="place-heading">Các địa điểm trong khu vực</h3>
-    <div class="place-list" id="placeList"></div>
-    <div id="placeDetail"></div>
-    <div class="footer">AN YÊN TỊNH CẢNH · CÙNG KHÁM PHÁ TỪNG GÓC NHỎ</div>
-  </main>
-</div>
+<section id="library" class="page hidden">
+  <h2>📚 Thư viện An Yên</h2>
+  <div class="panel">
+    <h3>🪷 Bài đọc 1: Lòng biết ơn</h3>
+    <p>Biết ơn là học cách trân trọng những điều bình dị trong cuộc sống. Một lời hỏi thăm, một bữa cơm gia đình hay một ngày bình yên đều có thể là điều đáng quý.</p>
+    <button class="action" onclick="readArticle(0)">Đọc bài viết</button>
+    <div id="article0" class="hidden"><p>Thực hành lòng biết ơn bằng cách mỗi ngày ghi lại ba điều khiến mình cảm thấy vui hoặc trân trọng. Khi biết nhìn thấy điều tốt đẹp, ta có thể sống chậm lại và quan tâm đến mọi người nhiều hơn.</p></div>
+  </div>
+  <div class="panel">
+    <h3>🌱 Bài đọc 2: Tâm bình an</h3>
+    <p>Bình an không có nghĩa là cuộc sống không có khó khăn. Đó là khả năng dừng lại, hít thở và nhìn nhận mọi việc một cách bình tĩnh.</p>
+    <button class="action" onclick="readArticle(1)">Đọc bài viết</button>
+    <div id="article1" class="hidden"><p>Khi cảm thấy căng thẳng, hãy thử ngồi yên, thả lỏng vai và chú ý vào hơi thở. Không cần vội vàng, chỉ cần dành cho bản thân một khoảng nghỉ nhỏ.</p></div>
+  </div>
+  <div class="panel">
+    <h3>🌼 Bài đọc 3: Sống tử tế</h3>
+    <p>Một hành động tử tế dù nhỏ cũng có thể mang lại niềm vui cho người khác.</p>
+    <button class="action" onclick="readArticle(2)">Đọc bài viết</button>
+    <div id="article2" class="hidden"><p>Hãy bắt đầu từ những việc gần gũi: nói lời cảm ơn, biết lắng nghe, giúp đỡ khi có thể và tôn trọng sự khác biệt. Tử tế cũng là biết chăm sóc chính mình.</p></div>
+  </div>
+</section>
+
+<section id="wish" class="page hidden">
+  <h2>🌳 Cây Ước Nguyện</h2>
+  <div class="intro"><p>Gửi một lời chúc tốt đẹp hoặc một mục tiêu tích cực của em lên cây ước nguyện.</p></div>
+  <div class="panel">
+    <textarea id="wishInput" maxlength="250" placeholder="Viết lời nguyện lành của em..."></textarea>
+    <button class="action" onclick="addWish()">🪷 Gửi lời nguyện</button>
+  </div>
+  <div class="center big">🌳</div>
+  <h3>Những chiếc lá ước nguyện</h3>
+  <div id="wishList"></div>
+</section>
+
+<section id="diary" class="page hidden">
+  <h2>📖 Nhật ký An Yên</h2>
+  <div class="panel">
+    <p>Hôm nay em cảm thấy thế nào? Hãy viết vài dòng cho riêng mình.</p>
+    <textarea id="diaryInput" maxlength="1000" placeholder="Hôm nay mình muốn ghi lại..."></textarea>
+    <button class="action" onclick="saveDiary()">Lưu nhật ký</button>
+  </div>
+  <div id="diaryList"></div>
+</section>
+</main>
+
+<footer>
+  🪷 An Yên Tịnh Cảnh – V2.0<br>
+  Bản trải nghiệm website trên trình duyệt<br>
+  Chúc mọi người luôn bình an.
+</footer>
 
 <script>
 const areas=[
- {id:"A",name:"Cổng & Đón Tiếp",icon:"🏯",art:"a",
-  desc:"Bắt đầu hành trình tại cổng chùa và không gian đón khách.",
-  places:[
-   ["Cổng Tam Quan","🏯","Lối vào trang nghiêm của ngôi chùa Việt."],
-   ["Sân Đón Khách","🌿","Không gian chào đón khách thập phương."],
-   ["Bảng Nội Quy","📜","Tìm hiểu những quy tắc khi tham quan."],
-   ["Bản Đồ Tổng Quan","🗺️","Xem các khu vực trong An Yên Tịnh Cảnh."]
-  ]},
- {id:"B",name:"Khu Tâm Linh",icon:"🪷",art:"b",
-  desc:"Tìm hiểu kiến trúc, không gian thờ tự và nét đẹp văn hóa Phật giáo.",
-  places:[
-   ["Chính Điện","🛕","Không gian chính của ngôi chùa."],
-   ["Nhà Tổ","🏠","Nơi tìm hiểu về lịch sử và truyền thống nhà chùa."],
-   ["Tháp Chuông – Lầu Trống","🔔","Tìm hiểu ý nghĩa tiếng chuông và tiếng trống chùa."],
-   ["Cây Ước Nguyện","🌳","Không gian gửi gắm những lời nguyện tốt đẹp."]
-  ]},
- {id:"C",name:"Khu Thiền Tu",icon:"🧘",art:"c",
-  desc:"Khám phá những hoạt động tĩnh tâm và tìm hiểu thực hành thiền.",
-  places:[
-   ["Phòng Thiền","🧘","Không gian tìm hiểu về sự tĩnh tâm."],
-   ["Góc Gõ Mõ","🥁","Tìm hiểu nhạc cụ và nghi thức trong chùa."],
-   ["Góc Tràng Hạt","📿","Tìm hiểu về tràng hạt và ý nghĩa sử dụng."],
-   ["Không Gian Tụng Kinh","📖","Tìm hiểu các bài kinh và nghi thức."],
-   ["Thỉnh Chuông","🔔","Khám phá ý nghĩa tiếng chuông chùa."]
-  ]},
- {id:"D",name:"Khu Thiên Nhiên",icon:"🌸",art:"d",
-  desc:"Thư giãn giữa hồ sen, vườn cây và những góc thiên nhiên xanh mát.",
-  places:[
-   ["Hồ Sen","🪷","Ngắm vẻ đẹp thanh khiết của hoa sen."],
-   ["Hồ Cá An Nhiên","🐟","Không gian hồ nước và cảnh quan yên bình."],
-   ["Rừng Trúc An Yên","🎋","Khám phá không gian xanh của rừng trúc."],
-   ["Vườn Hoa Bốn Mùa","🌼","Khu vườn với sắc hoa theo mùa."],
-   ["Vườn Thiền","🍃","Một góc xanh dành cho sự tĩnh lặng."]
-  ]},
- {id:"E",name:"Khu Học Tập",icon:"📚",art:"e",
-  desc:"Tìm hiểu kiến thức, văn hóa, lịch sử và nghệ thuật truyền thống.",
-  places:[
-   ["Bảo Tàng Phật Giáo","🏛️","Tìm hiểu lịch sử và di sản Phật giáo."],
-   ["Thư Viện Kinh Sách","📚","Không gian đọc và tìm hiểu sách."],
-   ["Nhà Học Tập","✏️","Nơi học hỏi kiến thức và văn hóa."],
-   ["Nhà Thư Pháp","🖌️","Khám phá nghệ thuật thư pháp."]
-  ]},
- {id:"F",name:"Khu Cộng Đồng",icon:"🤝",art:"f",
-  desc:"Gặp gỡ, chia sẻ, học hỏi và tham gia các hoạt động cộng đồng.",
-  places:[
-   ["Góc Học Hỏi Phật Pháp","📖","Cùng tìm hiểu những bài học ý nghĩa."],
-   ["Góc Chia Sẻ Cuộc Sống","💬","Không gian chia sẻ câu chuyện tích cực."],
-   ["Khu Giao Lưu","👥","Giao lưu và kết nối mọi người."],
-   ["Sổ Kỷ Niệm","📔","Lưu giữ những kỷ niệm đáng nhớ."]
-  ]},
- {id:"G",name:"Văn Hóa & Lễ Hội",icon:"🏮",art:"g",
-  desc:"Khám phá nét đẹp văn hóa Việt và những hoạt động ngày hội.",
-  places:[
-   ["Nhà Trai","🍚","Tìm hiểu không gian sinh hoạt và ẩm thực chùa."],
-   ["Quảng Trường An Lạc","🎐","Không gian tổ chức hoạt động chung."],
-   ["Chợ Quê Ngày Hội","🧺","Khám phá nét đẹp chợ quê truyền thống."],
-   ["Khu Sự Kiện","🎉","Nơi giới thiệu các chương trình và lễ hội."]
-  ]},
- {id:"H",name:"Khu Hành Hương",icon:"⛰️",art:"h",
-  desc:"Khám phá những điểm đến mang cảm hứng bình yên và chiêm nghiệm.",
-  places:[
-   ["Đồi Hành Hương","⛰️","Con đường khám phá cảnh quan trên đồi."],
-   ["Đài Ngắm Bình Minh","🌅","Góc ngắm cảnh bình minh."],
-   ["Dòng Sông Đèn Lồng","🏮","Không gian văn hóa với đèn lồng lung linh."],
-   ["Vườn Bồ Đề","🌳","Khu vườn mang ý nghĩa chiêm nghiệm."]
-  ]}
+["A","🚪","Cổng & Đón Tiếp","Cổng Tam Quan, sân đón khách, nội quy"],
+["B","🏯","Không Gian Tâm Linh","Chính điện, nhà Tổ, tháp chuông"],
+["C","🙏","Thiền Tu","Gõ mõ, tràng hạt, thiền định"],
+["D","🌿","Thiên Nhiên","Hồ sen, hồ cá, rừng trúc, vườn hoa"],
+["E","📚","Học Tập","Bảo tàng, thư viện, nhà học tập"],
+["F","🤝","Cộng Đồng","Chia sẻ, giao lưu, hoạt động"],
+["G","🎏","Văn Hóa & Lễ Hội","Nhà trai, chợ quê, quảng trường"],
+["H","🏞️","Hành Hương","Đồi hành hương, vườn Bồ Đề"]
 ];
-
-const mapGrid=document.getElementById("mapGrid");
-function renderAreas(list){
- mapGrid.innerHTML="";
- if(!list.length){
-  mapGrid.innerHTML='<div class="empty">Không tìm thấy khu vực phù hợp.</div>';
-  return;
- }
- list.forEach(area=>{
-  const card=document.createElement("button");
-  card.className="area-card";
-  card.innerHTML=`
-   <div class="area-art ${area.art}">
-    <span class="area-letter">${area.id}</span>
-    <span class="art-icon">${area.icon}</span>
-   </div>
-   <div class="area-body">
-    <div class="area-title">${area.name}</div>
-    <div class="area-desc">${area.desc}</div>
-    <div class="area-bottom">
-     <span class="area-count">${area.places.length} địa điểm</span>
-     <span class="arrow">›</span>
-    </div>
-   </div>`;
-  card.addEventListener("click",()=>openArea(area.id));
-  mapGrid.appendChild(card);
- });
+const places={
+A:["Cổng Tam Quan","Sân đón khách","Bảng nội quy","Bản đồ khuôn viên"],
+B:["Chính điện","Nhà Tổ","Tháp Chuông","Cây Ước Nguyện"],
+C:["Phòng gõ mõ","Tràng hạt","Thiền định","Thỉnh chuông"],
+D:["Hồ sen","Hồ cá An Nhiên","Rừng Trúc An Yên","Vườn Hoa Bốn Mùa"],
+E:["Bảo tàng Phật giáo","Thư viện kinh sách","Nhà học tập","Nhà thư pháp"],
+F:["Góc chia sẻ","Giao lưu cộng đồng","Hoạt động thiện lành","Sổ kỷ niệm"],
+G:["Nhà trai","Quảng trường An Lạc","Chợ quê ngày hội","Khu sự kiện"],
+H:["Đồi hành hương","Đài ngắm bình minh","Dòng sông đèn lồng","Vườn Bồ Đề"]
+};
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ window.scrollTo(0,0);
 }
-function searchAreas(value){
- const q=value.trim().toLocaleLowerCase("vi");
- const filtered=areas.filter(a=>
-  a.id.toLowerCase().includes(q)||
-  a.name.toLocaleLowerCase("vi").includes(q)||
-  a.desc.toLocaleLowerCase("vi").includes(q)||
-  a.places.some(p=>p[0].toLocaleLowerCase("vi").includes(q))
- );
- renderAreas(filtered);
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function renderAreas(){
+ document.getElementById("areaGrid").innerHTML=areas.map(a=>`<div class="card"><div class="emoji">${a[1]}</div><h3>Khu ${a[0]} · ${a[2]}</h3><p>${a[3]}</p><button class="action" onclick="openArea('${a[0]}')">Khám phá</button></div>`).join("");
 }
 function openArea(id){
- const area=areas.find(a=>a.id===id);
- if(!area)return;
- document.getElementById("home").classList.remove("active");
- document.getElementById("areaScreen").classList.add("active");
- document.getElementById("detailIcon").textContent=area.icon;
- document.getElementById("detailLetter").textContent="KHU VỰC "+area.id;
- document.getElementById("detailTitle").textContent=area.name;
- document.getElementById("detailDesc").textContent=area.desc;
- document.getElementById("placeDetail").innerHTML="";
- const list=document.getElementById("placeList");
- list.innerHTML="";
- area.places.forEach((p,index)=>{
-  const button=document.createElement("button");
-  button.className="place";
-  button.innerHTML=`
-   <span class="place-icon">${p[1]}</span>
-   <span class="place-info">
-    <span class="place-name">${p[0]}</span>
-    <span class="place-desc">${p[2]}</span>
-   </span>
-   <span class="place-arrow">›</span>`;
-  button.addEventListener("click",()=>openPlace(area,index));
-  list.appendChild(button);
- });
- window.scrollTo({top:0,behavior:"smooth"});
+ const a=areas.find(x=>x[0]===id);
+ const detail=document.getElementById("areaDetail");
+ detail.classList.remove("hidden");
+ detail.innerHTML=`<button class="back" onclick="this.parentElement.classList.add('hidden')">← Quay lại</button><h2>${a[1]} ${a[2]}</h2><div class="grid">${places[id].map((p,i)=>`<div class="card"><h3>${p}</h3><p>Không gian thuộc khu ${id}</p><button class="action" onclick="visitPlace('${p.replace(/'/g,"")}')">Tham quan</button></div>`).join("")}</div>`;
+ detail.scrollIntoView({behavior:"smooth"});
 }
-function openPlace(area,index){
- const p=area.places[index];
- document.getElementById("placeDetail").innerHTML=`
-  <section class="place-detail">
-   <div class="eyebrow" style="text-align:center">KHÁM PHÁ ĐỊA ĐIỂM</div>
-   <div class="big">${p[1]}</div>
-   <h3>${p[0]}</h3>
-   <p>${p[2]}</p>
-   <p>Địa điểm này sẽ được phát triển thêm hình minh họa, nội dung giới thiệu và hoạt động trải nghiệm trong các phiên bản tiếp theo.</p>
-  </section>`;
- document.getElementById("placeDetail").scrollIntoView({behavior:"smooth",block:"nearest"});
+function visitPlace(name){
+ alert("Em đang tham quan: "+name+". Chúc em có trải nghiệm an lành!");
 }
-function goHome(){
- document.getElementById("areaScreen").classList.remove("active");
- document.getElementById("home").classList.add("active");
- document.getElementById("searchInput").value="";
- renderAreas(areas);
- window.scrollTo({top:0,behavior:"smooth"});
+let bead=0;
+function countBead(){bead++;document.getElementById("beadCount").textContent=bead}
+function resetBead(){bead=0;document.getElementById("beadCount").textContent=0}
+let audioCtx;
+function tone(freq,duration,type="sine"){
+ try{
+  audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==="suspended")audioCtx.resume();
+  const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
+  osc.type=type;osc.frequency.value=freq;
+  gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(.18,audioCtx.currentTime+.03);
+  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);
+  osc.connect(gain);gain.connect(audioCtx.destination);
+  osc.start();osc.stop(audioCtx.currentTime+duration);
+ }catch(e){alert("Trình duyệt chưa hỗ trợ phát âm thanh.")}
 }
-renderAreas(areas);
+function playBell(){tone(520,2.2);setTimeout(()=>tone(780,1.6),120)}
+function playWood(){tone(260,.18,"triangle");setTimeout(()=>tone(210,.18,"triangle"),230)}
+let remaining=60,timerInterval=null;
+function updateTimer(){document.getElementById("timer").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0")}
+function startMeditation(){
+ if(timerInterval)return;
+ if(remaining<=0)remaining=60;
+ timerInterval=setInterval(()=>{
+  remaining--;updateTimer();
+  if(remaining<=0){stopMeditation();alert("Hoàn thành một phút tĩnh tâm. Chúc em an yên!")}
+ },1000);
+}
+function stopMeditation(){clearInterval(timerInterval);timerInterval=null}
+function readArticle(i){document.getElementById("article"+i).classList.toggle("hidden")}
+function getData(key){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return []}}
+function addWish(){
+ const input=document.getElementById("wishInput"),value=input.value.trim();
+ if(!value){alert("Em hãy viết lời nguyện trước nhé!");return}
+ const list=getData("aytc_wishes");
+ list.unshift({text:value,date:new Date().toLocaleString("vi-VN")});
+ localStorage.setItem("aytc_wishes",JSON.stringify(list));
+ input.value="";renderWishes();
+}
+function renderWishes(){
+ document.getElementById("wishList").innerHTML=getData("aytc_wishes").map(w=>`<div class="panel">🍃 ${escapeHTML(w.text)}<div class="small">${w.date}</div></div>`).join("")||"<p class='small'>Cây đang chờ chiếc lá ước nguyện đầu tiên.</p>";
+}
+function saveDiary(){
+ const input=document.getElementById("diaryInput"),value=input.value.trim();
+ if(!value){alert("Em hãy viết vài dòng trước nhé!");return}
+ const list=getData("aytc_diary");
+ list.unshift({text:value,date:new Date().toLocaleString("vi-VN")});
+ localStorage.setItem("aytc_diary",JSON.stringify(list));
+ input.value="";renderDiary();
+}
+function renderDiary(){
+ document.getElementById("diaryList").innerHTML=getData("aytc_diary").map(d=>`<div class="panel"><b>📅 ${d.date}</b><p>${escapeHTML(d.text)}</p></div>`).join("")||"<p class='small'>Nhật ký của em sẽ xuất hiện ở đây.</p>";
+}
+function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+renderAreas();renderWishes();renderDiary();updateTimer();
 </script>
 </body>
- </html>
- 
+</html>
