@@ -5,238 +5,312 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#526b50">
-<title>An Yên Tịnh Cảnh – V2.0</title>
+<title>An Yên Tịnh Cảnh – V3.0</title>
 <style>
-:root{--green:#526b50;--light:#edf1e7;--cream:#faf7ed;--brown:#79583e;--gold:#c69b50}
+:root{
+ --green:#526b50;--deep:#344d3c;--light:#edf1e7;
+ --cream:#faf7ed;--brown:#79583e;--gold:#c69b50;
+ --text:#403d32;--muted:#777568;
+}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:#403d32;font-family:system-ui,-apple-system,sans-serif}
-header{background:linear-gradient(130deg,#405c48,#71866a);color:white;padding:25px 18px 22px;text-align:center}
-header h1{margin:0;font-size:25px}
+body{margin:0;background:var(--cream);color:var(--text);
+ font-family:system-ui,-apple-system,sans-serif}
+header{background:linear-gradient(130deg,#344d3c,#71866a);
+ color:white;padding:28px 16px;text-align:center}
+header h1{margin:0;font-size:27px}
 header p{margin:8px 0 0;font-size:13px}
-nav{display:flex;gap:8px;overflow:auto;padding:12px;background:#fff;position:sticky;top:0;z-index:5;box-shadow:0 2px 8px #0001}
-nav button{white-space:nowrap;border:0;background:#edf1e7;color:#405c48;border-radius:20px;padding:10px 14px;font-weight:600}
+nav{display:flex;gap:8px;overflow-x:auto;padding:11px;
+ background:#fff;position:sticky;top:0;z-index:10;
+ box-shadow:0 2px 8px #0001}
+nav button{white-space:nowrap;border:0;background:var(--light);
+ color:var(--deep);border-radius:22px;padding:10px 14px;font-weight:650}
 nav button.active{background:var(--green);color:white}
-main{max-width:850px;margin:auto;padding:16px}
-h2{color:#526b50;font-size:21px}
-.intro{background:#e9eee2;border-radius:18px;padding:18px;margin-bottom:18px}
+main{max-width:920px;margin:auto;padding:16px}
+h2{color:var(--green);font-size:21px}
+h3{color:var(--green)}
+p{line-height:1.65}
+button{cursor:pointer;font:inherit}
+.action{border:0;border-radius:12px;background:var(--green);
+ color:white;padding:11px 15px;font-weight:650}
+.secondary{background:var(--light);color:var(--deep)}
+.back{background:none;border:0;color:var(--green);font-weight:700;padding:9px 0}
+.intro{background:#e9eee2;border-radius:18px;padding:19px;margin-bottom:18px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.card{background:white;border:1px solid #e9e5d9;border-radius:17px;padding:16px;box-shadow:0 3px 12px #453b2510}
-.card .emoji{font-size:32px}
-.card h3{font-size:16px;margin:8px 0 5px;color:#526b50}
-.card p{font-size:13px;color:#777;margin:0 0 12px}
-button,.btn{cursor:pointer}
-.action{border:0;border-radius:12px;background:var(--green);color:white;padding:11px 15px;font-weight:600}
-.secondary{background:#e9eee2;color:#405c48}
-input,textarea{width:100%;padding:13px;border:1px solid #d8d7cb;border-radius:12px;font:inherit;background:white;margin:8px 0}
-textarea{min-height:90px;resize:vertical}
-.panel{background:white;border-radius:17px;padding:18px;margin:12px 0;border:1px solid #e9e5d9}
-.hidden{display:none}
-.back{background:none;border:0;color:#526b50;font-weight:700;padding:8px 0}
-.big{font-size:42px;text-align:center;margin:15px}
+.card,.panel{background:white;border:1px solid #e9e5d9;
+ border-radius:17px;padding:16px;box-shadow:0 3px 12px #453b250c}
+.card .emoji{font-size:34px}
+.card h3{font-size:16px;margin:8px 0 5px}
+.card p{font-size:13px;color:var(--muted);margin:0 0 12px}
+.hidden{display:none!important}
 .center{text-align:center}
-.counter{font-size:42px;color:#526b50;font-weight:700;text-align:center;margin:15px}
-.item{padding:12px 0;border-bottom:1px solid #eee}
-footer{text-align:center;color:#888;font-size:12px;padding:30px 10px}
+.big{font-size:42px;text-align:center;margin:15px}
+.counter{font-size:42px;color:var(--green);font-weight:750;text-align:center;margin:12px}
+input,textarea{width:100%;padding:13px;border:1px solid #d8d7cb;
+ border-radius:12px;font:inherit;background:white;margin:8px 0}
+textarea{min-height:90px;resize:vertical}
 .small{font-size:12px;color:#888}
+footer{text-align:center;color:#888;font-size:12px;padding:30px 10px}
+.hero-image{width:100%;height:205px;object-fit:cover;border-radius:15px;
+ background:linear-gradient(135deg,#dce8d5,#a8b99d)}
+.place-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.place-card{overflow:hidden;padding:0}
+.place-card img{width:100%;height:125px;object-fit:cover;background:#e8ecdf}
+.place-card .place-content{padding:12px}
+.place-card h3{margin:0 0 6px;font-size:15px}
+.place-card p{font-size:12px;color:var(--muted);margin:0 0 10px}
+.detail-box{background:white;border-radius:18px;padding:17px;margin-top:14px}
+.detail-box img{width:100%;height:220px;object-fit:cover;border-radius:14px}
+.detail-box h2{margin-bottom:6px}
+.tag{display:inline-block;background:var(--light);color:var(--deep);
+ padding:5px 10px;border-radius:20px;font-size:12px;margin:4px 3px 4px 0}
+.audio-box{background:#eef1e7;border-radius:16px;padding:16px;margin:12px 0}
+.audio-row{display:flex;align-items:center;justify-content:space-between;
+ gap:10px;padding:10px 0;border-bottom:1px solid #dce2d5}
+.audio-row:last-child{border:0}
+input[type=range]{accent-color:var(--green);padding:0;margin:8px 0}
+.breath{font-size:55px;animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(.85);opacity:.7}50%{transform:scale(1.12);opacity:1}}
+@media(max-width:520px){
+ main{padding:12px}
+ .grid,.place-grid{grid-template-columns:1fr 1fr;gap:9px}
+ .card{padding:12px}
+ .place-card .place-content{padding:9px}
+ .place-card img{height:105px}
+}
 </style>
 </head>
 <body>
 <header>
-  <h1>🪷 An Yên Tịnh Cảnh</h1>
-  <p>Một góc bình yên giữa thế giới trực tuyến</p>
-  <p><b>PHIÊN BẢN V2.0 – BẢN TRẢI NGHIỆM</b></p>
+ <h1>🪷 An Yên Tịnh Cảnh</h1>
+ <p>Một góc bình yên giữa thế giới trực tuyến</p>
+ <p><b>PHIÊN BẢN 3.0</b></p>
 </header>
 
 <nav id="nav">
-  <button class="active" data-page="home">🏡 Trang chủ</button>
-  <button data-page="areas">🗺️ Khám phá</button>
-  <button data-page="practice">🙏 Tu tập</button>
-  <button data-page="library">📚 Thư viện</button>
-  <button data-page="wish">🌳 Ước nguyện</button>
-  <button data-page="diary">📖 Nhật ký</button>
+ <button class="active" data-page="home">🏡 Trang chủ</button>
+ <button data-page="areas">🗺️ Khám phá</button>
+ <button data-page="practice">🙏 Tu tập</button>
+ <button data-page="library">📚 Thư viện</button>
+ <button data-page="wish">🌳 Ước nguyện</button>
+ <button data-page="diary">📖 Nhật ký</button>
 </nav>
 
 <main>
 <section id="home" class="page">
-  <div class="intro">
-    <h2>Nam Mô Bổn Sư Thích Ca Mâu Ni Phật 🙏</h2>
-    <p>Chào mừng em đến với An Yên Tịnh Cảnh. Hãy dành một chút thời gian để thư giãn, học hỏi và khám phá những điều an lành.</p>
-    <button class="action" onclick="showPage('areas')">Bắt đầu khám phá →</button>
-  </div>
-  <h2>🌿 Không gian hôm nay</h2>
-  <div class="grid">
-    <div class="card"><div class="emoji">🔔</div><h3>Thỉnh chuông</h3><p>Lắng nghe âm thanh thanh tịnh.</p><button class="action" onclick="playBell()">Thỉnh chuông</button></div>
-    <div class="card"><div class="emoji">🪷</div><h3>Thiền an yên</h3><p>Dành một phút cho tâm trí.</p><button class="action" onclick="showPage('practice')">Bắt đầu</button></div>
-    <div class="card"><div class="emoji">🌳</div><h3>Cây ước nguyện</h3><p>Gửi gắm một lời nguyện lành.</p><button class="action" onclick="showPage('wish')">Viết lời nguyện</button></div>
-    <div class="card"><div class="emoji">📚</div><h3>Thư viện</h3><p>Đọc những bài học ý nghĩa.</p><button class="action" onclick="showPage('library')">Đọc sách</button></div>
-  </div>
+ <div class="intro">
+  <h2>Nam Mô Bổn Sư Thích Ca Mâu Ni Phật 🙏</h2>
+  <p>Chào mừng em đến với An Yên Tịnh Cảnh. Hãy dành một chút thời gian để thư giãn, học hỏi và khám phá những điều an lành.</p>
+  <button class="action" onclick="showPage('areas')">Bắt đầu hành trình →</button>
+ </div>
+ <h2>🌿 Không gian hôm nay</h2>
+ <div class="grid">
+  <div class="card"><div class="emoji">🔔</div><h3>Tiếng chuông</h3><p>Lắng nghe âm thanh ngân vang.</p><button class="action" onclick="playBell()">Thỉnh chuông</button></div>
+  <div class="card"><div class="emoji">🪷</div><h3>Thiền an yên</h3><p>Dành một phút cho tâm trí.</p><button class="action" onclick="showPage('practice')">Bắt đầu</button></div>
+  <div class="card"><div class="emoji">🌳</div><h3>Cây ước nguyện</h3><p>Gửi gắm một lời nguyện lành.</p><button class="action" onclick="showPage('wish')">Viết lời nguyện</button></div>
+  <div class="card"><div class="emoji">📚</div><h3>Thư viện</h3><p>Đọc những bài học ý nghĩa.</p><button class="action" onclick="showPage('library')">Đọc sách</button></div>
+ </div>
+ <div class="panel" style="margin-top:15px">
+  <h3>🌼 Một phút an yên</h3>
+  <p>“Hãy để tâm mình lắng lại, trân trọng hiện tại và sống tử tế với mọi người.”</p>
+ </div>
 </section>
 
 <section id="areas" class="page hidden">
-  <h2>🗺️ Khám phá 8 khu vực</h2>
-  <p>Chọn một khu vực để tìm hiểu.</p>
-  <div class="grid" id="areaGrid"></div>
-  <div id="areaDetail" class="panel hidden"></div>
+ <h2>🗺️ Hành trình khám phá</h2>
+ <p>Chọn một khu vực để bước vào và tìm hiểu từng địa điểm.</p>
+ <div class="grid" id="areaGrid"></div>
+ <div id="areaDetail" class="hidden"></div>
 </section>
 
 <section id="practice" class="page hidden">
-  <h2>🙏 Không gian tu tập</h2>
-  <div class="grid">
-    <div class="card"><div class="emoji">🔔</div><h3>Thỉnh chuông</h3><p>Chạm để nghe âm thanh.</p><button class="action" onclick="playBell()">🔔 Thỉnh chuông</button></div>
-    <div class="card"><div class="emoji">🥁</div><h3>Gõ mõ</h3><p>Âm thanh mô phỏng nhẹ nhàng.</p><button class="action" onclick="playWood()">🥁 Gõ mõ</button></div>
-    <div class="card"><div class="emoji">📿</div><h3>Tràng hạt</h3><p>Đếm từng hạt theo nhịp.</p><div class="counter" id="beadCount">0</div><button class="action" onclick="countBead()">Lần hạt +1</button> <button class="action secondary" onclick="resetBead()">Đặt lại</button></div>
-    <div class="card"><div class="emoji">🧘</div><h3>Thiền định</h3><p>Dành thời gian nghỉ ngơi.</p><div class="counter" id="timer">01:00</div><div class="center"><button class="action" onclick="startMeditation()">Bắt đầu</button> <button class="action secondary" onclick="stopMeditation()">Dừng</button></div></div>
+ <h2>🙏 Không gian tu tập</h2>
+ <p>Em có thể nghe âm thanh, lần hạt hoặc dành thời gian tĩnh tâm.</p>
+ <div class="audio-box">
+  <h3>🔔 Âm thanh thanh tịnh</h3>
+  <div class="audio-row"><span>🔔 Chuông ngân</span><button class="action" onclick="playBell()">Nghe</button></div>
+  <div class="audio-row"><span>🪵 Mõ gỗ</span><button class="action" onclick="playWood()">Gõ mõ</button></div>
+  <div class="audio-row"><span>🌿 Tiếng gió nhẹ</span><button class="action" onclick="playNature()">Nghe</button></div>
+  <div class="audio-row"><span>💧 Tiếng nước</span><button class="action" onclick="playWater()">Nghe</button></div>
+  <p class="small">Âm thanh được tạo trực tiếp trên thiết bị. Hãy chạm nút để bắt đầu phát.</p>
+  <label for="volume">Âm lượng</label>
+  <input id="volume" type="range" min="0" max="100" value="65" oninput="setVolume(this.value)">
+  <button class="action secondary" onclick="stopAllAudio()">Dừng âm thanh</button>
+ </div>
+ <div class="grid">
+  <div class="card">
+   <div class="emoji">🪵</div><h3>Gõ mõ</h3>
+   <p>Gõ từng tiếng mõ theo nhịp chậm rãi.</p>
+   <button class="action" onclick="playWood()">🪵 Gõ một tiếng</button>
+   <button class="action secondary" onclick="startWoodRhythm()">Gõ theo nhịp</button>
+   <button class="action secondary" onclick="stopRhythm()">Dừng nhịp</button>
   </div>
+  <div class="card">
+   <div class="emoji">📿</div><h3>Tràng hạt</h3>
+   <p>Đếm từng hạt theo nhịp.</p>
+   <div class="counter" id="beadCount">0</div>
+   <button class="action" onclick="countBead()">Lần hạt +1</button>
+   <button class="action secondary" onclick="resetBead()">Đặt lại</button>
+  </div>
+  <div class="card">
+   <div class="emoji">🧘</div><h3>Thiền định</h3>
+   <p>Dành thời gian nghỉ ngơi.</p>
+   <div class="breath center">🪷</div>
+   <div class="counter" id="timer">01:00</div>
+   <div class="center">
+    <button class="action" onclick="startMeditation()">Bắt đầu</button>
+    <button class="action secondary" onclick="stopMeditation()">Dừng</button>
+    <button class="action secondary" onclick="resetMeditation()">Đặt lại</button>
+   </div>
+  </div>
+  <div class="card">
+   <div class="emoji">🌱</div><h3>Tĩnh tâm</h3>
+   <p>Hít vào chậm rãi, thở ra nhẹ nhàng.</p>
+   <p class="center">Hãy ngồi thoải mái và chú ý vào hơi thở của mình.</p>
+   <button class="action" onclick="playBell()">Bắt đầu bằng tiếng chuông</button>
+  </div>
+ </div>
 </section>
 
 <section id="library" class="page hidden">
-  <h2>📚 Thư viện An Yên</h2>
-  <div class="panel">
-    <h3>🪷 Bài đọc 1: Lòng biết ơn</h3>
-    <p>Biết ơn là học cách trân trọng những điều bình dị trong cuộc sống. Một lời hỏi thăm, một bữa cơm gia đình hay một ngày bình yên đều có thể là điều đáng quý.</p>
-    <button class="action" onclick="readArticle(0)">Đọc bài viết</button>
-    <div id="article0" class="hidden"><p>Thực hành lòng biết ơn bằng cách mỗi ngày ghi lại ba điều khiến mình cảm thấy vui hoặc trân trọng. Khi biết nhìn thấy điều tốt đẹp, ta có thể sống chậm lại và quan tâm đến mọi người nhiều hơn.</p></div>
-  </div>
-  <div class="panel">
-    <h3>🌱 Bài đọc 2: Tâm bình an</h3>
-    <p>Bình an không có nghĩa là cuộc sống không có khó khăn. Đó là khả năng dừng lại, hít thở và nhìn nhận mọi việc một cách bình tĩnh.</p>
-    <button class="action" onclick="readArticle(1)">Đọc bài viết</button>
-    <div id="article1" class="hidden"><p>Khi cảm thấy căng thẳng, hãy thử ngồi yên, thả lỏng vai và chú ý vào hơi thở. Không cần vội vàng, chỉ cần dành cho bản thân một khoảng nghỉ nhỏ.</p></div>
-  </div>
-  <div class="panel">
-    <h3>🌼 Bài đọc 3: Sống tử tế</h3>
-    <p>Một hành động tử tế dù nhỏ cũng có thể mang lại niềm vui cho người khác.</p>
-    <button class="action" onclick="readArticle(2)">Đọc bài viết</button>
-    <div id="article2" class="hidden"><p>Hãy bắt đầu từ những việc gần gũi: nói lời cảm ơn, biết lắng nghe, giúp đỡ khi có thể và tôn trọng sự khác biệt. Tử tế cũng là biết chăm sóc chính mình.</p></div>
-  </div>
+ <h2>📚 Thư viện An Yên</h2>
+ <div class="panel"><h3>🪷 Lòng biết ơn</h3>
+  <p>Biết ơn là học cách trân trọng những điều bình dị trong cuộc sống.</p>
+  <button class="action" onclick="readArticle(0)">Đọc bài viết</button>
+  <div id="article0" class="hidden"><p>Một lời hỏi thăm, một bữa cơm gia đình hay một ngày bình yên đều có thể là điều đáng quý. Mỗi ngày, hãy thử ghi lại ba điều khiến em cảm thấy vui hoặc trân trọng.</p></div>
+ </div>
+ <div class="panel"><h3>🌱 Tâm bình an</h3>
+  <p>Bình an không có nghĩa là cuộc sống không có khó khăn.</p>
+  <button class="action" onclick="readArticle(1)">Đọc bài viết</button>
+  <div id="article1" class="hidden"><p>Đó là khả năng dừng lại, hít thở và nhìn nhận mọi việc một cách bình tĩnh. Khi căng thẳng, hãy thả lỏng vai và chú ý vào hơi thở.</p></div>
+ </div>
+ <div class="panel"><h3>🌼 Sống tử tế</h3>
+  <p>Một hành động tử tế dù nhỏ cũng có thể mang lại niềm vui cho người khác.</p>
+  <button class="action" onclick="readArticle(2)">Đọc bài viết</button>
+  <div id="article2" class="hidden"><p>Hãy bắt đầu từ những việc gần gũi: nói lời cảm ơn, biết lắng nghe, giúp đỡ khi có thể và tôn trọng sự khác biệt.</p></div>
+ </div>
+ <div class="panel"><h3>🪷 Ý nghĩa hoa sen</h3>
+  <p>Hoa sen là hình ảnh quen thuộc trong văn hóa và nghệ thuật Phật giáo.</p>
+  <button class="action" onclick="readArticle(3)">Đọc bài viết</button>
+  <div id="article3" class="hidden"><p>Hoa sen thường gợi nhắc đến sự thanh khiết, nghị lực vươn lên và vẻ đẹp giản dị. Hình ảnh hoa sen nhắc chúng ta hướng đến những điều tốt đẹp trong cuộc sống.</p></div>
+ </div>
 </section>
 
 <section id="wish" class="page hidden">
-  <h2>🌳 Cây Ước Nguyện</h2>
-  <div class="intro"><p>Gửi một lời chúc tốt đẹp hoặc một mục tiêu tích cực của em lên cây ước nguyện.</p></div>
-  <div class="panel">
-    <textarea id="wishInput" maxlength="250" placeholder="Viết lời nguyện lành của em..."></textarea>
-    <button class="action" onclick="addWish()">🪷 Gửi lời nguyện</button>
-  </div>
-  <div class="center big">🌳</div>
-  <h3>Những chiếc lá ước nguyện</h3>
-  <div id="wishList"></div>
+ <h2>🌳 Cây Ước Nguyện</h2>
+ <div class="intro"><p>Gửi một lời chúc tốt đẹp hoặc một mục tiêu tích cực của em lên cây ước nguyện.</p></div>
+ <div class="panel">
+  <textarea id="wishInput" maxlength="250" placeholder="Viết lời nguyện lành của em..."></textarea>
+  <button class="action" onclick="addWish()">🪷 Gửi lời nguyện</button>
+ </div>
+ <div class="center big">🌳</div>
+ <h3>Những chiếc lá ước nguyện</h3>
+ <div id="wishList"></div>
 </section>
 
 <section id="diary" class="page hidden">
-  <h2>📖 Nhật ký An Yên</h2>
-  <div class="panel">
-    <p>Hôm nay em cảm thấy thế nào? Hãy viết vài dòng cho riêng mình.</p>
-    <textarea id="diaryInput" maxlength="1000" placeholder="Hôm nay mình muốn ghi lại..."></textarea>
-    <button class="action" onclick="saveDiary()">Lưu nhật ký</button>
-  </div>
-  <div id="diaryList"></div>
+ <h2>📖 Nhật ký An Yên</h2>
+ <div class="panel">
+  <p>Hôm nay em cảm thấy thế nào? Hãy viết vài dòng cho riêng mình.</p>
+  <textarea id="diaryInput" maxlength="1000" placeholder="Hôm nay mình muốn ghi lại..."></textarea>
+  <button class="action" onclick="saveDiary()">Lưu nhật ký</button>
+ </div>
+ <div id="diaryList"></div>
 </section>
 </main>
 
 <footer>
-  🪷 An Yên Tịnh Cảnh – V2.0<br>
-  Bản trải nghiệm website trên trình duyệt<br>
-  Chúc mọi người luôn bình an.
+ 🪷 An Yên Tịnh Cảnh – V3.0<br>
+ Một không gian khám phá, học hỏi và tĩnh tâm.<br>
+ Chúc mọi người luôn bình an.
 </footer>
 
 <script>
 const areas=[
-["A","🚪","Cổng & Đón Tiếp","Cổng Tam Quan, sân đón khách, nội quy"],
-["B","🏯","Không Gian Tâm Linh","Chính điện, nhà Tổ, tháp chuông"],
-["C","🙏","Thiền Tu","Gõ mõ, tràng hạt, thiền định"],
-["D","🌿","Thiên Nhiên","Hồ sen, hồ cá, rừng trúc, vườn hoa"],
-["E","📚","Học Tập","Bảo tàng, thư viện, nhà học tập"],
-["F","🤝","Cộng Đồng","Chia sẻ, giao lưu, hoạt động"],
-["G","🎏","Văn Hóa & Lễ Hội","Nhà trai, chợ quê, quảng trường"],
-["H","🏞️","Hành Hương","Đồi hành hương, vườn Bồ Đề"]
+ {id:"A",icon:"🚪",name:"Cổng & Đón Tiếp",desc:"Bắt đầu hành trình tại cổng chùa, tìm hiểu không gian và những điều cần biết khi ghé thăm.",places:[
+  ["Cổng Tam Quan","🚪","Cổng Tam Quan là lối vào quen thuộc trong kiến trúc nhiều ngôi chùa Việt Nam. Ba lối cổng thường gợi nhắc đến những ý nghĩa trong giáo lý Phật giáo.","Bước qua cổng chùa với tâm thế nhẹ nhàng, giữ sự tôn trọng và bình tĩnh.","photo-1518709268805-4e9042af9f23"],
+  ["Sân đón khách","🌿","Khoảng sân rộng tạo cảm giác thoáng đãng, là nơi mọi người dừng chân trước khi vào các khu vực bên trong.","Em có thể dành một chút thời gian ngắm cảnh và cảm nhận không gian yên tĩnh.","photo-1470252649378-9c29740c9fa8"],
+  ["Bảng nội quy","📜","Nội quy giúp mọi người cùng giữ gìn sự trang nghiêm, sạch sẽ và trật tự trong khuôn viên.","Đi nhẹ, nói khẽ, ăn mặc phù hợp và không xả rác.","photo-1500530855697-b586d89ba3ee"],
+  ["Bản đồ khuôn viên","🗺️","Bản đồ giúp khách tham quan định hướng và tìm hiểu các khu vực trong khuôn viên.","Em hãy chọn khu vực tiếp theo mà mình muốn khám phá.","photo-1500534623283-312aade485b7"]
+ ]},
+ {id:"B",icon:"🏯",name:"Không Gian Tâm Linh",desc:"Tìm hiểu kiến trúc, các không gian thờ tự và ý nghĩa văn hóa.",places:[
+  ["Chính điện","🏯","Chính điện là không gian quan trọng trong kiến trúc chùa, thường là nơi thờ Phật và tổ chức các nghi lễ.","Khi vào chính điện, hãy giữ thái độ trang nghiêm và tôn trọng.","photo-1606293926075-69a00dbfde81"],
+  ["Nhà Tổ","🪷","Nhà Tổ là nơi tưởng niệm các vị tổ sư và những người có công gìn giữ, phát triển ngôi chùa.","Đây là dịp tìm hiểu thêm về truyền thống và lịch sử Phật giáo.","photo-1548013146-72479768bada"],
+  ["Tháp chuông","🔔","Tháp chuông là công trình thường thấy trong khuôn viên chùa, gắn với tiếng chuông báo hiệu các thời khóa.","Tiếng chuông thường gợi nhắc con người dừng lại, lắng nghe và tĩnh tâm.","photo-1518709268805-4e9042af9f23"],
+  ["Cây Ước Nguyện","🌳","Cây ước nguyện tượng trưng cho những lời chúc tốt lành và mong muốn hướng thiện.","Em có thể viết một lời chúc tích cực tại mục Cây Ước Nguyện.","photo-1448375240586-882707db888b"]
+ ]},
+ {id:"C",icon:"🙏",name:"Thiền Tu",desc:"Khám phá những hoạt động giúp nuôi dưỡng sự bình tĩnh và tập trung.",places:[
+  ["Phòng gõ mõ","🪵","Mõ là nhạc cụ gõ bằng gỗ được sử dụng trong một số nghi thức và thời khóa tụng niệm.","Em có thể thử âm thanh mõ tại mục Tu tập.","photo-1518709268805-4e9042af9f23"],
+  ["Tràng hạt","📿","Tràng hạt được sử dụng trong một số pháp môn để hỗ trợ việc niệm và giữ nhịp thực hành.","Hãy khám phá bộ đếm tràng hạt trong khu Tu tập.","photo-1519681393784-d120267933ba"],
+  ["Thiền định","🧘","Thiền là một phương pháp thực hành chú tâm và quan sát hơi thở, suy nghĩ.","Em có thể bắt đầu bằng một phút ngồi yên, thả lỏng cơ thể.","photo-1506126613408-eca07ce68773"],
+  ["Thỉnh chuông","🔔","Âm thanh chuông có thể được dùng để mở đầu hoặc kết thúc một khoảng thời gian tĩnh tâm.","Thử lắng nghe tiếng chuông và để tâm trí nghỉ ngơi.","photo-1518709268805-4e9042af9f23"]
+ ]},
+ {id:"D",icon:"🌿",name:"Thiên Nhiên",desc:"Dạo bước qua hồ sen, vườn cây và những góc xanh mát.",places:[
+  ["Hồ sen","🪷","Hoa sen gắn bó với văn hóa Việt Nam và là biểu tượng quen thuộc trong nghệ thuật Phật giáo.","Hãy ngắm vẻ đẹp của hoa sen và tìm hiểu ý nghĩa của loài hoa này.","photo-1501004318641-b39e6451bec6"],
+  ["Hồ cá An Nhiên","🐟","Mặt nước và những chú cá tạo nên một góc cảnh quan nhẹ nhàng, gần gũi với thiên nhiên.","Hãy quan sát cảnh vật và giữ gìn môi trường sạch đẹp.","photo-1470770841072-f978cf4d019e"],
+  ["Rừng Trúc An Yên","🎋","Trúc là hình ảnh quen thuộc trong văn hóa Á Đông, thường gợi lên sự thanh cao và bền bỉ.","Hãy tưởng tượng tiếng gió đi qua những hàng trúc xanh.","photo-1448375240586-882707db888b"],
+  ["Vườn Hoa Bốn Mùa","🌼","Khu vườn tượng trưng cho vẻ đẹp thay đổi theo thời gian và sự phong phú của thiên nhiên.","Mỗi mùa đều có những sắc hoa và nét đẹp riêng.","photo-1490750967868-88aa4486c946"]
+ ]},
+ {id:"E",icon:"📚",name:"Học Tập",desc:"Tìm hiểu kiến thức, văn hóa, thư pháp và lịch sử.",places:[
+  ["Bảo tàng Phật giáo","🏛️","Bảo tàng là nơi lưu giữ và giới thiệu các hiện vật, tư liệu về lịch sử và văn hóa Phật giáo.","Hãy tìm hiểu các giá trị văn hóa qua từng hiện vật.","photo-1564399579883-451a5d44ec08"],
+  ["Thư viện kinh sách","📚","Thư viện là nơi tìm đọc sách, tài liệu và những nội dung nghiên cứu về Phật giáo.","Em có thể đọc các bài viết trong mục Thư viện An Yên.","photo-1507842217343-583bb7270b66"],
+  ["Nhà học tập","✍️","Không gian dành cho việc học hỏi, trao đổi kiến thức và tìm hiểu các giá trị sống.","Học tập giúp chúng ta hiểu biết hơn và sống có trách nhiệm.","photo-1509062522246-3755977927d7"],
+  ["Nhà thư pháp","🖌️","Thư pháp là nghệ thuật viết chữ, thể hiện vẻ đẹp của nét bút và tinh thần người viết.","Hãy khám phá những câu chữ mang thông điệp tích cực.","photo-1455390582262-044cdeel277a"]
+ ]},
+ {id:"F",icon:"🤝",name:"Cộng Đồng",desc:"Góc chia sẻ, kết nối và lan tỏa những hành động tốt đẹp.",places:[
+  ["Góc chia sẻ","💬","Nơi mọi người có thể chia sẻ suy nghĩ, câu chuyện và những điều tích cực.","Hãy viết lời nhắn tử tế và tôn trọng mọi người.","photo-1529156069898-49953e39b3ac"],
+  ["Giao lưu cộng đồng","🤝","Không gian giao lưu giúp mọi người học hỏi và hiểu nhau hơn.","Lắng nghe và tôn trọng sự khác biệt là điều quan trọng.","photo-1529156069898-49953e39b3ac"],
+  ["Hoạt động thiện lành","💚","Những hành động giúp đỡ, sẻ chia và bảo vệ môi trường góp phần xây dựng cộng đồng tốt đẹp.","Bắt đầu từ một việc nhỏ mà em có thể làm mỗi ngày.","photo-1531206715517-5c0ba140b2b8"],
+  ["Sổ kỷ niệm","📖","Nơi lưu giữ những kỷ niệm đẹp và những điều đáng nhớ trong hành trình.","Em có thể ghi lại cảm nhận trong Nhật ký An Yên.","photo-1455390582262-044cdeel277a"]
+ ]},
+ {id:"G",icon:"🎏",name:"Văn Hóa & Lễ Hội",desc:"Khám phá các hoạt động văn hóa và nét đẹp sinh hoạt truyền thống.",places:[
+  ["Nhà trai","🍵","Không gian sinh hoạt và chuẩn bị những hoạt động phục vụ khách ghé thăm.","Tìm hiểu cách mọi người cùng góp sức gìn giữ nếp sinh hoạt.","photo-1547592180-85f173990554"],
+  ["Quảng trường An Lạc","🎏","Quảng trường là không gian mở dành cho các hoạt động cộng đồng và sự kiện.","Hãy hình dung những ngày hội gặp gỡ và giao lưu tại đây.","photo-1519608487953-e999c86e7455"],
+  ["Chợ quê ngày hội","🧺","Chợ quê gợi nhắc những nét sinh hoạt truyền thống, sản vật địa phương và tình làng nghĩa xóm.","Khám phá nét đẹp của sự mộc mạc và sẻ chia.","photo-1488459716781-31db52582fe9"],
+  ["Khu sự kiện","🎐","Nơi giới thiệu các hoạt động văn hóa, chương trình và ngày hội theo từng dịp.","Mỗi sự kiện là cơ hội để học hỏi và kết nối.","photo-1511795409834-ef04bbd61622"]
+ ]},
+ {id:"H",icon:"🏞️",name:"Hành Hương",desc:"Khép lại hành trình bằng những điểm dừng tĩnh lặng giữa thiên nhiên.",places:[
+  ["Đồi hành hương","🏞️","Con đường lên đồi tượng trưng cho hành trình kiên trì và hướng đến những điều tốt đẹp.","Hãy đi chậm, quan sát cảnh vật và giữ gìn môi trường.","photo-1470770841072-f978cf4d019e"],
+  ["Đài ngắm bình minh","🌅","Bình minh gợi nhắc về sự khởi đầu và hy vọng cho một ngày mới.","Hãy dành một phút nghĩ về điều tích cực em muốn thực hiện.","photo-1470252649378-9c29740c9fa8"],
+  ["Dòng sông đèn lồng","🏮","Hình ảnh đèn lồng trên dòng nước thường gắn với những lời cầu chúc và nét đẹp văn hóa.","Hãy tìm hiểu ý nghĩa của những nghi thức thả đèn tại từng địa phương.","photo-1500375592092-40eb2168fd21"],
+  ["Vườn Bồ Đề","🌳","Cây Bồ Đề gắn với câu chuyện Đức Phật giác ngộ và là hình ảnh có ý nghĩa trong Phật giáo.","Khép lại chuyến tham quan bằng một phút tĩnh tâm.","photo-1448375240586-882707db888b"]
+ ]}
 ];
-const places={
-A:["Cổng Tam Quan","Sân đón khách","Bảng nội quy","Bản đồ khuôn viên"],
-B:["Chính điện","Nhà Tổ","Tháp Chuông","Cây Ước Nguyện"],
-C:["Phòng gõ mõ","Tràng hạt","Thiền định","Thỉnh chuông"],
-D:["Hồ sen","Hồ cá An Nhiên","Rừng Trúc An Yên","Vườn Hoa Bốn Mùa"],
-E:["Bảo tàng Phật giáo","Thư viện kinh sách","Nhà học tập","Nhà thư pháp"],
-F:["Góc chia sẻ","Giao lưu cộng đồng","Hoạt động thiện lành","Sổ kỷ niệm"],
-G:["Nhà trai","Quảng trường An Lạc","Chợ quê ngày hội","Khu sự kiện"],
-H:["Đồi hành hương","Đài ngắm bình minh","Dòng sông đèn lồng","Vườn Bồ Đề"]
-};
+
 function showPage(id){
  document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
  document.getElementById(id).classList.remove("hidden");
  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
- window.scrollTo(0,0);
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+
+function photo(id){
+ return "https://images.unsplash.com/"+id+"?auto=format&fit=crop&w=900&q=80";
+}
 function renderAreas(){
- document.getElementById("areaGrid").innerHTML=areas.map(a=>`<div class="card"><div class="emoji">${a[1]}</div><h3>Khu ${a[0]} · ${a[2]}</h3><p>${a[3]}</p><button class="action" onclick="openArea('${a[0]}')">Khám phá</button></div>`).join("");
+ document.getElementById("areaGrid").innerHTML=areas.map(a=>`
+ <div class="card">
+  <div class="emoji">${a.icon}</div>
+  <h3>Khu ${a.id} · ${a.name}</h3>
+  <p>${a.desc}</p>
+  <button class="action" onclick="openArea('${a.id}')">Khám phá khu này →</button>
+ </div>`).join("");
 }
 function openArea(id){
- const a=areas.find(x=>x[0]===id);
+ const a=areas.find(x=>x.id===id);
  const detail=document.getElementById("areaDetail");
  detail.classList.remove("hidden");
- detail.innerHTML=`<button class="back" onclick="this.parentElement.classList.add('hidden')">← Quay lại</button><h2>${a[1]} ${a[2]}</h2><div class="grid">${places[id].map((p,i)=>`<div class="card"><h3>${p}</h3><p>Không gian thuộc khu ${id}</p><button class="action" onclick="visitPlace('${p.replace(/'/g,"")}')">Tham quan</button></div>`).join("")}</div>`;
- detail.scrollIntoView({behavior:"smooth"});
-}
-function visitPlace(name){
- alert("Em đang tham quan: "+name+". Chúc em có trải nghiệm an lành!");
-}
-let bead=0;
-function countBead(){bead++;document.getElementById("beadCount").textContent=bead}
-function resetBead(){bead=0;document.getElementById("beadCount").textContent=0}
-let audioCtx;
-function tone(freq,duration,type="sine"){
- try{
-  audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
-  if(audioCtx.state==="suspended")audioCtx.resume();
-  const osc=audioCtx.createOscillator(),gain=audioCtx.createGain();
-  osc.type=type;osc.frequency.value=freq;
-  gain.gain.setValueAtTime(.0001,audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(.18,audioCtx.currentTime+.03);
-  gain.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+duration);
-  osc.connect(gain);gain.connect(audioCtx.destination);
-  osc.start();osc.stop(audioCtx.currentTime+duration);
- }catch(e){alert("Trình duyệt chưa hỗ trợ phát âm thanh.")}
-}
-function playBell(){tone(520,2.2);setTimeout(()=>tone(780,1.6),120)}
-function playWood(){tone(260,.18,"triangle");setTimeout(()=>tone(210,.18,"triangle"),230)}
-let remaining=60,timerInterval=null;
-function updateTimer(){document.getElementById("timer").textContent=String(Math.floor(remaining/60)).padStart(2,"0")+":"+String(remaining%60).padStart(2,"0")}
-function startMeditation(){
- if(timerInterval)return;
- if(remaining<=0)remaining=60;
- timerInterval=setInterval(()=>{
-  remaining--;updateTimer();
-  if(remaining<=0){stopMeditation();alert("Hoàn thành một phút tĩnh tâm. Chúc em an yên!")}
- },1000);
-}
-function stopMeditation(){clearInterval(timerInterval);timerInterval=null}
-function readArticle(i){document.getElementById("article"+i).classList.toggle("hidden")}
-function getData(key){try{return JSON.parse(localStorage.getItem(key)||"[]")}catch(e){return []}}
-function addWish(){
- const input=document.getElementById("wishInput"),value=input.value.trim();
- if(!value){alert("Em hãy viết lời nguyện trước nhé!");return}
- const list=getData("aytc_wishes");
- list.unshift({text:value,date:new Date().toLocaleString("vi-VN")});
- localStorage.setItem("aytc_wishes",JSON.stringify(list));
- input.value="";renderWishes();
-}
-function renderWishes(){
- document.getElementById("wishList").innerHTML=getData("aytc_wishes").map(w=>`<div class="panel">🍃 ${escapeHTML(w.text)}<div class="small">${w.date}</div></div>`).join("")||"<p class='small'>Cây đang chờ chiếc lá ước nguyện đầu tiên.</p>";
-}
-function saveDiary(){
- const input=document.getElementById("diaryInput"),value=input.value.trim();
- if(!value){alert("Em hãy viết vài dòng trước nhé!");return}
- const list=getData("aytc_diary");
- list.unshift({text:value,date:new Date().toLocaleString("vi-VN")});
- localStorage.setItem("aytc_diary",JSON.stringify(list));
- input.value="";renderDiary();
-}
-function renderDiary(){
- document.getElementById("diaryList").innerHTML=getData("aytc_diary").map(d=>`<div class="panel"><b>📅 ${d.date}</b><p>${escapeHTML(d.text)}</p></div>`).join("")||"<p class='small'>Nhật ký của em sẽ xuất hiện ở đây.</p>";
-}
-function escapeHTML(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-renderAreas();renderWishes();renderDiary();updateTimer();
-</script>
-</body>
-</html>
+ detail.innerHTML=`
+ <div class="detail-box">
+  <button class="back" onclick="closeArea()">← Trở lại danh sách khu vực</button>
+  <div class="big">${a.icon}</div>
+  <h2>Khu ${a.id} · ${a.name}</h2>
+  <p>${a.desc}</p>
+  <h3>📍 Các địa điểm trong khu</h3>
+  <div class="place-grid">
+   ${a.places.map((p,i)=>`
+    <div class="card place-card">
+     <img src="${photo(p[4])}" alt="${p[0]}" loading="lazy">
+     <div class="place-content">
+      <h3>${p[1]} ${p[0]}</h3>
+      <p>${p[2]}
