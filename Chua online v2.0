@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>An Yên Tịnh Cảnh - Chùa Online</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,sans-serif;
+ background:#f3eee2;
+ color:#44372b;
+}
+header{
+ background:linear-gradient(135deg,#553b2c,#98704c);
+ color:white;
+ text-align:center;
+ padding:25px 12px;
+}
+header h1{font-size:25px;margin:0}
+header p{font-size:13px;margin:9px 0 0}
+nav{
+ display:flex;justify-content:center;gap:8px;
+ flex-wrap:wrap;padding:12px;
+ background:#fffaf0;position:sticky;top:0;z-index:10;
+ box-shadow:0 2px 7px #0001;
+}
+button{font:inherit;cursor:pointer}
+nav button,.action{
+ border:0;border-radius:20px;padding:10px 15px;
+ background:#e8d8bf;color:#493727;font-weight:bold;
+}
+nav button:active,.action:active{transform:scale(.97)}
+main{max-width:950px;margin:auto;padding:15px}
+.welcome{text-align:center;padding:10px}
+.welcome h2{color:#79553a}
+.player{
+ background:#fffaf0;border-radius:15px;padding:14px;
+ display:flex;align-items:center;gap:13px;
+ box-shadow:0 3px 10px #0000000c;
+}
+.avatar{font-size:43px}
+.player p{margin:5px 0;font-size:14px}
+.map-title{text-align:center;margin:22px 0 12px}
+.map-title h2{color:#79553a;margin-bottom:5px}
+.map{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+ gap:10px;padding:13px;
+ background:#dce7d0;border:4px solid #a58a64;
+ border-radius:20px;
+}
+.zone{
+ min-height:145px;padding:12px 5px;
+ border:2px solid #b8a17d;border-radius:14px;
+ background:#fff9eb;text-align:center;
+ position:relative;
+}
+.zone.selected{border:3px solid #55805a;background:#eef5e7}
+.zone .letter{font-size:26px;font-weight:bold;color:#89603e}
+.zone .emoji{font-size:29px;margin:4px}
+.zone strong{display:block;font-size:13px}
+.zone small{display:block;font-size:11px;color:#806d59;margin-top:5px}
+.marker{
+ display:none;position:absolute;top:5px;right:7px;
+ font-size:20px;
+}
+.zone.selected .marker{display:block}
+.map-note{text-align:center;color:#71805c;font-size:12px;padding:10px}
+.panel{
+ background:#fffaf0;padding:17px;border-radius:15px;
+ margin-top:17px;box-shadow:0 3px 10px #0000000c;
+}
+.panel h2{color:#79553a;margin-top:0}
+.place-list{
+ display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;
+}
+.place{
+ background:#f0e5d3;border-radius:10px;padding:12px;
+ font-size:13px;
+}
+#detail{display:none}
+#guide{display:none}
+.action{margin-top:12px;background:#d9c09a}
+.action:disabled{opacity:.6;cursor:default}
+footer{text-align:center;padding:25px 10px;color:#806d59;font-size:12px}
+@media(min-width:650px){
+ .map{grid-template-columns:repeat(4,1fr);gap:14px;padding:20px}
+ .zone{min-height:165px}
+ .place-list{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+ <h1>🪷 AN YÊN TỊNH CẢNH 🪷</h1>
+ <p>CHÙA ONLINE · KHÔNG GIAN KHÁM PHÁ VĂN HÓA VIỆT NAM</p>
+</header>
+
+<nav>
+ <button onclick="showMap()">🗺️ Bản đồ</button>
+ <button onclick="showGuide()">📖 Hướng dẫn</button>
+ <button onclick="showHome()">🏯 Trang chủ</button>
+</nav>
+
+<main>
+ <section class="welcome" id="welcome">
+  <h2>Chào mừng đến với An Yên Tịnh Cảnh</h2>
+  <p>Một hành trình khám phá không gian chùa Việt trực tuyến.</p>
+ </section>
+
+ <section class="player" id="player">
+  <div class="avatar">🧑🏻‍🦱</div>
+  <div>
+   <strong>Nhân vật của tôi</strong>
+   <p>📍 Vị trí: <span id="currentLocation">Khu A – Cổng & Đón Tiếp</span></p>
+   <p>🌿 Hãy chọn một khu vực để bắt đầu khám phá.</p>
+  </div>
+ </section>
+
+ <section id="mapSection">
+  <div class="map-title">
+   <h2>🗺️ BẢN ĐỒ TOÀN CẢNH</h2>
+   <p>Chọn khu vực em muốn tham quan</p>
+  </div>
+
+  <div class="map" id="map">
+   <button class="zone selected" data-zone="A" onclick="openZone('A')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">A</div><div class="emoji">🏯</div>
+    <strong>Cổng & Đón Tiếp</strong>
+    <small>Cổng Tam Quan, sân đón khách</small>
+   </button>
+
+   <button class="zone" data-zone="B" onclick="openZone('B')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">B</div><div class="emoji">🪷</div>
+    <strong>Khu Tâm Linh</strong>
+    <small>Chính điện, Nhà Tổ, Tháp Chuông</small>
+   </button>
+
+   <button class="zone" data-zone="C" onclick="openZone('C')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">C</div><div class="emoji">🧘</div>
+    <strong>Khu Thiền Tu</strong>
+    <small>Gõ mõ, tràng hạt, thiền</small>
+   </button>
+
+   <button class="zone" data-zone="D" onclick="openZone('D')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">D</div><div class="emoji">🌳</div>
+    <strong>Khu Thiên Nhiên</strong>
+    <small>Hồ Sen, Rừng Trúc, Vườn Hoa</small>
+   </button>
+
+   <button class="zone" data-zone="E" onclick="openZone('E')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">E</div><div class="emoji">📚</div>
+    <strong>Khu Học Tập</strong>
+    <small>Bảo tàng, Thư viện, Nhà Học Tập</small>
+   </button>
+
+   <button class="zone" data-zone="F" onclick="openZone('F')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">F</div><div class="emoji">🏡</div>
+    <strong>Khu Cộng Đồng</strong>
+    <small>Giao lưu, bạn bè, kỷ niệm</small>
+   </button>
+
+   <button class="zone" data-zone="G" onclick="openZone('G')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">G</div><div class="emoji">🎏</div>
+    <strong>Văn Hóa & Lễ Hội</strong>
+    <small>Chợ Quê, sự kiện, hoạt động</small>
+   </button>
+
+   <button class="zone" data-zone="H" onclick="openZone('H')">
+    <span class="marker">🧑🏻‍🦱</span>
+    <div class="letter">H</div><div class="emoji">⛰️</div>
+    <strong>Khu Hành Hương</strong>
+    <small>Đồi Hành Hương, ngắm bình minh</small>
+   </button>
+  </div>
+  <div class="map-note">🌿 An Yên Tịnh Cảnh – Hành trình khám phá an lành 🌿</div>
+ </section>
+
+ <section class="panel" id="detail">
+  <h2 id="zoneTitle"></h2>
+  <p id="zoneDescription"></p>
+  <h3>📍 Địa điểm trong khu vực</h3>
+  <div class="place-list" id="placeList"></div>
+  <button class="action" id="travelButton" onclick="travel()">🚶 Đi đến khu vực này</button>
+  <br>
+  <button class="action" onclick="showMap()">← Quay lại bản đồ</button>
+ </section>
+
+ <section class="panel" id="guide">
+  <h2>📖 Hướng dẫn khám phá</h2>
+  <p>1. Chọn một khu vực trên bản đồ.</p>
+  <p>2. Xem thông tin và các địa điểm bên trong.</p>
+  <p>3. Nhấn Đi đến để cập nhật vị trí nhân vật.</p>
+  <p>4. Quay lại bản đồ để tiếp tục hành trình.</p>
+  <button class="action" onclick="showMap()">← Quay lại bản đồ</button>
+ </section>
+</main>
+
+<footer>
+ AN YÊN TỊNH CẢNH · CHÙA ONLINE<br>
+ Phiên bản thử nghiệm 2.0A
+</footer>
+
+<script>
+const zones={
+ A:{
+  title:"A – Khu Cổng & Đón Tiếp",
+  description:"Nơi bắt đầu hành trình khám phá An Yên Tịnh Cảnh.",
+  places:["Cổng Tam Quan","Sân Đón Tiếp","Bảng Nội Quy","Bản Đồ Khuôn Viên"]
+ },
+ B:{
+  title:"B – Khu Tâm Linh",
+  description:"Không gian tìm hiểu kiến trúc và sinh hoạt tâm linh tại chùa.",
+  places:["Chính Điện","Nhà Tổ","Tháp Chuông","Cây Ước Nguyện"]
+ },
+ C:{
+  title:"C – Khu Thiền Tu",
+  description:"Nơi trải nghiệm các hoạt động thiền tập và tìm hiểu nghi thức.",
+  places:["Phòng Gõ Mõ","Phòng Tràng Hạt","Phòng Tụng Kinh","Phòng Thiền","Phòng Thỉnh Chuông"]
+ },
+ D:{
+  title:"D – Khu Thiên Nhiên",
+  description:"Không gian cây xanh, hồ nước và cảnh quan thiên nhiên.",
+  places:["Hồ Sen","Hồ Cá An Nhiên","Rừng Trúc","Vườn Hoa Bốn Mùa","Vườn Thiền"]
+ },
+ E:{
+  title:"E – Khu Học Tập",
+  description:"Khám phá lịch sử Phật giáo, văn hóa và những bài học cuộc sống.",
+  places:["Bảo Tàng Phật Giáo","Thư Viện Kinh Sách","Nhà Học Tập","Nhà Thư Pháp"]
+ },
+ F:{
+  title:"F – Khu Cộng Đồng",
+  description:"Không gian kết nối, chia sẻ và tham gia hoạt động cộng đồng.",
+  places:["Phòng Học Hỏi Phật Pháp","Phòng Chia Sẻ Cuộc Sống","Phòng Giao Lưu","Phòng Hoạt Động Cộng Đồng","Sổ Kỷ Niệm"]
+ },
+ G:{
+  title:"G – Khu Văn Hóa & Lễ Hội",
+  description:"Nơi tổ chức các hoạt động văn hóa và sự kiện theo mùa.",
+  places:["Nhà Trai","Chợ Quê Ngày Hội","Quảng Trường An Lạc","Khu Sự Kiện"]
+ },
+ H:{
+  title:"H – Khu Hành Hương",
+  description:"Không gian khám phá cảnh quan và các địa điểm tham quan.",
+  places:["Đồi Hành Hương","Đài Ngắm Bình Minh","Dòng Sông Đèn Lồng","Vườn Bồ Đề"]
+ }
+};
+
+let selectedZone="A";
+let currentZone="A";
+
+function openZone(letter){
+ selectedZone=letter;
+ const z=zones[letter];
+
+ document.getElementById("mapSection").style.display="none";
+ document.getElementById("detail").style.display="block";
+ document.getElementById("guide").style.display="none";
+
+ document.getElementById("zoneTitle").textContent=z.title;
+ document.getElementById("zoneDescription").textContent=z.description;
+ document.getElementById("placeList").innerHTML=
+  z.places.map(p=>`<div class="place">📍 ${p}</div>`).join("");
+
+ const button=document.getElementById("travelButton");
+ if(currentZone===letter){
+  button.textContent="📍 Em đang ở khu vực này";
+  button.disabled=true;
+ }else{
+  button.textContent="🚶 Đi đến khu vực này";
+  button.disabled=false;
+ }
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function travel(){
+ currentZone=selectedZone;
+ document.getElementById("currentLocation").textContent=
+  zones[currentZone].title;
+
+ document.querySelectorAll(".zone").forEach(item=>{
+  item.classList.toggle("selected",item.dataset.zone===currentZone);
+ });
+
+ document.getElementById("travelButton").textContent="📍 Em đang ở khu vực này";
+ document.getElementById("travelButton").disabled=true;
+}
+
+function showMap(){
+ document.getElementById("mapSection").style.display="block";
+ document.getElementById("detail").style.display="none";
+ document.getElementById("guide").style.display="none";
+ document.getElementById("welcome").style.display="block";
+ document.getElementById("player").style.display="flex";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showGuide(){
+ document.getElementById("mapSection").style.display="none";
+ document.getElementById("detail").style.display="none";
+ document.getElementById("guide").style.display="block";
+ document.getElementById("welcome").style.display="none";
+ document.getElementById("player").style.display="none";
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showHome(){showMap();}
+
+showMap();
+</script>
+</body>
+</html>
